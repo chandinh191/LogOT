@@ -4,12 +4,12 @@ using MediatR;
 
 namespace LogOT.Application.TodoLists.Commands.CreateTodoList;
 
-public record CreateTodoListCommand : IRequest<int>
+public record CreateTodoListCommand : IRequest<Guid>
 {
     public string? Title { get; init; }
 }
 
-public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListCommand, int>
+public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListCommand, Guid>
 {
     private readonly IApplicationDbContext _context;
 
@@ -18,7 +18,7 @@ public class CreateTodoListCommandHandler : IRequestHandler<CreateTodoListComman
         _context = context;
     }
 
-    public async Task<int> Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateTodoListCommand request, CancellationToken cancellationToken)
     {
         var entity = new TodoList();
 

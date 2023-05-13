@@ -10,7 +10,7 @@ public record UpdateTodoItemDetailCommand : IRequest
 {
     public int Id { get; init; }
 
-    public int ListId { get; init; }
+    public Guid ListId { get; init; }
 
     public PriorityLevel Priority { get; init; }
 
