@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace LogOT.Infrastructure.Persistence.Migrations
+namespace LogOT.Infrastructure.Migrations
 {
-    public partial class InitialCreate : Migration
+    /// <inheritdoc />
+    public partial class firstInit : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -49,6 +51,19 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DetailTaxIncome",
+                columns: table => new
+                {
+                    DetailTaxIncomeID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Mucchiuthue = table.Column<string>(name: "Muc_chiu_thue", type: "nvarchar(max)", nullable: true),
+                    Thuesuat = table.Column<int>(name: "Thue_suat", type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetailTaxIncome", x => x.DetailTaxIncomeID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DeviceCodes",
                 columns: table => new
                 {
@@ -65,6 +80,39 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DeviceCodes", x => x.UserCode);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeContract",
+                columns: table => new
+                {
+                    EmployeeContractId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EmployeeId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    file = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Job = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BasicSalary = table.Column<double>(type: "float", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PercentDeduction = table.Column<double>(type: "float", nullable: true),
+                    SalaryType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContractType = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeContract", x => x.EmployeeContractId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Exchange",
+                columns: table => new
+                {
+                    ExchangeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MucQuyDoi = table.Column<double>(name: "Muc_Quy_Doi", type: "float", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exchange", x => x.ExchangeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,7 +160,7 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Colour_Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColourCode = table.Column<string>(name: "Colour_Code", type: "nvarchar(max)", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -230,6 +278,44 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PaySlip",
+                columns: table => new
+                {
+                    paySlipId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EmployeeContractId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    StandardWorkHours = table.Column<int>(name: "Standard_Work_Hours", type: "int", nullable: true),
+                    ActualWorkHours = table.Column<int>(name: "Actual_Work_Hours", type: "int", nullable: true),
+                    OtHours = table.Column<int>(name: "Ot_Hours", type: "int", nullable: true),
+                    LeaveHours = table.Column<int>(name: "Leave_Hours", type: "int", nullable: true),
+                    BaseSalary = table.Column<double>(name: "Base_Salary", type: "float", nullable: true),
+                    BHXHEmp = table.Column<double>(name: "BHXH_Emp", type: "float", nullable: true),
+                    BHYTEmp = table.Column<double>(name: "BHYT_Emp", type: "float", nullable: true),
+                    BHTNEmp = table.Column<double>(name: "BHTN_Emp", type: "float", nullable: true),
+                    BHXHComp = table.Column<double>(name: "BHXH_Comp", type: "float", nullable: true),
+                    BHYTComp = table.Column<double>(name: "BHYT_Comp", type: "float", nullable: true),
+                    BHTNComp = table.Column<double>(name: "BHTN_Comp", type: "float", nullable: true),
+                    TaxInCome = table.Column<double>(name: "Tax_In_Come", type: "float", nullable: true),
+                    Bonus = table.Column<double>(type: "float", nullable: true),
+                    Deduction = table.Column<double>(type: "float", nullable: true),
+                    TotalSalary = table.Column<double>(name: "Total_Salary", type: "float", nullable: true),
+                    Paiddate = table.Column<DateTime>(name: "Paid_date", type: "datetime2", nullable: true),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BankName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BankAcountName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BankAcountNumber = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaySlip", x => x.paySlipId);
+                    table.ForeignKey(
+                        name: "FK_PaySlip_EmployeeContract_EmployeeContractId",
+                        column: x => x.EmployeeContractId,
+                        principalTable: "EmployeeContract",
+                        principalColumn: "EmployeeContractId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TodoItems",
                 columns: table => new
                 {
@@ -313,6 +399,11 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                 column: "Use");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PaySlip_EmployeeContractId",
+                table: "PaySlip",
+                column: "EmployeeContractId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PersistedGrants_ConsumedTime",
                 table: "PersistedGrants",
                 column: "ConsumedTime");
@@ -338,6 +429,7 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                 column: "ListId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -356,10 +448,19 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "DetailTaxIncome");
+
+            migrationBuilder.DropTable(
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
+                name: "Exchange");
+
+            migrationBuilder.DropTable(
                 name: "Keys");
+
+            migrationBuilder.DropTable(
+                name: "PaySlip");
 
             migrationBuilder.DropTable(
                 name: "PersistedGrants");
@@ -372,6 +473,9 @@ namespace LogOT.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "EmployeeContract");
 
             migrationBuilder.DropTable(
                 name: "TodoLists");
