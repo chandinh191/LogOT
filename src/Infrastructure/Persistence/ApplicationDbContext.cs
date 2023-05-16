@@ -30,6 +30,10 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     public DbSet<TodoList> TodoLists => Set<TodoList>();
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+    public DbSet<Exchange> Exchange => Set<Exchange>();
+    public DbSet<DetailTaxIncome> DetailTaxIncome => Set<DetailTaxIncome>();
+    public DbSet<PaySlip> PaySlip => Set<PaySlip>();
+    public DbSet<EmployeeContract> EmployeeContract => Set<EmployeeContract>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

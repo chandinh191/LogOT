@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LogOT.Infrastructure.Persistence.Migrations
+namespace LogOT.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -17,10 +17,297 @@ namespace LogOT.Infrastructure.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.DeviceFlowCodes", b =>
+                {
+                    b.Property<string>("UserCode")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasMaxLength(50000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("DeviceCode")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("Expiration")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SessionId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SubjectId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("UserCode");
+
+                    b.HasIndex("DeviceCode")
+                        .IsUnique();
+
+                    b.HasIndex("Expiration");
+
+                    b.ToTable("DeviceCodes", (string)null);
+                });
+
+            modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.Key", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Algorithm")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("DataProtected")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsX509Certificate")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Use")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Use");
+
+                    b.ToTable("Keys", (string)null);
+                });
+
+            modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.PersistedGrant", b =>
+                {
+                    b.Property<string>("Key")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("ConsumedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasMaxLength(50000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("Expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SessionId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SubjectId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Key");
+
+                    b.HasIndex("ConsumedTime");
+
+                    b.HasIndex("Expiration");
+
+                    b.HasIndex("SubjectId", "ClientId", "Type");
+
+                    b.HasIndex("SubjectId", "SessionId", "Type");
+
+                    b.ToTable("PersistedGrants", (string)null);
+                });
+
+            modelBuilder.Entity("LogOT.Domain.Entities.DetailTaxIncome", b =>
+                {
+                    b.Property<string>("DetailTaxIncomeID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Muc_chiu_thue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Thue_suat")
+                        .HasColumnType("int");
+
+                    b.HasKey("DetailTaxIncomeID");
+
+                    b.ToTable("DetailTaxIncome");
+                });
+
+            modelBuilder.Entity("LogOT.Domain.Entities.EmployeeContract", b =>
+                {
+                    b.Property<string>("EmployeeContractId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double?>("BasicSalary")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ContractType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Job")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("PercentDeduction")
+                        .HasColumnType("float");
+
+                    b.Property<string>("SalaryType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("file")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EmployeeContractId");
+
+                    b.ToTable("EmployeeContract");
+                });
+
+            modelBuilder.Entity("LogOT.Domain.Entities.Exchange", b =>
+                {
+                    b.Property<string>("ExchangeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double?>("Muc_Quy_Doi")
+                        .HasColumnType("float");
+
+                    b.HasKey("ExchangeId");
+
+                    b.ToTable("Exchange");
+                });
+
+            modelBuilder.Entity("LogOT.Domain.Entities.PaySlip", b =>
+                {
+                    b.Property<string>("paySlipId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("Actual_Work_Hours")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("BHTN_Comp")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("BHTN_Emp")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("BHXH_Comp")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("BHXH_Emp")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("BHYT_Comp")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("BHYT_Emp")
+                        .HasColumnType("float");
+
+                    b.Property<string>("BankAcountName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BankAcountNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Base_Salary")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Bonus")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Deduction")
+                        .HasColumnType("float");
+
+                    b.Property<string>("EmployeeContractId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("Leave_Hours")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Ot_Hours")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Paid_date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Standard_Work_Hours")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("Tax_In_Come")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Total_Salary")
+                        .HasColumnType("float");
+
+                    b.HasKey("paySlipId");
+
+                    b.HasIndex("EmployeeContractId");
+
+                    b.ToTable("PaySlip");
+                });
 
             modelBuilder.Entity("LogOT.Domain.Entities.TodoItem", b =>
                 {
@@ -28,7 +315,7 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -75,7 +362,7 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -164,147 +451,6 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.DeviceFlowCodes", b =>
-                {
-                    b.Property<string>("UserCode")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("ClientId")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Data")
-                        .IsRequired()
-                        .HasMaxLength(50000)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("DeviceCode")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime?>("Expiration")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SessionId")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("SubjectId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("UserCode");
-
-                    b.HasIndex("DeviceCode")
-                        .IsUnique();
-
-                    b.HasIndex("Expiration");
-
-                    b.ToTable("DeviceCodes", (string)null);
-                });
-
-            modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.Key", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Algorithm")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Data")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("DataProtected")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsX509Certificate")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Use")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Use");
-
-                    b.ToTable("Keys");
-                });
-
-            modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.PersistedGrant", b =>
-                {
-                    b.Property<string>("Key")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("ClientId")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime?>("ConsumedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Data")
-                        .IsRequired()
-                        .HasMaxLength(50000)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime?>("Expiration")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SessionId")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("SubjectId")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Key");
-
-                    b.HasIndex("ConsumedTime");
-
-                    b.HasIndex("Expiration");
-
-                    b.HasIndex("SubjectId", "ClientId", "Type");
-
-                    b.HasIndex("SubjectId", "SessionId", "Type");
-
-                    b.ToTable("PersistedGrants", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -338,7 +484,7 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -363,7 +509,7 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -440,6 +586,17 @@ namespace LogOT.Infrastructure.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("LogOT.Domain.Entities.PaySlip", b =>
+                {
+                    b.HasOne("LogOT.Domain.Entities.EmployeeContract", "EmployeeContract")
+                        .WithMany()
+                        .HasForeignKey("EmployeeContractId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EmployeeContract");
                 });
 
             modelBuilder.Entity("LogOT.Domain.Entities.TodoItem", b =>
