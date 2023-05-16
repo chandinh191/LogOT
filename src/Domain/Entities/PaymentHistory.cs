@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LogOT.Domain.Entities;
-public class PaymentHistory
+public class PaymentHistory : BaseAuditableEntity
 {
-    
-    public string PaymentHistoryId { get; set; } = null;
+
+    [ForeignKey("CompanyContract")]
+    public Guid CompanyContractId { get; set; }
     public decimal? Total { get; set; }
     public decimal? Tax { get; set; }
     public string? Note { get; set; }
@@ -20,5 +22,5 @@ public class PaymentHistory
     public string? Status { get; set; }
 
     //relationship
-    public virtual CompanyContract Invoice { get; set; } = null!;
+    public virtual CompanyContract CompanyContract { get; set; } = null!;
 }

@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LogOT.Domain.Entities;
-public class PaySlip
+public class PaySlip : BaseAuditableEntity
 {
-    public string paySlipId { get; set; } = null!;
-    public string EmployeeContractId { get; set; } = null!;
+
+    [ForeignKey("EmployeeContract")]
+    public Guid EmployeeContractId { get; set; }
     public int? Standard_Work_Hours { get; set; }
     public int? Actual_Work_Hours { get; set; }
     public int? Ot_Hours { get; set; }
@@ -31,4 +33,6 @@ public class PaySlip
     public int? BankAcountNumber { get; set; }
 
     public virtual EmployeeContract EmployeeContract { get; set; } = null!;
+
+    public ICollection<DetailTaxIncome> DetailTaxIncomes { get; set; }
 }

@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LogOT.Domain.Entities;
-public class Exchange
+public class Exchange : BaseAuditableEntity
 {
-    public string ExchangeId { get; set; } = null!;
     public double? Muc_Quy_Doi { get; set; }
 }

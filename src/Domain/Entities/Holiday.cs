@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LogOT.Domain.Entities;
 
-public class Holiday
+public class Holiday : BaseAuditableEntity
 {
-    [Key]
-    public int Id { get; set; }
-    public int CompanyId { get; set; }
+    [ForeignKey("Company")]
+    public Guid CompanyId { get; set; }
     public string DateName { get; set; }
     public DateTime Day { get; set; }
     public decimal HourlyPay { get; set; }

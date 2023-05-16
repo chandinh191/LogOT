@@ -6,11 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LogOT.Domain.Entities;
-public class Skill
+public class Skill : BaseAuditableEntity
 {
 
-    [Key]
-    public int Id { get; set; }
+    
     public string SkillName { get; set; }
     public string Skill_Description { get; set; }
 

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LogOT.Domain.Entities;
-public class CompanyContract
+public class CompanyContract : BaseAuditableEntity
 {
-    
-    public string CompanyContractId { get; set; } = null;
+    [ForeignKey("Company")]
+    public Guid CompanyId { get; set; }
     public decimal? Price { get; set; }
     public int? DayOff { get; set; }
     public string? ContactCode { get; set; }
@@ -19,6 +20,6 @@ public class CompanyContract
     public string? File { get; set; }
 
     //realtionship
-    public virtual ICollection<PaymentHistory> PaymentHistories { get; } 
-                        = new List<PaymentHistory>();
+    public virtual Company Company { get; set; }
+    public IList<PaymentHistory> PaymentHistories { get; set; }
 }

@@ -33,7 +33,7 @@ public class UpdateTodoListTests : BaseTestFixture
 
         var command = new UpdateTodoListCommand
         {
-            Id = listId,
+            
             Title = "Other List"
         };
 
@@ -55,7 +55,6 @@ public class UpdateTodoListTests : BaseTestFixture
 
         var command = new UpdateTodoListCommand
         {
-            Id = listId,
             Title = "Updated List Title"
         };
 
