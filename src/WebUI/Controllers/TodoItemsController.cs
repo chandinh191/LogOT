@@ -19,13 +19,13 @@ public class TodoItemsController : ApiControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<int>> Create(CreateTodoItemCommand command)
+    public async Task<ActionResult<Guid>> Create(CreateTodoItemCommand command)
     {
         return await Mediator.Send(command);
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> Update(int id, UpdateTodoItemCommand command)
+    public async Task<ActionResult> Update(Guid id, UpdateTodoItemCommand command)
     {
         if (id != command.Id)
         {
