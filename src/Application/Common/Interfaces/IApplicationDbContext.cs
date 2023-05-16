@@ -12,13 +12,13 @@ public interface IApplicationDbContext
 
     DbSet<Experience> Experiences { get; }
 
-    DbSet<Exchange> Exchange { get; }
-    DbSet<DetailTaxIncome> DetailTaxIncome { get; }
-    DbSet<PaySlip> PaySlip { get; }
-    DbSet<EmployeeContract> EmployeeContract { get; }
+    DbSet<Exchange> Exchanges { get; }
+    DbSet<DetailTaxIncome> DetailTaxIncomes { get; }
+    DbSet<PaySlip> PaySlips { get; }
+    DbSet<EmployeeContract> EmployeeContracts { get; }
 
     DbSet<CompanyContract> CompanyContracts { get; }
-    DbSet<PaymentHistory> PaymentHistory { get; }
+    DbSet<PaymentHistory> PaymentHistorys { get; }
 
 
     DbSet<Employee> Employees { get; }

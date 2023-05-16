@@ -36,10 +36,13 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Experience> Experiences => Set<Experience>();
 
 
-    public DbSet<Exchange> Exchange => Set<Exchange>();
-    public DbSet<DetailTaxIncome> DetailTaxIncome => Set<DetailTaxIncome>();
-    public DbSet<PaySlip> PaySlip => Set<PaySlip>();
-    public DbSet<EmployeeContract> EmployeeContract => Set<EmployeeContract>();
+    public DbSet<Exchange> Exchanges => Set<Exchange>();
+    public DbSet<DetailTaxIncome> DetailTaxIncomes => Set<DetailTaxIncome>();
+    public DbSet<PaySlip> PaySlips => Set<PaySlip>();
+    public DbSet<EmployeeContract> EmployeeContracts => Set<EmployeeContract>();
+
+    public DbSet<CompanyContract> CompanyContracts => Set<CompanyContract>();
+    public DbSet<PaymentHistory> PaymentHistorys => Set<PaymentHistory>();
 
 
     protected override void OnModelCreating(ModelBuilder builder)
