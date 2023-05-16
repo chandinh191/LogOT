@@ -14,9 +14,6 @@ public class Experience : BaseAuditableEntity
     [ForeignKey("Employee")]
     public Guid EmployeeId { get; set; }
 
-public class Experience
-{
-
     public string NameProject { get; set; }
     public int TeamSize { get; set; }
     public DateTime StartDate { get; set; }
@@ -27,11 +24,6 @@ public class Experience
 
     public virtual Employee Employee { get; set; }
 
-
-
-
-
-    public string TechStack { get; set; }
     public string Status { get; set; }
     public bool IsDeleted { get; set; }
 

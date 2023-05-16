@@ -1,10 +1,14 @@
-﻿namespace LogOT.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-public class InterviewProcess
+namespace LogOT.Domain.Entities;
+
+public class InterviewProcess : BaseAuditableEntity
 {
-    public int Id { get; set; }
-    public int EmployeeId { get; set; }
-    public int JobDescriptionId { get; set; }
+
+    [ForeignKey("Employee")]
+    public Guid EmployeeId { get; set; }
+    [ForeignKey("JobDescription")]
+    public Guid JobDescriptionId { get; set; }
     public string Info { get; set; }
     public string DayTime { get; set; }
     public string Place { get; set; }
@@ -15,6 +19,6 @@ public class InterviewProcess
     // Relationship
     public virtual JobDescription JobDescription { get; set; }
 
-#warning uncomment later after merge branch
-    //public virtual Employee Employee { get; set; }
+
+    public virtual Employee Employee { get; set; }
 }

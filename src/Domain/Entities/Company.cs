@@ -6,10 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LogOT.Domain.Entities;
-public class Company
+public class Company : BaseAuditableEntity
 {
-    [Key]
-    public int Id { get; set; }
+   
     public string Name { get; set; }
     public string Address { get; set; }
     public string AccountEmail { get; set; }
@@ -17,6 +16,8 @@ public class Company
     public string HREmail { get; set; }
 
     // Relationship
-    public virtual ICollection<Holiday> Holidays { get; set; }
-    public virtual ICollection<JobDescription> JobDescriptions { get; set; }
+    public IList<Holiday> Holidays { get; set; }
+    public IList<JobDescription> JobDescriptions { get; set; }
+    public IList<CompanyContract> CompanyContracts { get; set; }
+
 }

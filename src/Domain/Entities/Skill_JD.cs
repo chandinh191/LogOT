@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LogOT.Domain.Entities;
-public class Skill_JD
+public class Skill_JD : BaseAuditableEntity
 {
-    [Key]
-    public int Id { get; set; }
+    [ForeignKey("Skill")]
+    public Guid SkillId { get; set; }
+    [ForeignKey("JobDescription")]
+    public Guid JobDescriptionId { get; set; }
     public string Level { get; set; }
     // Relationship
-    public Skill Skill { get; set; }
+    public virtual Skill Skill { get; set; }
+    public virtual JobDescription JobDescription { get; set; }
 }

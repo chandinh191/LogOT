@@ -9,6 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Persistence\Migrations\**" />
+      <EmbeddedResource Remove="Persistence\Migrations\**" />
+      <None Remove="Persistence\Migrations\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="CsvHelper" Version="30.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.2" />
@@ -22,7 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Persistence\Migrations\" />
+      <Folder Include="Migrations\" />
     </ItemGroup>
 
 </Project>

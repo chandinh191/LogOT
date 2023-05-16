@@ -54,7 +54,7 @@ public class ApplicationDbContextInitialiser
     public async Task TrySeedAsync()
     {
         // admin roles
-        var administratorRole = new IdentityRole("Administrator");
+       /* var administratorRole = new IdentityRole("Administrator");
 
         if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
@@ -99,7 +99,7 @@ public class ApplicationDbContextInitialiser
             {
                 await _userManager.AddToRolesAsync(staff, new[] { staffRole.Name });
             }
-        }
+        }*/
 
     }
 }
