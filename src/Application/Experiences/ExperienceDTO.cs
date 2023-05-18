@@ -2,7 +2,7 @@
 using LogOT.Application.Common.Mappings;
 using LogOT.Domain.Entities;
 
-namespace LogOT.Application.Employees;
+namespace LogOT.Application.Experiences;
 
 public class ExperienceDTO : IMapFrom<Experience>
 {

@@ -1,5 +1,5 @@
-﻿@using LogOT.Application.Employees;
-@model List<EmployeeDTO>;
+﻿@using LogOT.Application.Experiences;
+@model List<ExperienceDTO>;
 @{
     ViewData["Title"] = "List";
 }
@@ -9,11 +9,11 @@
         <th>Fullname</th>
         <th>Email</th>
         <th>PhoneNumber</th>
-        <th>IdentityNumber</th>
-        <th>BirthDay</th>
-        <th>BankAccountNumber</th>
-        <th>BankAccountName</th>
-        <th>BankName</th>
+        <th>NameProject</th>
+        <th>TeamSize</th>
+        <th>Description</th>
+        <th>StartDate</th>
+        <th>EndDate</th>
         <th>Experiences</th>
         <th>OvertimeLogs</th>
         <th>LeaveLogs</th>
@@ -25,16 +25,16 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.ApplicationUser.Fullname</td>
-            <td>@item.ApplicationUser.Email</td>
-            <td>@item.ApplicationUser.PhoneNumber</td>
-            <td>@item.IdentityNumber</td>
-            <td>@item.BirthDay</td>
-            <td>@item.BankAccountNumber</td>
-            <td>@item.BankAccountName</td>
-            <td>@item.BankName</td>
+            <td>@item.Employee.ApplicationUser.Fullname</td>
+            <td>@item.Employee.ApplicationUser.Email</td>
+            <td>@item.Employee.ApplicationUser.PhoneNumber</td>
+            <td>@item.NameProject</td>
+            <td>@item.TeamSize</td>
+            <td>@item.Description</td>
+            <td>@item.StartDate</td>
+            <td>@item.EndDate</td>
             <td>
-                <a asp-controller="Experience" asp-action="Index" asp-route-id="@item.Id">Experiences</a>
+                <a asp-controller="Experience" asp-action="Index" asp-route-id="@item.EmployeeId">Experiences</a>
             </td>
             <td>
                 <a>OvertimeLogs</a>

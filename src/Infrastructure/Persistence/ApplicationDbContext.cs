@@ -1,16 +1,15 @@
 ﻿using System.Reflection;
-using LogOT.Application.Common.Interfaces;
-using LogOT.Domain.Entities;
-using LogOT.Infrastructure.Identity;
-using LogOT.Infrastructure.Persistence.Interceptors;
+using System.Reflection.Emit;
 using Duende.IdentityServer.EntityFramework.Options;
+using LogOT.Application.Common.Interfaces;
+using LogOT.Domain.Common;
+using LogOT.Domain.Entities;
+using LogOT.Domain.IdentityModel;
+using LogOT.Infrastructure.Persistence.Interceptors;
 using MediatR;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using LogOT.Domain.IdentityModel;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using LogOT.Domain.Common;
 
 namespace LogOT.Infrastructure.Persistence;
 
@@ -54,6 +53,72 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        //Seeding database
+        builder.Entity<ApplicationUser>()
+            .HasData(
+            new ApplicationUser
+            {
+                Id = "fe30e976-2640-4d35-8334-88e7c3b1eac1",
+                Fullname = "Lewis",
+                Address = "TEST",
+                Image = "TESTIMAGE",
+                UserName = "test",
+                NormalizedUserName = "test",
+                Email = "test@gmail.com",
+                NormalizedEmail = "test@gmail.com",
+                EmailConfirmed = true,
+                PasswordHash = "098f6bcd4621d373cade4e832627b4f6",
+                SecurityStamp = "test",
+                ConcurrencyStamp = "test",
+                PhoneNumber = "123456789",
+                PhoneNumberConfirmed = true,
+                TwoFactorEnabled = false,
+                LockoutEnd = DateTimeOffset.Parse("9/9/9999 12:00:00 AM +07:00"),
+                LockoutEnabled = false,
+                AccessFailedCount = 0
+            }
+        );
+
+        builder.Entity<Employee>()
+            .HasData(
+            new Employee
+            {
+                Id = Guid.Parse("ac69dc8e-f88d-46c2-a861-c9d5ac894141"),
+                ApplicationUserId = "fe30e976-2640-4d35-8334-88e7c3b1eac1",
+                IdentityNumber = "SE1615",
+                BirthDay = DateTime.Parse("9/9/9999"),
+                BankAccountNumber = "123456789",
+                BankAccountName = "LUONG THE DAN",
+                BankName = "TECHCOMBANK",
+                Created = DateTime.Parse("9/9/9999"),
+                CreatedBy = "Test",
+                LastModified = DateTime.Parse("9/9/9999"),
+                LastModifiedBy = "Test",
+                IsDeleted = false
+            }
+        );
+
+        builder.Entity<Experience>()
+                .HasData(
+                    new Experience
+                    {
+                        Id = Guid.Parse("850df2d9-f8dc-444a-b1dc-ca773c0a2d0d"),
+                        EmployeeId = Guid.Parse("ac69dc8e-f88d-46c2-a861-c9d5ac894141"),
+                        NameProject = "TestProject",
+                        TeamSize = 4,
+                        StartDate = DateTime.Parse("9/9/9999"),
+                        EndDate = DateTime.Parse("9/9/9999"),
+                        Description = "Normal",
+                        TechStack = "MSSQL, .NET 7, MVC",
+                        Status = "true",
+                        IsDeleted = false,
+                        Created = DateTime.Parse("9/9/9999"),
+                        CreatedBy = "test",
+                        LastModified = DateTime.Parse("9/9/9999"),
+                        LastModifiedBy = "test"
+                    }
+                );
 
         base.OnModelCreating(builder);
     }

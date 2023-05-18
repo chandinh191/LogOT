@@ -7,7 +7,7 @@ namespace WebUI.Controllers.Employee;
 
 public class EmployeeController : ControllerBaseMVC
 {
-    public async Task<ActionResult<PaginatedList<EmployeeDTO>>> Index(GetAllEmployeeWithPaginationQuery query)
+    public async Task<ActionResult> Index(GetAllEmployeeWithPaginationQuery query)
     {
         var result = await Mediator.Send(query);
         return View(result);

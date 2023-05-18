@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LogOT.Application.Common.Mappings;
+using LogOT.Application.Experiences;
+using LogOT.Domain.Common;
 using LogOT.Domain.Entities;
 using LogOT.Domain.IdentityModel;
 
 namespace LogOT.Application.Employees;
 
-public class EmployeeDTO : IMapFrom<Employee>
+public class EmployeeDTO : BaseAuditableEntity, IMapFrom<Employee>
 {
     [ForeignKey("ApplicationUser")]
     public string ApplicationUserId { get; set; }
