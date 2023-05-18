@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using LogOT.Application.Common.Mappings;
+using LogOT.Domain.Entities;
 
-namespace LogOT.Domain.Entities;
+namespace LogOT.Application.Employees;
 
-public class Experience : BaseAuditableEntity
+public class ExperienceDTO : IMapFrom<Experience>
 {
     [ForeignKey("Employee")]
     public Guid EmployeeId { get; set; }
