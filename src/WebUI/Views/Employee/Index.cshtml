@@ -1,0 +1,35 @@
+﻿@using LogOT.Application.Employees;
+@model List<EmployeeDTO>;
+
+
+<table>
+    <tr>
+        <th>ApplicationUser</th>
+        <th>IdentityNumber</th>
+        <th>BirthDay</th>
+        <th>BankAccountNumber</th>
+        <th>BankAccountName</th>
+        <th>BankName</th>
+        <th>Experiences</th>
+        <th>OvertimeLogs</th>
+        <th>LeaveLogs</th>
+        <th>EmployeeContracts</th>
+        <th>InterviewProcesses</th>
+        <th>Skill_Employees</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ApplicationUser</td>
+            <td>@item.IdentityNumber</td>
+            <td>@item.BirthDay</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    }
+</table>
