@@ -39,7 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseNToastNotify();
 app.UseRouting();
 
 app.UseAuthentication();
