@@ -1,0 +1,19 @@
+﻿<h2>Login In</h2>
+<form asp-controller="auth" asp-action="SignIn" method="post">
+    <table>
+        <tr>
+            <td class="right"><label asp-for="UserName"></label></td>
+            <td class="left"><input type="text" name="Username" /></td>
+        </tr>
+        <tr>
+            <td class="right"><label asp-for="Password"></label></td>
+            <td class="left"><input type="text" name="Password" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Sign In</button>
+            </td>
+        </tr>
+    </table>
+    <div asp-validation-summary="All" class="message"></div>
+</form>

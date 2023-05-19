@@ -1,0 +1,72 @@
+﻿@using LogOT.Application.Common.Models;
+@using LogOT.Application.Employees.Queries.GetEmployee;
+@model List<EmployeeDTO>
+<style>
+    .linkbutton {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #337ab7;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+
+        .linkbutton:hover {
+            background-color: #23527c;
+        }
+</style>
+
+
+<table>
+    <td>
+     <a class="linkbutton" href="/Employee/Create">Create</a>
+     </td>
+    <form action="/logout" method="post">
+        <button type="submit">Đăng xuất</button>
+    </form>
+
+    <tr>
+        <th>Id</th>
+        <th>ApplicationUser</th>
+        <th>IdentityNumber</th>
+        <th>BirthDay</th>
+        <th>BankAccountNumber</th>
+        <th>BankAccountName</th>
+        <th>BankName</th>
+        <th>Experiences</th>
+        <th>OvertimeLogs</th>
+        <th>LeaveLogs</th>
+        <th>EmployeeContracts</th>
+        <th>InterviewProcesses</th>
+        <th>Skill_Employees</th>
+        <th>Option</th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.ApplicationUser.Fullname</td>
+            
+            <td>@item.IdentityNumber</td>
+            <td>@item.BirthDay</td>
+            <td>@item.BankAccountNumber</td>
+            <td>@item.BankAccountName</td>
+            <td>@item.BankName</td>
+            <td>@item.CreatedBy</td>
+            <td>
+                <a class="linkbutton" href="/Employee/Edit/@item.Id">Edit</a>
+            </td>
+            <td>
+                <a class="linkbutton" href="/Employee/Delete/@item.Id">Delete</a>
+            </td>
+
+        </tr>
+       
+        
+
+
+        
+    }
+</table>
