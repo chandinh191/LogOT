@@ -28,7 +28,6 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
         _mediator = mediator;
         _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
     }
-
     public DbSet<TodoList> TodoList => Set<TodoList>();
     public DbSet<TodoItem> TodoItem => Set<TodoItem>();
 
@@ -136,14 +135,4 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     }
 
     public DbSet<T> Get<T>() where T : BaseAuditableEntity => Set<T>();
-
-    Task<int> IApplicationDbContext.SaveChangesAsync(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    DbSet<T> IApplicationDbContext.Get<T>()
-    {
-        throw new NotImplementedException();
-    }
 }

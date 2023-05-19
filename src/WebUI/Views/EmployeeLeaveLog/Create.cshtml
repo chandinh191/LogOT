@@ -1,0 +1,62 @@
+﻿@using LogOT.Application.LeaveLogs.Commands.CreateLeaveLog;
+@model CreateLeaveLogCommand
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Leave Log</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            width: 200px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Create Leave Log</h2>
+
+    <form action="Create" method="post">
+        <input type="hidden" name="EmployeeId" value="@ViewBag.EmployeeId"> 
+
+        <label for="StartDate">Start Date:</label>
+        <input type="date" id="StartDate" name="StartDate" required>
+        <br>
+
+        <label for="EndDate">End Date:</label>
+        <input type="date" id="EndDate" name="EndDate" required>
+        <br>
+
+        <label for="Reason">Reason:</label>
+        <textarea id="Reason" name="Reason" rows="4" required></textarea>
+        <br>
+
+        <button type="submit">Create</button>
+    </form>
+</body>
+</html>

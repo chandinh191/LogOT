@@ -1,5 +1,4 @@
 ﻿using LogOT.Application.Common.Interfaces;
-using LogOT.Domain.IdentityModel;
 using LogOT.Infrastructure.Files;
 using LogOT.Infrastructure.Identity;
 using LogOT.Infrastructure.Persistence;

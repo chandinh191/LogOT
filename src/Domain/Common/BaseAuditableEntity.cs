@@ -1,6 +1,6 @@
 ﻿namespace LogOT.Domain.Common;
 
-public abstract class BaseAuditableEntity : BaseEntity, ISoftDelete
+public abstract class BaseAuditableEntity : BaseEntity
 {
     public DateTime Created { get; set; }
 
@@ -9,11 +9,4 @@ public abstract class BaseAuditableEntity : BaseEntity, ISoftDelete
     public DateTime? LastModified { get; set; }
 
     public string? LastModifiedBy { get; set; }
-    public bool IsDeleted { get; set; }
-
-    protected BaseAuditableEntity()
-    {
-        Created = DateTime.Now;
-        IsDeleted = false;
-    }
 }

@@ -6,7 +6,7 @@ using MediatR;
 
 namespace LogOT.Application.TodoItems.Commands.DeleteTodoItem;
 
-public record DeleteTodoItemCommand(Guid Id) : IRequest;
+public record DeleteTodoItemCommand(int Id) : IRequest;
 
 public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>
 {

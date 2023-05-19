@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LogOT.Infrastructure.Migrations
+namespace LogOT.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -17,9 +17,8 @@ namespace LogOT.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.2")
+                .HasAnnotation("ProductVersion", "6.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -1029,9 +1028,11 @@ namespace LogOT.Infrastructure.Migrations
 
             modelBuilder.Entity("LogOT.Domain.Entities.TodoItem", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -1042,17 +1043,14 @@ namespace LogOT.Infrastructure.Migrations
                     b.Property<bool>("Done")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ListId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ListId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
@@ -1072,23 +1070,22 @@ namespace LogOT.Infrastructure.Migrations
 
                     b.HasIndex("ListId");
 
-                    b.ToTable("TodoItem");
+                    b.ToTable("TodoItems");
                 });
 
             modelBuilder.Entity("LogOT.Domain.Entities.TodoList", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
@@ -1103,20 +1100,16 @@ namespace LogOT.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TodoList");
+                    b.ToTable("TodoLists");
                 });
 
-            modelBuilder.Entity("LogOT.Domain.IdentityModel.ApplicationUser", b =>
+            modelBuilder.Entity("LogOT.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -1128,14 +1121,6 @@ namespace LogOT.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Fullname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -1206,6 +1191,147 @@ namespace LogOT.Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.DeviceFlowCodes", b =>
+                {
+                    b.Property<string>("UserCode")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasMaxLength(50000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("DeviceCode")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("Expiration")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SessionId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SubjectId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("UserCode");
+
+                    b.HasIndex("DeviceCode")
+                        .IsUnique();
+
+                    b.HasIndex("Expiration");
+
+                    b.ToTable("DeviceCodes", (string)null);
+                });
+
+            modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.Key", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Algorithm")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("DataProtected")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsX509Certificate")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Use")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Version")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Use");
+
+                    b.ToTable("Keys");
+                });
+
+            modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.PersistedGrant", b =>
+                {
+                    b.Property<string>("Key")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("ConsumedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasMaxLength(50000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("Expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SessionId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SubjectId")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Key");
+
+                    b.HasIndex("ConsumedTime");
+
+                    b.HasIndex("Expiration");
+
+                    b.HasIndex("SubjectId", "ClientId", "Type");
+
+                    b.HasIndex("SubjectId", "SessionId", "Type");
+
+                    b.ToTable("PersistedGrants", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -1239,7 +1365,7 @@ namespace LogOT.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -1264,7 +1390,7 @@ namespace LogOT.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -1343,184 +1469,6 @@ namespace LogOT.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("LogOT.Domain.Entities.CompanyContract", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.Company", "Company")
-                        .WithMany("CompanyContracts")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.DetailTaxIncome", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.PaySlip", "PaySlip")
-                        .WithMany("DetailTaxIncomes")
-                        .HasForeignKey("PaySlipId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PaySlip");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.Employee", b =>
-                {
-                    b.HasOne("LogOT.Domain.IdentityModel.ApplicationUser", "ApplicationUser")
-                        .WithOne("Employee")
-                        .HasForeignKey("LogOT.Domain.Entities.Employee", "ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.EmployeeContract", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.Employee", "Employee")
-                        .WithMany("EmployeeContracts")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.Experience", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.Employee", "Employee")
-                        .WithMany("Experiences")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.Holiday", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.Company", "Company")
-                        .WithMany("Holidays")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.InterviewProcess", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.Employee", "Employee")
-                        .WithMany("InterviewProcesses")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LogOT.Domain.Entities.JobDescription", "JobDescription")
-                        .WithMany()
-                        .HasForeignKey("JobDescriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("JobDescription");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.JobDescription", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.Company", "Company")
-                        .WithMany("JobDescriptions")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.LeaveLog", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.Employee", "Employee")
-                        .WithMany("LeaveLogs")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.OvertimeLog", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.Employee", "Employee")
-                        .WithMany("OvertimeLogs")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.PaySlip", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.EmployeeContract", "EmployeeContract")
-                        .WithMany("PaySlips")
-                        .HasForeignKey("EmployeeContractId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EmployeeContract");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.PaymentHistory", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.CompanyContract", "CompanyContract")
-                        .WithMany("PaymentHistories")
-                        .HasForeignKey("CompanyContractId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CompanyContract");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.Skill_Employee", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.Employee", "Employee")
-                        .WithMany("Skill_Employees")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LogOT.Domain.Entities.Skill", "Skill")
-                        .WithMany("Skill_Employees")
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("Skill");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.Skill_JD", b =>
-                {
-                    b.HasOne("LogOT.Domain.Entities.JobDescription", "JobDescription")
-                        .WithMany("Skill_JDs")
-                        .HasForeignKey("JobDescriptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LogOT.Domain.Entities.Skill", "Skill")
-                        .WithMany("Skill_JDs")
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JobDescription");
-
-                    b.Navigation("Skill");
-                });
-
             modelBuilder.Entity("LogOT.Domain.Entities.TodoItem", b =>
                 {
                     b.HasOne("LogOT.Domain.Entities.TodoList", "List")
@@ -1536,8 +1484,8 @@ namespace LogOT.Infrastructure.Migrations
                 {
                     b.OwnsOne("LogOT.Domain.ValueObjects.Colour", "Colour", b1 =>
                         {
-                            b1.Property<Guid>("TodoListId")
-                                .HasColumnType("uniqueidentifier");
+                            b1.Property<int>("TodoListId")
+                                .HasColumnType("int");
 
                             b1.Property<string>("Code")
                                 .IsRequired()
@@ -1545,7 +1493,7 @@ namespace LogOT.Infrastructure.Migrations
 
                             b1.HasKey("TodoListId");
 
-                            b1.ToTable("TodoList");
+                            b1.ToTable("TodoLists");
 
                             b1.WithOwner()
                                 .HasForeignKey("TodoListId");
@@ -1566,7 +1514,7 @@ namespace LogOT.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("LogOT.Domain.IdentityModel.ApplicationUser", null)
+                    b.HasOne("LogOT.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1575,7 +1523,7 @@ namespace LogOT.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("LogOT.Domain.IdentityModel.ApplicationUser", null)
+                    b.HasOne("LogOT.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1590,7 +1538,7 @@ namespace LogOT.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LogOT.Domain.IdentityModel.ApplicationUser", null)
+                    b.HasOne("LogOT.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1599,73 +1547,16 @@ namespace LogOT.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("LogOT.Domain.IdentityModel.ApplicationUser", null)
+                    b.HasOne("LogOT.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LogOT.Domain.Entities.Company", b =>
-                {
-                    b.Navigation("CompanyContracts");
-
-                    b.Navigation("Holidays");
-
-                    b.Navigation("JobDescriptions");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.CompanyContract", b =>
-                {
-                    b.Navigation("PaymentHistories");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.Employee", b =>
-                {
-                    b.Navigation("EmployeeContracts");
-
-                    b.Navigation("Experiences");
-
-                    b.Navigation("InterviewProcesses");
-
-                    b.Navigation("LeaveLogs");
-
-                    b.Navigation("OvertimeLogs");
-
-                    b.Navigation("Skill_Employees");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.EmployeeContract", b =>
-                {
-                    b.Navigation("PaySlips");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.JobDescription", b =>
-                {
-                    b.Navigation("Skill_JDs");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.PaySlip", b =>
-                {
-                    b.Navigation("DetailTaxIncomes");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.Entities.Skill", b =>
-                {
-                    b.Navigation("Skill_Employees");
-
-                    b.Navigation("Skill_JDs");
-                });
-
             modelBuilder.Entity("LogOT.Domain.Entities.TodoList", b =>
                 {
                     b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("LogOT.Domain.IdentityModel.ApplicationUser", b =>
-                {
-                    b.Navigation("Employee")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

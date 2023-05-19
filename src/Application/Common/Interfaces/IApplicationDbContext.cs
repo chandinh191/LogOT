@@ -1,5 +1,4 @@
-﻿using LogOT.Domain.Common;
-using LogOT.Domain.Entities;
+﻿using LogOT.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LogOT.Application.Common.Interfaces;

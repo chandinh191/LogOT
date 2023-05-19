@@ -7,7 +7,7 @@ namespace LogOT.Application.TodoItems.Commands.UpdateTodoItem;
 
 public record UpdateTodoItemCommand : IRequest
 {
-    public Guid Id { get; init; }
+    public int Id { get; init; }
 
     public string? Title { get; init; }
 
