@@ -1,5 +1,4 @@
 ﻿using LogOT.Application.Common.Interfaces;
-using LogOT.Domain.IdentityModel;
 using LogOT.Infrastructure.Files;
 using LogOT.Infrastructure.Identity;
 using LogOT.Infrastructure.Persistence;
@@ -38,6 +37,9 @@ public static class ConfigureServices
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+
+        services.AddIdentityServer()
+            .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();

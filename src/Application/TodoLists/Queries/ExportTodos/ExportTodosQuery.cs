@@ -8,7 +8,7 @@ namespace LogOT.Application.TodoLists.Queries.ExportTodos;
 
 public record ExportTodosQuery : IRequest<ExportTodosVm>
 {
-    public Guid ListId { get; init; }
+    public int ListId { get; init; }
 }
 
 public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, ExportTodosVm>

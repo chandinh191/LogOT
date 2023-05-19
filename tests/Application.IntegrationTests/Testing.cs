@@ -1,5 +1,4 @@
-﻿using LogOT.Domain.IdentityModel;
-using LogOT.Infrastructure.Identity;
+﻿using LogOT.Infrastructure.Identity;
 using LogOT.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

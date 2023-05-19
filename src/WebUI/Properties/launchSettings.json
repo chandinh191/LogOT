@@ -12,9 +12,23 @@
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
+=======
+      //"launchUrl": "EmployeeLeaveLog/Index?EmployeeId=2f7c5e6f-7d8a-4b33-bcc5-59d21e4c6d6e",
+      "launchUrl": "EmployeeContract/Index",
+      "environmentVariables": {
+=======
+      //"launchUrl": "EmployeeLeaveLog/Index?EmployeeId=2f7c5e6f-7d8a-4b33-bcc5-59d21e4c6d6e",
+      "launchUrl": "EmployeeContract/Index",
+      "environmentVariables": {
+>>>>>>> Stashed changes
+        "ASPNETCORE_ENVIRONMENT": "Development"
+        //"ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation"
+>>>>>>> Stashed changes
       }
     },
     "IIS Express": {

@@ -18,7 +18,7 @@ public class TodoListsController : ApiControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<FileResult> Get(Guid id)
+    public async Task<FileResult> Get(int id)
     {
         var vm = await Mediator.Send(new ExportTodosQuery { ListId = id });
 
@@ -26,7 +26,7 @@ public class TodoListsController : ApiControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Guid>> Create(CreateTodoListCommand command)
+    public async Task<ActionResult<int>> Create(CreateTodoListCommand command)
     {
         return await Mediator.Send(command);
     }
@@ -45,7 +45,7 @@ public class TodoListsController : ApiControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult> Delete(Guid id)
+    public async Task<ActionResult> Delete(int id)
     {
         await Mediator.Send(new DeleteTodoListCommand(id));
 

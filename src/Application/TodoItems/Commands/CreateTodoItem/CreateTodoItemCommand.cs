@@ -5,14 +5,14 @@ using MediatR;
 
 namespace LogOT.Application.TodoItems.Commands.CreateTodoItem;
 
-public record CreateTodoItemCommand : IRequest<Guid>
+public record CreateTodoItemCommand : IRequest<int>
 {
-    public Guid ListId { get; init; }
+    public int ListId { get; init; }
 
     public string? Title { get; init; }
 }
 
-public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemCommand, Guid>
+public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemCommand, int>
 {
     private readonly IApplicationDbContext _context;
 
@@ -21,7 +21,7 @@ public class CreateTodoItemCommandHandler : IRequestHandler<CreateTodoItemComman
         _context = context;
     }
 
-    public async Task<Guid> Handle(CreateTodoItemCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateTodoItemCommand request, CancellationToken cancellationToken)
     {
         var entity = new TodoItem
         {
