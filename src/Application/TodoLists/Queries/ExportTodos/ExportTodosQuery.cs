@@ -8,7 +8,7 @@ namespace LogOT.Application.TodoLists.Queries.ExportTodos;
 
 public record ExportTodosQuery : IRequest<ExportTodosVm>
 {
-    public Guid ListId { get; init; }
+    public int ListId { get; init; }
 }
 
 public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, ExportTodosVm>
@@ -26,7 +26,7 @@ public class ExportTodosQueryHandler : IRequestHandler<ExportTodosQuery, ExportT
 
     public async Task<ExportTodosVm> Handle(ExportTodosQuery request, CancellationToken cancellationToken)
     {
-        var records = await _context.TodoItems
+        var records = await _context.TodoItem
                 .Where(t => t.ListId == request.ListId)
                 .ProjectTo<TodoItemRecord>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);

@@ -21,9 +21,14 @@
     </ItemGroup>
 
     <ItemGroup>
+<<<<<<< HEAD
       <Folder Include="ApplicationUser\Commands\" />
       <Folder Include="ApplicationUser\Queries\" />
       <Folder Include="Companys\Commands\" />
+=======
+      <Folder Include="Employees\Commands\" />
+      <Folder Include="Experiences\Commands\" />
+>>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
     </ItemGroup>
 
 </Project>

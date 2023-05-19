@@ -57,6 +57,7 @@ app.UseRouting();
 app.UseSession();
 
 app.UseAuthentication();
+app.UseIdentityServer();
 app.UseAuthorization();
 
 app.MapControllerRoute(

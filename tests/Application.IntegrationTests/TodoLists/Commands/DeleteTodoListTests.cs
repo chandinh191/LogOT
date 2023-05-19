@@ -14,7 +14,7 @@ public class DeleteTodoListTests : BaseTestFixture
     [Test]
     public async Task ShouldRequireValidTodoListId()
     {
-        var command = new DeleteTodoListCommand(new Guid());
+        var command = new DeleteTodoListCommand(99);
         await FluentActions.Invoking(() => SendAsync(command)).Should().ThrowAsync<NotFoundException>();
     }
 

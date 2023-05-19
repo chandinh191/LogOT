@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogOT.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
+<<<<<<<< HEAD:src/Infrastructure/Migrations/20230519080911_FirstInit.Designer.cs
     [Migration("20230519080911_FirstInit")]
     partial class FirstInit
+========
+    [Migration("20230518200757_Seeding-Data")]
+    partial class SeedingData
+>>>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a:src/Infrastructure/Migrations/20230518200757_Seeding-Data.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -7,7 +7,7 @@ namespace LogOT.Application.TodoItems.Commands.UpdateTodoItem;
 
 public record UpdateTodoItemCommand : IRequest
 {
-    public Guid Id { get; init; }
+    public int Id { get; init; }
 
     public string? Title { get; init; }
 
@@ -25,7 +25,7 @@ public class UpdateTodoItemCommandHandler : IRequestHandler<UpdateTodoItemComman
 
     public async Task<Unit> Handle(UpdateTodoItemCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.TodoItems
+        var entity = await _context.TodoItem
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
         if (entity == null)

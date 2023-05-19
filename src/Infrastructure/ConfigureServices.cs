@@ -1,5 +1,4 @@
 ﻿using LogOT.Application.Common.Interfaces;
-using LogOT.Domain.IdentityModel;
 using LogOT.Infrastructure.Files;
 using LogOT.Infrastructure.Identity;
 using LogOT.Infrastructure.Persistence;
@@ -41,8 +40,15 @@ public static class ConfigureServices
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+<<<<<<< HEAD
         services.AddIdentityServer()
             .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+=======
+
+        services.AddIdentityServer()
+            .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+>>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();

@@ -28,10 +28,15 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
         _mediator = mediator;
         _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
     }
+    public DbSet<TodoList> TodoList => Set<TodoList>();
+    public DbSet<TodoItem> TodoItem => Set<TodoItem>();
 
+<<<<<<< HEAD
     public DbSet<TodoList> TodoLists => Set<TodoList>();
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
+=======
+>>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
     public DbSet<Employee> Employee => Set<Employee>();
     public DbSet<Experience> Experience => Set<Experience>();
     public DbSet<Exchange> Exchange => Set<Exchange>();
@@ -49,7 +54,11 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     public DbSet<Skill> Skill => Set<Skill>();
     public DbSet<Skill_Employee> Skill_Employee => Set<Skill_Employee>();
     public DbSet<Skill_JD> Skill_JD => Set<Skill_JD>();
+<<<<<<< HEAD
     public DbSet<ApplicationUser> ApplicationUser => Set<ApplicationUser>();
+=======
+
+>>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -136,6 +145,10 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     }
 
     public DbSet<T> Get<T>() where T : BaseAuditableEntity => Set<T>();
+<<<<<<< HEAD
 
 
 }
+=======
+}
+>>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a

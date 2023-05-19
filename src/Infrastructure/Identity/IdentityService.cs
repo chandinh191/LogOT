@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using LogOT.Application.Common.Interfaces;
 using LogOT.Application.Common.Models;
-using LogOT.Domain.IdentityModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

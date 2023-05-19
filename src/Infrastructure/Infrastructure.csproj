@@ -9,12 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Remove="Persistence\Migrations\**" />
-      <EmbeddedResource Remove="Persistence\Migrations\**" />
-      <None Remove="Persistence\Migrations\**" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="CsvHelper" Version="30.0.1" />
         <PackageReference Include="Duende.IdentityServer.Storage" Version="6.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.2" />
