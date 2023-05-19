@@ -137,13 +137,9 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
 
     public DbSet<T> Get<T>() where T : BaseAuditableEntity => Set<T>();
 
-    Task<int> IApplicationDbContext.SaveChangesAsync(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
 
-    DbSet<T> IApplicationDbContext.Get<T>()
-    {
-        throw new NotImplementedException();
-    }
+    //DbSet<T> IApplicationDbContext.Get<T>()
+    //{
+    //    throw new NotImplementedException();
+    //}
 }
