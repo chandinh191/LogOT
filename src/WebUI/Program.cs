@@ -12,6 +12,7 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebUIServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSession();
 /*builder.Services.AddIdentity<ApplicationUser, AppIdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -53,7 +54,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
