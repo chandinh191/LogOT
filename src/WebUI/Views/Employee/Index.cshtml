@@ -1,0 +1,56 @@
+﻿@using LogOT.Application.Employees;
+@model List<EmployeeDTO>;
+@{
+    ViewData["Title"] = "List";
+}
+
+<table>
+    <tr>
+        <th>Fullname</th>
+        <th>Email</th>
+        <th>PhoneNumber</th>
+        <th>IdentityNumber</th>
+        <th>BirthDay</th>
+        <th>BankAccountNumber</th>
+        <th>BankAccountName</th>
+        <th>BankName</th>
+        <th>Experiences</th>
+        <th>OvertimeLogs</th>
+        <th>LeaveLogs</th>
+        <th>EmployeeContracts</th>
+        <th>InterviewProcesses</th>
+        <th>Skill_Employees</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ApplicationUser.Fullname</td>
+            <td>@item.ApplicationUser.Email</td>
+            <td>@item.ApplicationUser.PhoneNumber</td>
+            <td>@item.IdentityNumber</td>
+            <td>@item.BirthDay</td>
+            <td>@item.BankAccountNumber</td>
+            <td>@item.BankAccountName</td>
+            <td>@item.BankName</td>
+            <td>
+                <a asp-controller="Experience" asp-action="Index" asp-route-id="@item.Id">Experiences</a>
+            </td>
+            <td>
+                <a>OvertimeLogs</a>
+            </td>
+            <td>
+                <a>LeaveLogs</a>
+            </td>
+            <td>
+                <a>EmployeeContracts</a>
+            </td>
+            <td>
+                <a>InterviewProcess</a>
+            </td>
+            <td>
+                <a>Skills</a>
+            </td>
+        </tr>
+    }
+</table>

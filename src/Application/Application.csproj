@@ -19,4 +19,9 @@
         <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Employees\Commands\" />
+      <Folder Include="Experiences\Commands\" />
+    </ItemGroup>
+
 </Project>
