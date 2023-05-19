@@ -14,11 +14,10 @@ public class EmployeeContract : BaseAuditableEntity
     public DateTime? StartDate { get; set; }
     public DateTime? EndDate { get; set; }
     public string? Job { get; set; }
-    public double? BasicSalary { get; set; }
-    public string? Status { get; set; }
-    public double? PercentDeduction { get; set; }
-    public string? SalaryType { get; set; }
-    public string? ContractType { get; set; }
+    public double? Salary { get; set; }
+    public EmployeeContractStatus? Status { get; set; }
+    public SalaryType? SalaryType { get; set; }
+    public ContractType? ContractType { get; set; }
 
     public virtual Employee Employee { get; set; }
 

@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using LogOT.Application.Common.Interfaces;
+using LogOT.Domain.Entities;
+using LogOT.Domain.Enums;
+using MediatR;
+
+namespace LogOT.Application.EmployeeContracts.Commands.CreateEmployeeContract;
+public record CreateEmployeeContractCommand : IRequest<Guid>
+{
+    public Guid EmployeeId { get; set; }
+    public string? File { get; set; }
+    public DateTime? StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
+    public string? Job { get; set; }
+    public double? Salary { get; set; }
+    public SalaryType? SalaryType { get; set; }
+    public ContractType? ContractType { get; set; }
+}
+
+public class CreateEmployeeContractCommandHandler : IRequestHandler<CreateEmployeeContractCommand, Guid>
+{
+    private readonly IApplicationDbContext _context;
+
+    public CreateEmployeeContractCommandHandler(IApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<Guid> Handle(CreateEmployeeContractCommand request, CancellationToken cancellationToken)
+    {
+        var entity = new EmployeeContract();
+
+        entity.EmployeeId = request.EmployeeId;
+        entity.File = request.File;
+        entity.StartDate = request.StartDate;
+        entity.EndDate = request.EndDate;
+        entity.Job = request.Job;
+        entity.Salary = request.Salary;
+        entity.Status = EmployeeContractStatus.Effective;
+        entity.SalaryType = request.SalaryType;
+        entity.ContractType = request.ContractType;
+        entity.CreatedBy = "Admin";
+        entity.LastModified = DateTime.Now;
+        entity.LastModifiedBy = "Admin";
+
+        _context.EmployeeContract.Add(entity);
+
+        await _context.SaveChangesAsync(cancellationToken);
+
+        return entity.Id;
+    }
+}
