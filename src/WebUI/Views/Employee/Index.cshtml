@@ -1,0 +1,30 @@
+﻿@using LogOT.Application.Common.Models;
+@using LogOT.Application.Employees.Queries.GetEmployee;
+@model PaginatedList<EmployeeDTO>
+
+
+<h1>Employee List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Position</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model.Items)
+        {
+            <tr>
+                <td>@employee.Id</td>
+                <td>@employee.FullName</td>
+              
+
+            </tr>
+        }
+
+    </tbody>
+</table>

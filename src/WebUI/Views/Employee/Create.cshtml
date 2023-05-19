@@ -1,0 +1,39 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Employee</title>
+</head>
+<body>
+    <h1>Create Employee</h1>
+    <form method="post" action="/Employee/Create">
+        <div class="form-group">
+            <label for="name">ID:</label>
+            <input type="text" class="form-control" id="id" name="ApplicationUserId" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="IdentityNumber" required>
+        </div>
+       
+        <div class="form-group">
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="date" class="form-control" id="dateOfBirth" name="BirthDay" required>
+        </div>
+        <div class="form-group">
+            <label for="address">BankAccountName:</label>
+            <input type="text" class="form-control" id="address" name="BankAccountName">
+        </div>
+        <div class="form-group">
+            <label for="bankName">Bank Name:</label>
+            <input type="text" class="form-control" id="bankName" name="BankName">
+        </div>
+        <div class="form-group">
+            <label for="bankAccountNumber">Bank Account Number:</label>
+            <input type="text" class="form-control" id="bankAccountNumber" name="BankAccountNumber">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Create Employee</button>
+    </form>
+</body>
+</html>
