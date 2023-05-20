@@ -12,7 +12,6 @@
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
-      //"launchUrl": "EmployeeContract/Index",
       "launchUrl": "LeaveLog/Index?EmployeeId=ac69dc8e-f88d-46c2-a861-c9d5ac894141",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
