@@ -1,0 +1,27 @@
+﻿@model LogOT.Application.Employees_Skill.Skill_EmployeeDTO
+
+<form asp-controller="EmployeeSkill" asp-action="Delete" method="post" asp-route-id="@Model.EmployeeId">
+
+    <table border="0">
+        <thead>
+            <tr>
+                <th>Fullname</th>
+                <th>Skill Name</th>
+                <th>Skill Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>@Model.Employee.ApplicationUser.Fullname</td>
+                <td>@Model.Skill.SkillName</td>
+                <td>@Model.Skill.Skill_Description</td>
+            </tr>
+            <tr>
+                <td><label>Are you sure to delete this?</label></td>
+                <td><button type="submit">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+<a asp-controller="Employee" asp-action="Index">Return back</a>

@@ -14,7 +14,7 @@ public class LeaveLog : BaseAuditableEntity
     public DateTime EndDate { get; set; }
     public int LeaveHours { get; set; }
     public string Reason { get; set; }
-    public string Status { get; set; }
+    public LeaveLogStatus Status { get; set; }
     public bool IsDeleted { get; set; }
     public virtual Employee Employee { get; set; }
 }

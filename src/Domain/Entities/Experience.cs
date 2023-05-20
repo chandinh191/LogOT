@@ -1,11 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+
+using System.ComponentModel.DataAnnotations.Schema;
+
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace LogOT.Domain.Entities;
 
 public class Experience : BaseAuditableEntity
-{
-    [ForeignKey("Employee")]
-    public Guid EmployeeId { get; set; }
+    {
+        [ForeignKey("Employee")]
+        public Guid EmployeeId { get; set; }
 
     public string NameProject { get; set; }
     public int TeamSize { get; set; }
@@ -19,4 +26,5 @@ public class Experience : BaseAuditableEntity
 
     public string Status { get; set; }
     public bool IsDeleted { get; set; }
+
 }

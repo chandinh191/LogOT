@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogOT.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230518200757_Seeding-Data")]
-    partial class SeedingData
+    [Migration("20230519120609_InitMigration")]
+    partial class InitMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -376,11 +376,8 @@ namespace LogOT.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double?>("BasicSalary")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ContractType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ContractType")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -409,17 +406,17 @@ namespace LogOT.Infrastructure.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("PercentDeduction")
+                    b.Property<double?>("Salary")
                         .HasColumnType("float");
 
-                    b.Property<string>("SalaryType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("SalaryType")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -718,9 +715,8 @@ namespace LogOT.Infrastructure.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
