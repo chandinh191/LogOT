@@ -4,6 +4,7 @@ using Duende.IdentityServer.EntityFramework.Options;
 using LogOT.Application.Common.Interfaces;
 using LogOT.Domain.Common;
 using LogOT.Domain.Entities;
+using LogOT.Domain.Enums;
 using LogOT.Domain.IdentityModel;
 using LogOT.Infrastructure.Persistence.Interceptors;
 using MediatR;
@@ -98,6 +99,7 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
                 IsDeleted = false
             }
         );
+       
 
         builder.Entity<Experience>()
                 .HasData(

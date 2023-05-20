@@ -11,6 +11,7 @@ using LogOT.Application.Common.Interfaces;
 using LogOT.Application.Employees_Skill;
 using LogOT.Application.TodoLists.Commands.UpdateTodoList;
 using LogOT.Domain.Entities;
+using LogOT.Domain.Enums;
 using MediatR;
 
 namespace LogOT.Application.OvertimeLogs.Commands;
@@ -49,9 +50,9 @@ public class UpdateApprovedStatusCommandHandler : IRequestHandler<UpdateApproved
         {
             throw new NotFoundException(nameof(OvertimeLog), request.Id);
         }
-
-        newEntity.Status = "Approved";
-        entity.Status = "Approved";
+        var status = StatusOvertimeLog.Approved;
+        newEntity.Status = status.ToString();
+        entity.Status = status.ToString();
         _context.OvertimeLog.Update(newEntity);
         await _context.SaveChangesAsync(cancellationToken);
 

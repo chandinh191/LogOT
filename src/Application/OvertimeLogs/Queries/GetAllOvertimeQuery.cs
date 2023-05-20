@@ -14,7 +14,7 @@ namespace LogOT.Application.OvertimeLogs.Queries;
 
 public class GetAllOvertimeQuery : IRequest<List<OvertimeLogDTO>> 
 { 
-    public Guid Id { get; set; }
+    
 }
 
 public class GetAllOvertimeQueryHandler : IRequestHandler<GetAllOvertimeQuery, List<OvertimeLogDTO>>
