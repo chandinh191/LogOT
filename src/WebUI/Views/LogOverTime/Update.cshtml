@@ -44,18 +44,18 @@
     <h2>Update OverTimeLog</h2>
 
     <form action="Update" method="post">
-        <input type="hidden" id="EmployeeId" name="EmployeeId" value="@Model.EmployeeId" required
+        <input type="hidden" id="EmployeeId" name="EmployeeId" value="@Model.EmployeeId" required />
 
         <label for="Date">Date:</label>
         <input type="date" id="Date" name="Date" value="@Model.Date.ToString("yyyy-MM-dd")" required />
         <br>
 
         <label for="Hours">Hours:</label>
-        <textarea type="number" id="Hours" name="Hours" required>@Model.Hours</textarea>
+        <input type="text" id="Hours" name="Hours" value="@Model.Hours" required />
         <br>
 
         <label for="Status">Status:</label>
-        <input type="text" id="Status" name="Status" value="@Model.Status" required>
+        <textarea type="text" id="Status" name="Status" value="@Model.Status" required></textarea>
         <br>
 
         <label for="isDeleted">isDeleted:</label>

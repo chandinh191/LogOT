@@ -33,7 +33,7 @@ public class LogOverTimeController : ControllerBaseMVC
         if (result != null)
         {
 
-            return RedirectToAction("Index", "OvertimeLog");
+            return RedirectToAction("Index", "LogOverTime");
         }
 
 
@@ -52,7 +52,7 @@ public class LogOverTimeController : ControllerBaseMVC
         if (ModelState.IsValid)
         {
             await Mediator.Send(command);
-            return RedirectToAction("Index", "OvertimeLog");
+            return RedirectToAction("Index", "LogOverTime");
         }
 
         // Nếu dữ liệu không hợp lệ, trả về lại view để hiển thị lỗi
@@ -63,7 +63,7 @@ public class LogOverTimeController : ControllerBaseMVC
     {
         await Mediator.Send(new DeleteLogOverTimeCommand(id));
 
-        return RedirectToAction("Index", "OvertimeLog");
+        return RedirectToAction("Index", "LogOverTime");
     }
 
 }
