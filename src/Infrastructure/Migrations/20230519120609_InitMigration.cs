@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LogOT.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedingData : Migration
+    public partial class InitMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -440,11 +440,10 @@ namespace LogOT.Infrastructure.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Job = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BasicSalary = table.Column<double>(type: "float", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PercentDeduction = table.Column<double>(type: "float", nullable: true),
-                    SalaryType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContractType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salary = table.Column<double>(type: "float", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: true),
+                    SalaryType = table.Column<int>(type: "int", nullable: true),
+                    ContractType = table.Column<int>(type: "int", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -502,7 +501,7 @@ namespace LogOT.Infrastructure.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LeaveHours = table.Column<int>(type: "int", nullable: false),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),

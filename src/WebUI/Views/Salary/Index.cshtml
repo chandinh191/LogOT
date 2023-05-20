@@ -1,0 +1,166 @@
+﻿@using LogOT.Application.Salaries.Commands;
+@using Newtonsoft.Json;
+@using System.Globalization;
+@model CreateSalaryCommand
+
+<head>
+    <title>Salary Calculator</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #ffffff;
+        }
+
+        .color {
+            background-color: #ddd;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 300px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<h2>Salary Calculator</h2>
+
+<form asp-action="Index" method="post">
+    <div class="form-group">
+        <label for="Income">Thu nhập:</label>
+        <input type="number" class="form-control" name="Income" value="@Model.Income" />
+    </div>
+    <div class="form-group">
+        <label for="Insurance_Premium">Mức đóng bảo hiểm(nếu = 0 thì tính trên lương chính thức):</label>
+        <input type="number" class="form-control" name="Insurance_Premium" value="@Model.Insurance_Premium" />
+    </div>
+    <div class="form-group">
+        <label for="Number_Of_Dependents">Số người phụ thuộc:</label>
+        <input type="number" class="form-control" name="Number_Of_Dependents" value="@Model.Number_Of_Dependents" />
+    </div>
+    <div class="form-group">
+        <label for="SalaryType">Loại lương:</label>
+        <select class="form-control" name="SalaryType">
+            <option value="Net">Gross -> Net</option>
+            <option value="Gross">Net -> Gross</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Calculate</button>
+</form>
+@if (ViewBag.SalaryDto != null)
+{
+    @if (ViewBag.SalaryDto is SalaryDto item)
+    {
+        <h1><strong>Diễn giải chi tiết (VND)</strong></h1>
+        <table>
+            <tr>
+                <th class="color">Lương GROSS</th>
+                <td>@item.Gross.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+            </tr>
+            <tr>
+                <th>Bảo hiểm xã hội (8%)</th>
+                <td>@item.BHXH_Emp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+            </tr>
+            <tr>
+                <th>Bảo hiểm y tế (1.5%)</th>
+                <td>@item.BHYT_Emp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+
+            </tr>
+            <tr>
+                <th>Bảo hiểm thất nghiệp (1%)</th>
+                <td>@item.BHTN_Emp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+
+            </tr>
+            <tr>
+                <th class="color">Thu nhập trước thuế	</th>
+                <td>@item.TNTT.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+            </tr>
+            <tr>
+                <th>Giảm trừ gia cảnh bản thân</th>
+                <td>11.000.000đ</td>
+
+            </tr>
+            <tr>
+                <th>Giảm trừ gia cảnh người phụ thuộc	</th>
+
+                <td>@item.Dependent_Deduction.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+
+            </tr>
+            <tr>
+                <th class="color">Thu nhập chịu thuế</th>
+                <td>@item.TNCT.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+
+            </tr>
+            <tr>
+                <th>Thuế thu nhập cá nhân (*)</th>
+                <td>@item.TTNCN.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+            </tr>
+            <tr>
+                <th class="color">
+                    Lương NET
+                    (Thu nhập trước thuế - Thuế thu nhập cá nhân)
+                </th>
+                <td>@item.Net.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+
+            </tr>
+        </table>
+
+        <br />
+        <h1><strong>Người sử dụng lao động trả (VND)</strong></h1>
+        <table>
+            <tr>
+                <th class="color">Lương GROSS</th>
+                <td>@item.Gross.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+            </tr>
+            <tr>
+                <th>Bảo hiểm xã hội (17.5%)</th>
+                <td>@item.BHXH_Comp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+            </tr>
+            <tr>
+                <th>Bảo hiểm y tế (3%)</th>
+                <td>@item.BHYT_Comp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+            </tr>
+            <tr>
+                <th>Bảo hiểm thất nghiệp (1%)</th>
+                <td>@item.BHTN_Comp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+            </tr>
+            <tr>
+                <th class="color">
+                    Lương NET
+                    (Thu nhập trước thuế - Thuế thu nhập cá nhân)
+                </th>
+                <td>@item.Total_Cmp_Salary.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+            </tr>
+        </table>
+
+    }
+}
+
