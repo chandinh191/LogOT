@@ -1,0 +1,84 @@
+﻿@using LogOT.Application.Common.Models;
+@using LogOT.Domain.Enums;
+@model List<LeaveLog>
+
+<head>
+    <style>
+        .leave-log-title {
+            color: blue;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .leave-log-table {
+            width: 100%;
+        }
+
+            .leave-log-table th {
+                background-color: lightgray;
+                font-weight: bold;
+            }
+
+            .leave-log-table td {
+                padding: 8px;
+            }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            user-select: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+    </style>
+</head>
+@await Component.InvokeAsync("NToastNotify")
+<h2 class="leave-log-title">Leave Log List</h2>
+
+<a href="/LeaveLog/Create?EmployeeId=ac69dc8e-f88d-46c2-a861-c9d5ac894141" class="btn btn-primary">Create Leave Log</a>
+<br />
+<br />
+<table class="table leave-log-table">
+    <thead>
+        <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>LeaveHours</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var leaveLog in Model)
+        {
+            <tr>
+                <td>@leaveLog.StartDate.ToShortDateString()</td>
+                <td>@leaveLog.EndDate.ToShortDateString()</td>
+                <td>@leaveLog.LeaveHours</td>
+                <td>@leaveLog.Reason</td>
+                <td>@Enum.GetName(typeof(LeaveLogStatus), leaveLog.Status)</td>
+                <td>
+                    <a href="@Url.Action("Update", new { id = leaveLog.Id })" class="btn btn-primary">Update</a>
+                    <form action="@Url.Action("Delete", new { id = leaveLog.Id })" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

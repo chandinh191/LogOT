@@ -9,21 +9,21 @@ using LogOT.Domain.Entities;
 using LogOT.Domain.Enums;
 using MediatR;
 
-namespace LogOT.Application.EmployeeContracts.Commands.DeleteEmployeeContract;
-public record DeleteEmployeeContractCommand(Guid Id) : IRequest;
+namespace LogOT.Application.LeaveLogs.Commands.DeleteLeaveLog;
+public record DeleteLeaveLogCommand(Guid Id) : IRequest;
 
-public class DeleteEmployeeContractCommandHandler : IRequestHandler<DeleteEmployeeContractCommand>
+public class DeleteLeaveLogCommandHandler : IRequestHandler<DeleteLeaveLogCommand>
 {
     private readonly IApplicationDbContext _context;
 
-    public DeleteEmployeeContractCommandHandler(IApplicationDbContext context)
+    public DeleteLeaveLogCommandHandler(IApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task<Unit> Handle(DeleteEmployeeContractCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteLeaveLogCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.EmployeeContract
+        var entity = await _context.LeaveLog
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
         if (entity == null)

@@ -16,9 +16,8 @@ public class EmployeeContractController : ControllerBaseMVC
         var Result = await Mediator.Send(query);
         return View(Result);
     }
-    public async Task<IActionResult> Create(Guid EmployeeId)
+    public async Task<IActionResult> Create()
     {
-        ViewBag.EmployeeId = EmployeeId;
         return View();
     }
     [HttpPost]
