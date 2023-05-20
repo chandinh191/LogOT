@@ -4,6 +4,7 @@ using LogOT.WebUI.Filters;
 using LogOT.WebUI.Services;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -23,7 +24,12 @@ public static class ConfigureServices
         services.AddControllersWithViews(options =>
             options.Filters.Add<ApiExceptionFilterAttribute>())
                 .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
-
+        services.AddControllersWithViews().AddNToastNotifyNoty(new NotyOptions
+        {
+            ProgressBar = true,
+            Timeout = 5000,
+            Theme = "mint"
+        });
         services.AddRazorPages();
 
         // Customise default API behaviour
