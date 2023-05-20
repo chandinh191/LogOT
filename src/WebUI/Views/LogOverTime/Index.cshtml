@@ -1,0 +1,85 @@
+﻿@using LogOT.Application.Common.Models;
+@using LogOT.Domain.Enums;
+@using LogOT.Application.LogOverTime.Queries;
+@model List<LogOverTimeDto>
+
+<head>
+    <style>
+        .over-log-title {
+            color: blue;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .over-log-table {
+            width: 100%;
+        }
+
+            .over-log-table th {
+                background-color: lightgray;
+                font-weight: bold;
+            }
+
+            .over-log-table td {
+                padding: 8px;
+            }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            user-select: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+    </style>
+</head>
+@await Component.InvokeAsync("NToastNotify")
+<h2 class="over-log-title">OverTimeLog List</h2>
+
+<a href="/OvertimeLog/Create" class="btn btn-primary">Create OverTimeLog</a>
+<br />
+<br />
+<table class="table leave-log-table">
+    <thead>
+        <tr>
+            <th>EmployeeId</th>
+            <th>Date</th>
+            <th>Hours</th>
+            <th>Status</th>
+            <th>isDeleted</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var overtimelog in Model)
+        {
+            <tr>
+                <td>@overtimelog.EmployeeId</td>
+                <td>@overtimelog.Date.ToShortDateString()</td>
+                <td>@overtimelog.Hours</td>
+                <td>@overtimelog.Status</td>
+                <td>@overtimelog.IsDeleted</td>
+                <td>
+                    <a href="@Url.Action("Update", new { id = overtimelog.EmployeeId })" class="btn btn-primary">Update</a>
+                    <form action="@Url.Action("Delete", new { id = overtimelog.EmployeeId })" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
