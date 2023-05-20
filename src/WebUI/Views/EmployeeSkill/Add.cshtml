@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model LogOT.Application.Employees_Skill.Skill_EmployeeDTO
+
+<h1>Add employee</h1>
+<br />
+<form asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@Model.EmployeeId">
+    <table border="0">
+        <input type="hidden" asp-for="Employee" />
+        <tr>
+            <td>
+                <label asp-for="@Model.EmployeeId"></label>
+            </td>
+            <td><label>@Model.EmployeeId</label></td>
+        </tr>
+
+        <tr>
+            <td><label asp-for="Employee.ApplicationUser.UserName"></label></td>
+            <td><label>@Model.Employee.ApplicationUser.UserName</label></td>
+        </tr>
+
+        <tr>
+            <td><label asp-for="Skill.SkillName"></label></td>
+            <td><input asp-for="Skill.SkillName" /></td>
+        </tr>
+
+        <tr>
+            <td><label asp-for="Skill.Skill_Description"></label> </td>
+            <td><input asp-for="Skill.Skill_Description" /></td>
+        </tr>
+
+        <tr>
+            <td><label asp-for="Level"></label> </td>
+            <td><input asp-for="Level" /></td>
+        </tr>
+
+        <tr>
+            <td>
+                <button type="submit">Update</button>
+            </td>
+            <td>
+                <a asp-controller="EmployeeSkill" asp-action="Index" asp-route-id="@Model.EmployeeId">Return back</a>
+            </td>
+        </tr>
+    </table>
+</form>
