@@ -1,4 +1,16 @@
 ﻿
+@using LogOT.Application.Employees.Commands.Create;
+@using LogOT.Domain.IdentityModel;
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.EntityFrameworkCore;
+@inject RoleManager<IdentityRole> RoleManager
+
+@model CreateEmployee
+
+@{
+    var roles = await RoleManager.Roles.ToListAsync();
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,20 +18,55 @@
 </head>
 <body>
     <h1>Create Employee</h1>
-    <form method="post" action="/Employee/Create">
-        <div class="form-group">
-            <label for="name">ID:</label>
-            <input type="text" class="form-control" id="id" name="ApplicationUserId" required>
+    <form method="post" action="/Create">
+        
+        <div>
+            <label for="username">Tên đăng nhập:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="fullname">Họ và tên:</label>
+            <input type="text" id="fullname" name="fullname" required>
         </div>
         <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="IdentityNumber" required>
+            <label for="role">Vai trò:</label>
+            <select id="role" name="selectedRole">
+                @foreach (var role in roles)
+                {
+                    <option value="@role.Name">@role.Name</option>
+                }
+            </select>
         </div>
-       
+        <div>
+            <label for="fullname">Địa chỉ :</label>
+            <input type="text" id="fullname" name="address" required>
+        </div>
         <div class="form-group">
             <label for="dateOfBirth">Date of Birth:</label>
             <input type="date" class="form-control" id="dateOfBirth" name="BirthDay" required>
         </div>
+        <div>
+            <label for="fullname">Hinh:</label>
+            <input type="text" id="fullname" name="image" required>
+        </div>
+        <div>
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <label for="confirmPassword">Xác nhận mật khẩu:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <div class="form-group">
+            <label for="name">IdentityNumber:</label>
+            <input type="text" class="form-control" id="name" name="IdentityNumber" required>
+        </div>
+
+        
         <div class="form-group">
             <label for="address">BankAccountName:</label>
             <input type="text" class="form-control" id="address" name="BankAccountName">

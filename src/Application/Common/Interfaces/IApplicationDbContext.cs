@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 ﻿using LogOT.Domain.Common;
 using LogOT.Domain.Entities;
 using LogOT.Domain.IdentityModel;
-=======
-﻿using LogOT.Domain.Entities;
->>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
 using Microsoft.EntityFrameworkCore;
 
 namespace LogOT.Application.Common.Interfaces;
@@ -31,11 +27,8 @@ public interface IApplicationDbContext
     DbSet<Skill_Employee> Skill_Employee { get; }
     DbSet<Skill_JD> Skill_JD { get; }
     DbSet<Employee> Employee { get; }
-<<<<<<< HEAD
-    DbSet<ApplicationUser> ApplicationUser { get; }
-=======
->>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
 
+    DbSet<ApplicationUser> ApplicationUser { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
     DbSet<T> Get<T>() where T : BaseAuditableEntity;

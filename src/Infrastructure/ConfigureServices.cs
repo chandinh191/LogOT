@@ -1,4 +1,6 @@
-﻿using LogOT.Application.Common.Interfaces;
+﻿
+using LogOT.Application.Common.Interfaces;
+using LogOT.Domain.IdentityModel;
 using LogOT.Infrastructure.Files;
 using LogOT.Infrastructure.Identity;
 using LogOT.Infrastructure.Persistence;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -36,19 +39,21 @@ public static class ConfigureServices
 
         services.AddScoped<ApplicationDbContextInitialiser>();
 
+
+
+
+
         services
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
-<<<<<<< HEAD
-        services.AddIdentityServer()
-            .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-=======
+
+
 
         services.AddIdentityServer()
             .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+      
 
->>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();

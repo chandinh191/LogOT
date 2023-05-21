@@ -1,4 +1,4 @@
-using Domain.Security;
+
 using Duende.IdentityServer.Stores;
 using LogOT.Domain.Entities;
 using LogOT.Domain.IdentityModel;
@@ -57,7 +57,6 @@ app.UseRouting();
 app.UseSession();
 
 app.UseAuthentication();
-app.UseIdentityServer();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -9,6 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Persistence\Migrations\**" />
+      <EmbeddedResource Remove="Persistence\Migrations\**" />
+      <None Remove="Persistence\Migrations\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="CsvHelper" Version="30.0.1" />
         <PackageReference Include="Duende.IdentityServer.Storage" Version="6.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.2" />
@@ -16,6 +22,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.2" />
+        <PackageReference Include="NToastNotify" Version="8.0.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,0 +1,33 @@
+﻿@model List<LogOT.Application.Employees_Skill.Skill_EmployeeDTO>
+
+<a asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@Model.FirstOrDefault().EmployeeId">Add Skill</a>
+<table>
+    <thead>
+        <tr>
+            <th>Fullname</th>
+            <th>Skill Name</th>
+            <th>Skill Description</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+
+        <tbody>
+            @if (item.Skill.IsDeleted == false)
+            {
+                <tr>
+                    <td>@item.Employee.ApplicationUser.Fullname</td>
+                    <td>@item.Skill.SkillName</td>
+                    <td>@item.Skill.Skill_Description</td>
+                    <td>
+                        <a asp-controller="EmployeeSkill" asp-action="Update" asp-route-id="@item.EmployeeId">Update</a>
+                        <a asp-controller="EmployeeSkill" asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+
+<a asp-controller="Employee" asp-action="Index">Return back</a>

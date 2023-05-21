@@ -1,7 +1,14 @@
-<<<<<<< HEAD
 ﻿@using LogOT.Application.Common.Models;
 @using LogOT.Application.Employees.Queries.GetEmployee;
+@using Microsoft.AspNetCore.Identity;
 @model List<EmployeeDTO>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    var context = HttpContextAccessor.HttpContext;
+    
+     var userRole = context.User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.Role).Value;
+
+}
 <style>
     .linkbutton {
         display: inline-block;
@@ -10,18 +17,23 @@
         color: #fff;
         text-decoration: none;
         border-radius: 4px;
-    }
+    } 
 
         .linkbutton:hover {
             background-color: #23527c;
         }
 </style>
 
-
 <table>
-    <td>
-     <a class="linkbutton" href="/Employee/Create">Create</a>
-     </td>
+    @if (userRole == "Manager")
+    {
+        <h2 class="message">@TempData["Message"]</h2>
+        <td>
+            <a class="linkbutton" href="/Employee/Create">Create</a>
+        </td>
+       
+    }
+
     <form action="/logout" method="post">
         <button type="submit">Đăng xuất</button>
     </form>
@@ -29,19 +41,6 @@
     <tr>
         <th>Id</th>
         <th>ApplicationUser</th>
-=======
-﻿@using LogOT.Application.Employees;
-@model List<EmployeeDTO>;
-@{
-    ViewData["Title"] = "List";
-}
-
-<table>
-    <tr>
-        <th>Fullname</th>
-        <th>Email</th>
-        <th>PhoneNumber</th>
->>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
         <th>IdentityNumber</th>
         <th>BirthDay</th>
         <th>BankAccountNumber</th>
@@ -53,65 +52,33 @@
         <th>EmployeeContracts</th>
         <th>InterviewProcesses</th>
         <th>Skill_Employees</th>
-<<<<<<< HEAD
         <th>Option</th>
-
-=======
->>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-<<<<<<< HEAD
             <td>@item.Id</td>
             <td>@item.ApplicationUser.Fullname</td>
-            
-=======
-            <td>@item.ApplicationUser.Fullname</td>
-            <td>@item.ApplicationUser.Email</td>
-            <td>@item.ApplicationUser.PhoneNumber</td>
->>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
+            <td>
+                <img src="@item.ApplicationUser.Image" alt="Hình ảnh" style="max-width: 100px; max-height: 100px;">
+            </td>
             <td>@item.IdentityNumber</td>
             <td>@item.BirthDay</td>
             <td>@item.BankAccountNumber</td>
             <td>@item.BankAccountName</td>
             <td>@item.BankName</td>
-<<<<<<< HEAD
             <td>@item.CreatedBy</td>
+            @if (userRole == "Manager")
+            {
             <td>
                 <a class="linkbutton" href="/Employee/Edit/@item.Id">Edit</a>
             </td>
             <td>
                 <a class="linkbutton" href="/Employee/Delete/@item.Id">Delete</a>
             </td>
-
+            }
+            
         </tr>
-       
-        
-
-
-        
-=======
-            <td>
-                <a asp-controller="Experience" asp-action="Index" asp-route-id="@item.Id">Experiences</a>
-            </td>
-            <td>
-                <a>OvertimeLogs</a>
-            </td>
-            <td>
-                <a>LeaveLogs</a>
-            </td>
-            <td>
-                <a>EmployeeContracts</a>
-            </td>
-            <td>
-                <a>InterviewProcess</a>
-            </td>
-            <td>
-                <a>Skills</a>
-            </td>
-        </tr>
->>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a
     }
 </table>

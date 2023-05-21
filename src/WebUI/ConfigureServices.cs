@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
-
+using NToastNotify;
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ConfigureServices
@@ -23,7 +23,9 @@ public static class ConfigureServices
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         services.AddDistributedMemoryCache();
+          services.AddControllersWithViews();
 
+    
         services.AddHealthChecks()
             .AddDbContextCheck<ApplicationDbContext>();
 

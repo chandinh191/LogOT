@@ -74,7 +74,11 @@
         <select id="Status" name="Status" required>
             @foreach (var type in status)
             {
+<<<<<<< HEAD
                 <option value="@type" @(type == Model.Status ? "selected" : "")>@type</option>
+=======
+                <option value="@type" selected="@(type == Model.Status)">@type</option>
+>>>>>>> 3328dfa2d07b2d3e602e191f6c4ef3b4204b2190
             }
         </select>
         <br>
@@ -83,7 +87,11 @@
         <select id="SalaryType" name="SalaryType" required>
             @foreach (var type in salaryType)
             {
+<<<<<<< HEAD
                 <option value="@type" @(type == Model.SalaryType ? "selected" : "")>@type</option>
+=======
+                <option value="@type" selected="@(type == Model.SalaryType)">@type</option>
+>>>>>>> 3328dfa2d07b2d3e602e191f6c4ef3b4204b2190
             }
         </select>
         <br>
@@ -92,7 +100,11 @@
         <select id="ContractType" name="ContractType" required>
             @foreach (var type in contractType)
             {
+<<<<<<< HEAD
                 <option value="@type" @(type == Model.ContractType ? "selected" : "")>@type</option>
+=======
+                <option value="@type" selected="@(type == Model.ContractType)">@type</option>
+>>>>>>> 3328dfa2d07b2d3e602e191f6c4ef3b4204b2190
             }
         </select>
         <br>
@@ -100,4 +112,8 @@
         <button type="submit">Update</button>
     </form>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 3328dfa2d07b2d3e602e191f6c4ef3b4204b2190

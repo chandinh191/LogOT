@@ -32,6 +32,16 @@ public class GetAllExperienceQueryHandler : IRequestHandler<GetAllExperienceQuer
 
     public async Task<List<ExperienceDTO>> Handle(GetAllExperienceQuery request, CancellationToken cancellationToken)
     {
+        if(request.Id == null)
+        {
+            var defaultList = await _context.Experience
+                .Include(exp => exp.Employee.ApplicationUser)
+                .ProjectTo<ExperienceDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return defaultList;
+        }
+
         var list = await _context.Experience
             .Include(exp => exp.Employee.ApplicationUser)
             .Where(exp => exp.EmployeeId.Equals(request.Id))

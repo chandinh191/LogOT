@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using LogOT.Application.Common.Interfaces;
 using LogOT.Application.Common.Models;
+using LogOT.Domain.IdentityModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -86,7 +87,7 @@ public class IdentityService : IIdentityService
     public async Task<ClaimsPrincipal> AuthenticateAsync(string username, string password)
     {
         var user = await _userManager.FindByNameAsync(username);
-
+        var a = user;
         if (user == null)
         {
             user = await _userManager.FindByEmailAsync(username);

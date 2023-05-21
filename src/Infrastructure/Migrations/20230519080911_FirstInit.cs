@@ -6,11 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LogOT.Infrastructure.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:src/Infrastructure/Migrations/20230519080911_FirstInit.cs
     public partial class FirstInit : Migration
-========
-    public partial class SeedingData : Migration
->>>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a:src/Infrastructure/Migrations/20230518200757_Seeding-Data.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
