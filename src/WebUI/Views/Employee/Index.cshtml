@@ -37,10 +37,10 @@
                 <a asp-controller="Experience" asp-action="Index" asp-route-id="@item.Id">Experiences</a>
             </td>
             <td>
-                <a>OvertimeLogs</a>
+				<a asp-controller="LogOvertime" asp-action="Index" asp-route-id="@item.Id">Show</a>
             </td>
             <td>
-                <a>LeaveLogs</a>
+                <a asp-controller="LeaveLog" asp-action="Index" asp-route-id="@item.Id">Show</a>
             </td>
             <td>
                 <a>EmployeeContracts</a>

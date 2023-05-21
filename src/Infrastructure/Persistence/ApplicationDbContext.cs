@@ -99,7 +99,25 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
                 IsDeleted = false
             }
         );
-       
+        builder.Entity<Employee>()
+            .HasData(
+            new Employee
+            {
+                Id = Guid.Parse("bc69dc8e-f88d-46c2-a861-c9d5ac894142"),
+                ApplicationUserId = "fe30e976-2640-4d35-8334-88e7c3b1eac1",
+                IdentityNumber = "SE1610",
+                BirthDay = DateTime.Parse("9/9/2002"),
+                BankAccountNumber = "123456789",
+                BankAccountName = "TRAN CONG VINH",
+                BankName = "TECHCOMBANK",
+                Created = DateTime.Parse("9/9/9999"),
+                CreatedBy = "Test",
+                LastModified = DateTime.Parse("9/9/9999"),
+                LastModifiedBy = "Test",
+                IsDeleted = false
+            }
+        );
+
 
         builder.Entity<Experience>()
                 .HasData(

@@ -1,0 +1,185 @@
+﻿@using LogOT.Application.Payslip;
+@model List<PayslipDTO>
+<style>
+	* {
+		padding: 0px;
+	}
+
+
+	body {
+		font-family: 'Trebuchet MS';
+		font-size: 120%;
+		margin: 50px;
+	}
+
+	hr {
+		padding: 0px;
+		border: none;
+		height: 3px;
+		background-color: #333;
+	}
+
+
+	a, a.visited, a.hover {
+		font-weight: bold;
+		text-decoration: underline;
+		color: blue;
+	}
+
+
+		a.linkbutton {
+			font-weight: bold;
+			text-decoration: none;
+			background-color: lightgray;
+			color: black;
+			padding: 6px;
+			width: 120px;
+			text-align: center;
+			vertical-align: middle;
+			letter-spacing: 1px;
+		}
+
+
+	.message {
+		color: red;
+		font-weight: bold;
+	}
+
+	input {
+		padding: 3px;
+		font-size: 90%;
+		letter-spacing: 1px;
+	}
+
+
+	select {
+		padding: 3px;
+		font-size: 90%;
+		letter-spacing: 1px;
+	}
+
+	table {
+		font-family: inherit;
+		font-size: inherit;
+		border-collapse: collapse
+	}
+
+	td {
+		padding: 10px;
+	}
+
+		td.right {
+			padding: 10px;
+			text-align: right;
+			vertical-align: top;
+			white-space: nowrap;
+		}
+
+		td.left {
+			padding: 10px;
+			text-align: left;
+			vertical-align: top;
+			white-space: nowrap;
+		}
+
+	th {
+		padding: 10px;
+		font-weight: bold;
+	}
+
+	textarea {
+		padding: 3px;
+		font-family: inherit;
+		font-size: 90%;
+		letter-spacing: 1px;
+	}
+
+	button {
+		display: block;
+		border: 0px solid lightgray;
+		font-size: 90%;
+		font-weight: bold;
+		text-decoration: none;
+		background-color: lightgray;
+		color: black;
+		padding: 6px;
+		width: 120px;
+		text-align: center;
+		vertical-align: middle;
+		letter-spacing: 1px;
+	}
+
+	.div-table {
+		display: table;
+		width: auto;
+		border-spacing: 5px;
+	}
+
+	.div-row {
+		display: table-row;
+		width: auto;
+		clear: both;
+	}
+
+	.div-col {
+		display: table-cell;
+	}
+
+</style>
+
+
+<table border="1">
+	<tr>
+		<th>Id</th>
+		<th>EmployeeContractId</th>
+		<th>Standard_Work_Hours</th>
+		<th>Actual_Work_Hours</th>
+		<th>Ot_Hours</th>
+		<th>Leave_Hours</th>
+		<th>Base_Salary</th>
+		<th>BHXH_Emp</th>
+		<th>BHYT_Emp</th>
+		<th>BHTN_Emp</th>
+		<th>BHXH_Comp</th>
+		<th>BHYT_Comp</th>
+		<th>BHTN_Comp</th>
+		<th>Tax_In_Come</th>
+		<th>Bonus</th>
+		<th>Deduction</th>
+		<th>Total_Salary</th>
+		<th>Paid_date</th>
+		<th>Note</th>
+		<th>BankName</th>
+		<th>BankAcountName</th>
+		<th>BankAcountNumber</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>@item.Id</td>
+			<td>@item.EmployeeContractId</td>
+			<td>@item.Standard_Work_Hours</td>
+			<td>@item.Actual_Work_Hours</td>
+			<td>@item.Ot_Hours</td>
+			<td>@item.Leave_Hours</td>
+			<td>@item.Base_Salary</td>
+			<td>@item.BHXH_Emp</td>
+			<td>@item.BHYT_Emp</td>
+			<td>@item.BHTN_Emp</td>
+			<td>@item.BHXH_Comp</td>
+			<td>@item.BHYT_Comp</td>
+			<td>@item.BHTN_Comp</td>
+			<td>@item.Tax_In_Come</td>
+			<td>@item.Bonus</td>
+			<td>@item.Deduction</td>
+			<td>@item.Total_Salary</td>
+			<td>@item.Paid_date</td>
+			<td>@item.Note</td>
+			<td>@item.BankName</td>
+			<td>@item.BankAcountName</td>
+			<td>@item.BankAcountNumber</td>
+		</tr>
+	}
+	
+</table>
