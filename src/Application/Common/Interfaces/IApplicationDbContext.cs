@@ -1,6 +1,5 @@
 ﻿using LogOT.Domain.Common;
 using LogOT.Domain.Entities;
-using LogOT.Domain.IdentityModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace LogOT.Application.Common.Interfaces;
@@ -28,7 +27,6 @@ public interface IApplicationDbContext
     DbSet<Skill_JD> Skill_JD { get; }
     DbSet<Employee> Employee { get; }
 
-    DbSet<ApplicationUser> ApplicationUser { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
     DbSet<T> Get<T>() where T : BaseAuditableEntity;

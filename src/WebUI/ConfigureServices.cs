@@ -4,10 +4,8 @@ using LogOT.WebUI.Filters;
 using LogOT.WebUI.Services;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.OpenApi.Models;
-using System.Text.Json.Serialization;
 using NToastNotify;
+
 namespace Microsoft.Extensions.DependencyInjection;
 
 public static class ConfigureServices
@@ -16,56 +14,27 @@ public static class ConfigureServices
     {
         services.AddDatabaseDeveloperPageExceptionFilter();
 
-        services.AddSingleton<ICurrentUserService, CurrentUserService>();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         services.AddHttpContextAccessor();
 
-        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-        services.AddDistributedMemoryCache();
-          services.AddControllersWithViews();
-
-    
         services.AddHealthChecks()
             .AddDbContextCheck<ApplicationDbContext>();
 
         services.AddControllersWithViews(options =>
             options.Filters.Add<ApiExceptionFilterAttribute>())
                 .AddFluentValidation(x => x.AutomaticValidationEnabled = false);
-
-        services.AddControllers()
-        .AddJsonOptions(options =>
+        services.AddControllersWithViews().AddNToastNotifyNoty(new NotyOptions
         {
-            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            ProgressBar = true,
+            Timeout = 5000,
+            Theme = "mint"
         });
-
         services.AddRazorPages();
 
-        services.AddSwaggerGen(options =>
-        {
-            var jwtSecurityScheme = new OpenApiSecurityScheme
-            {
-                BearerFormat = "JWT",
-                Name = "Authorization",
-                In = ParameterLocation.Header,
-                Scheme = JwtBearerDefaults.AuthenticationScheme,
-                Type = SecuritySchemeType.ApiKey,
-                Description = "Put \"Bearer {token}\" your JWT Bearer token on textbox below!",
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = JwtBearerDefaults.AuthenticationScheme
-                },
-            };
-            options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, jwtSecurityScheme);
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement()
-            {
-                {
-                    jwtSecurityScheme,
-                    new List<string>()
-                }
-            });
-        });
+        // Customise default API behaviour
+        services.Configure<ApiBehaviorOptions>(options =>
+            options.SuppressModelStateInvalidFilter = true);
 
         return services;
     }

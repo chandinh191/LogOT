@@ -1,13 +1,17 @@
-﻿@using LogOT.Application.Common.Models;
+﻿@using LogOT.Application.Employees;
+@using LogOT.Application.Common.Models;
 @using LogOT.Application.Employees.Queries.GetEmployee;
 @using Microsoft.AspNetCore.Identity;
-@model List<EmployeeDTO>
+@model List<EmployeeDTO>;
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     var context = HttpContextAccessor.HttpContext;
     
      var userRole = context.User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.Role).Value;
 
+}
+@{
+    ViewData["Title"] = "List";
 }
 <style>
     .linkbutton {
@@ -17,15 +21,14 @@
         color: #fff;
         text-decoration: none;
         border-radius: 4px;
-    } 
+    }
 
         .linkbutton:hover {
             background-color: #23527c;
         }
 </style>
-
 <table>
-    @if (userRole == "Manager")
+     @if (userRole == "Manager")
     {
         <h2 class="message">@TempData["Message"]</h2>
         <td>
@@ -33,14 +36,13 @@
         </td>
        
     }
-
     <form action="/logout" method="post">
         <button type="submit">Đăng xuất</button>
     </form>
-
     <tr>
-        <th>Id</th>
-        <th>ApplicationUser</th>
+        <th>Fullname</th>
+        <th>Email</th>
+        <th>PhoneNumber</th>
         <th>IdentityNumber</th>
         <th>BirthDay</th>
         <th>BankAccountNumber</th>
@@ -58,27 +60,41 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.Id</td>
             <td>@item.ApplicationUser.Fullname</td>
-            <td>
-                <img src="@item.ApplicationUser.Image" alt="Hình ảnh" style="max-width: 100px; max-height: 100px;">
-            </td>
+            <td>@item.ApplicationUser.Email</td>
+            <td>@item.ApplicationUser.PhoneNumber</td>
             <td>@item.IdentityNumber</td>
             <td>@item.BirthDay</td>
             <td>@item.BankAccountNumber</td>
             <td>@item.BankAccountName</td>
             <td>@item.BankName</td>
-            <td>@item.CreatedBy</td>
+            <td>
+                <a asp-controller="Experience" asp-action="Index" asp-route-id="@item.Id">Experiences</a>
+            </td>
+            <td>
+                <a>OvertimeLogs</a>
+            </td>
+            <td>
+                <a>LeaveLogs</a>
+            </td>
+            <td>
+                <a>EmployeeContracts</a>
+            </td>
+            <td>
+                <a>InterviewProcess</a>
+            </td>
+            <td>
+                <a asp-controller="EmployeeSkill" asp-action="Index" asp-route-id="@item.Id">Skills</a>
+            </td>
             @if (userRole == "Manager")
             {
-            <td>
-                <a class="linkbutton" href="/Employee/Edit/@item.Id">Edit</a>
-            </td>
-            <td>
-                <a class="linkbutton" href="/Employee/Delete/@item.Id">Delete</a>
-            </td>
+                <td>
+                    <a class="linkbutton" href="/Employee/Edit/@item.Id">Edit</a>
+                </td>
+                <td>
+                    <a class="linkbutton" href="/Employee/Delete/@item.Id">Delete</a>
+                </td>
             }
-            
         </tr>
     }
 </table>

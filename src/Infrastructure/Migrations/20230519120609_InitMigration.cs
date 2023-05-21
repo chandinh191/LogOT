@@ -6,15 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LogOT.Infrastructure.Migrations
 {
     /// <inheritdoc />
-<<<<<<< HEAD:src/Infrastructure/Migrations/20230518200757_Seeding-Data.cs
-<<<<<<<< HEAD:src/Infrastructure/Migrations/20230519080911_FirstInit.cs
-    public partial class FirstInit : Migration
-========
-    public partial class SeedingData : Migration
->>>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a:src/Infrastructure/Migrations/20230518200757_Seeding-Data.cs
-=======
     public partial class InitMigration : Migration
->>>>>>> 3328dfa2d07b2d3e602e191f6c4ef3b4204b2190:src/Infrastructure/Migrations/20230519120609_InitMigration.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -175,7 +167,7 @@ namespace LogOT.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TodoLists",
+                name: "TodoList",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -189,7 +181,7 @@ namespace LogOT.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoLists", x => x.Id);
+                    table.PrimaryKey("PK_TodoList", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -411,7 +403,7 @@ namespace LogOT.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TodoItems",
+                name: "TodoItem",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -429,11 +421,11 @@ namespace LogOT.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoItems", x => x.Id);
+                    table.PrimaryKey("PK_TodoItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TodoItems_TodoLists_ListId",
+                        name: "FK_TodoItem_TodoList_ListId",
                         column: x => x.ListId,
-                        principalTable: "TodoLists",
+                        principalTable: "TodoList",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -927,8 +919,8 @@ namespace LogOT.Infrastructure.Migrations
                 column: "SkillId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TodoItems_ListId",
-                table: "TodoItems",
+                name: "IX_TodoItem_ListId",
+                table: "TodoItem",
                 column: "ListId");
         }
 
@@ -990,7 +982,7 @@ namespace LogOT.Infrastructure.Migrations
                 name: "Skill_JD");
 
             migrationBuilder.DropTable(
-                name: "TodoItems");
+                name: "TodoItem");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -1008,7 +1000,7 @@ namespace LogOT.Infrastructure.Migrations
                 name: "Skill");
 
             migrationBuilder.DropTable(
-                name: "TodoLists");
+                name: "TodoList");
 
             migrationBuilder.DropTable(
                 name: "EmployeeContract");

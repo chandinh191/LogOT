@@ -1,7 +1,3 @@
-
-using Duende.IdentityServer.Stores;
-using LogOT.Domain.Entities;
-using LogOT.Domain.IdentityModel;
 using LogOT.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,15 +8,6 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebUIServices();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSession();
-/*builder.Services.AddIdentity<ApplicationUser, AppIdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/ApplicationUser/SignIn";
-    //options.AccessDeniedPath = "/Security/AccessDenies";
-});*/
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -54,7 +41,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

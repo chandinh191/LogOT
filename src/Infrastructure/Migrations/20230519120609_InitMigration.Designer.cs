@@ -12,18 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogOT.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<< HEAD:src/Infrastructure/Migrations/20230518200757_Seeding-Data.Designer.cs
-<<<<<<<< HEAD:src/Infrastructure/Migrations/20230519080911_FirstInit.Designer.cs
-    [Migration("20230519080911_FirstInit")]
-    partial class FirstInit
-========
-    [Migration("20230518200757_Seeding-Data")]
-    partial class SeedingData
->>>>>>>> 6daade1845861cefb9da2c3966be2b3b18f4595a:src/Infrastructure/Migrations/20230518200757_Seeding-Data.Designer.cs
-=======
     [Migration("20230519120609_InitMigration")]
     partial class InitMigration
->>>>>>> 3328dfa2d07b2d3e602e191f6c4ef3b4204b2190:src/Infrastructure/Migrations/20230519120609_InitMigration.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1081,7 +1071,7 @@ namespace LogOT.Infrastructure.Migrations
 
                     b.HasIndex("ListId");
 
-                    b.ToTable("TodoItems");
+                    b.ToTable("TodoItem");
                 });
 
             modelBuilder.Entity("LogOT.Domain.Entities.TodoList", b =>
@@ -1112,7 +1102,7 @@ namespace LogOT.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TodoLists");
+                    b.ToTable("TodoList");
                 });
 
             modelBuilder.Entity("LogOT.Domain.IdentityModel.ApplicationUser", b =>
@@ -1554,7 +1544,7 @@ namespace LogOT.Infrastructure.Migrations
 
                             b1.HasKey("TodoListId");
 
-                            b1.ToTable("TodoLists");
+                            b1.ToTable("TodoList");
 
                             b1.WithOwner()
                                 .HasForeignKey("TodoListId");
