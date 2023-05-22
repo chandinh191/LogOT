@@ -718,6 +718,12 @@
       <None Include="wwwroot\assets\libs\wnumb\wNumb.min.js" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
     <!-- Auto-generated Open API specification and Angular TypeScript clients -->
     <PropertyGroup>
         <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>

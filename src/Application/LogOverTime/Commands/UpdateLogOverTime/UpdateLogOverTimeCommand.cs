@@ -11,6 +11,7 @@ using MediatR;
 namespace LogOT.Application.LogOverTime.Commands.UpdateLogOverTime;
 public record UpdateLogOverTimeCommand : IRequest
 {
+    public Guid Id { get; set; }
     public Guid EmployeeId { get; set; }
 
     public DateTime Date { get; set; }

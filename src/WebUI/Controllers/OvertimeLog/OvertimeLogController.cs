@@ -43,13 +43,14 @@ public class OvertimeLogController : ControllerBaseMVC
         var result = await Mediator.Send(query);
         return View(result);
     }
-   
-    public IActionResult UpdateApprovedStatus(Guid Id)
+
+    public async Task<IActionResult> UpdateApprovedStatus(Guid Id)
     {
-        Task<OvertimeLogDTO> result = Mediator.Send(new UpdateApprovedStatusCommand(Id));
+         await Mediator.Send(new UpdateApprovedStatusCommand(Id));
         _toastNotification.AddSuccessToastMessage("Approved");
         return RedirectToAction("ApprovedOvertimeLog");
     }
+
     public IActionResult UpdateCancelStatus(Guid Id)
     {
         Task<OvertimeLogDTO> result = Mediator.Send(new UpdateCancelStatusCommand(Id));
