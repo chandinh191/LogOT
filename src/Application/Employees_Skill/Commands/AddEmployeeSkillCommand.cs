@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using LogOT.Application.Common.Interfaces;
 using LogOT.Domain.Entities;
 using LogOT.Domain.IdentityModel;
@@ -38,16 +37,15 @@ public class AddEmployeeSkillCommandHandler : IRequestHandler<AddEmployeeSkillCo
 
     public async Task<Skill_EmployeeDTO> Handle(AddEmployeeSkillCommand request, CancellationToken cancellationToken)
     {
-        var EmpSkill = _context.Skill_Employee
-            .Include(e => e.Employee.ApplicationUser)
-            .Where(e => e.EmployeeId == request.Id)
-            .ProjectTo<Skill_EmployeeDTO>(_mapper.ConfigurationProvider)
+        var Emp = _context.Employee
+            .Include(e => e.ApplicationUser)
+            .Where(e => e.Id == request.Id)
             .FirstOrDefault();
 
         var returnEmpSkill = new Skill_EmployeeDTO
         {
-            EmployeeId = EmpSkill.EmployeeId,
-            Employee = new Employee { ApplicationUser = new ApplicationUser { UserName = EmpSkill.Employee.ApplicationUser.UserName } },
+            EmployeeId = Emp.Id,
+            Employee = new Employee { ApplicationUser = new ApplicationUser { UserName = Emp.ApplicationUser.UserName } },
         };
 
         if (request.Skill_EmployeeDTO != null)
@@ -57,7 +55,8 @@ public class AddEmployeeSkillCommandHandler : IRequestHandler<AddEmployeeSkillCo
                 Id = Guid.NewGuid(),
                 SkillName = request.Skill_EmployeeDTO.Skill.SkillName,
                 Skill_Description = request.Skill_EmployeeDTO.Skill.Skill_Description,
-                CreatedBy = EmpSkill.CreatedBy
+                CreatedBy = Emp.CreatedBy,
+                
             };
 
             var newEmpSkill = new Skill_Employee
@@ -66,11 +65,10 @@ public class AddEmployeeSkillCommandHandler : IRequestHandler<AddEmployeeSkillCo
                 EmployeeId = request.Id,
                 Skill = newSkill,
                 Level = request.Skill_EmployeeDTO.Level,
-                CreatedBy = EmpSkill.CreatedBy
+                CreatedBy = Emp.CreatedBy
             };
 
             await _context.Skill_Employee.AddAsync(newEmpSkill);
-            await _context.SaveChangesAsync(cancellationToken);
         }
 
         return returnEmpSkill;

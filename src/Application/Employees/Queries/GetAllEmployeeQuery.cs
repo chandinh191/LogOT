@@ -23,6 +23,7 @@ public class GetAllEmployeeWithPaginationQueryHandler : IRequestHandler<GetAllEm
 
     public async Task<List<EmployeeDTO>> Handle(GetAllEmployeeWithPaginationQuery request, CancellationToken cancellationToken)
     {
+        var listtest = _context.Employee.ToList();
         var list = await _context.Employee
             .Include(e => e.Experiences)
             .ProjectTo<EmployeeDTO>(_mapper.ConfigurationProvider)

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LogOT.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class SeedingData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -153,7 +153,7 @@ namespace LogOT.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SkillName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SkillName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     SkillDescription = table.Column<string>(name: "Skill_Description", type: "nvarchar(max)", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -467,18 +467,18 @@ namespace LogOT.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    NameProject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NameProject = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     TeamSize = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TechStack = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    TechStack = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -755,7 +755,7 @@ namespace LogOT.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Experience",
                 columns: new[] { "Id", "Created", "CreatedBy", "Description", "EmployeeId", "EndDate", "IsDeleted", "LastModified", "LastModifiedBy", "NameProject", "StartDate", "Status", "TeamSize", "TechStack" },
-                values: new object[] { new Guid("850df2d9-f8dc-444a-b1dc-ca773c0a2d0d"), new DateTime(9999, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "test", "Normal", new Guid("ac69dc8e-f88d-46c2-a861-c9d5ac894141"), new DateTime(9999, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(9999, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "test", "TestProject", new DateTime(9999, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "true", 4, "MSSQL, .NET 7, MVC" });
+                values: new object[] { new Guid("850df2d9-f8dc-444a-b1dc-ca773c0a2d0d"), new DateTime(9999, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "test", "Normal", new Guid("ac69dc8e-f88d-46c2-a861-c9d5ac894141"), new DateTime(9999, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), false, new DateTime(9999, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "test", "TestProject", new DateTime(9999, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), true, 4, "MSSQL, .NET 7, MVC" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

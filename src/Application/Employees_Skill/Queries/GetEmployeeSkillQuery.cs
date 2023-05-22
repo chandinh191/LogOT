@@ -34,8 +34,7 @@ public class GetEmployeeSkillQueryHandler : IRequestHandler<GetEmployeeSkillQuer
             .Include(e => e.Employee.ApplicationUser)
             .Where(s => s.EmployeeId.Equals(request.Id))
             .ProjectTo<Skill_EmployeeDTO>(_mapper.ConfigurationProvider)
-            .ToListAsync();
-
+            .ToListAsync(cancellationToken);
         return list;
     }
 }
