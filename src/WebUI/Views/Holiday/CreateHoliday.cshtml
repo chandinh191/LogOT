@@ -1,0 +1,50 @@
+﻿@model LogOT.Application.Holidays.Commands.CreateHoliday.CreateHolidayCommand
+
+<h2>Create Holiday</h2>
+
+<form asp-controller="Holiday" asp-action="CreateHolidayView" method="post">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title mb-0">Add Holiday</h4>
+        </div>
+        <div class="card-body">
+            <div class="col-sm-auto mb-3">
+                <div>
+                    <a class="btn btn-secondary" asp-controller="Holiday" asp-action="Index">Return back</a>
+                </div>
+            </div>
+
+            <table class="table table-bordered">
+                <tr>
+                    <td><label asp-for="DateName"></label></td>
+                    <td>
+                        <input asp-for="DateName" class="input-group-text" />
+                        <span asp-validation-for="DateName" class="text-warning"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Day"></label></td>
+                    <td>
+                        <input asp-for="Day" class="input-group-text" type="date" />
+                        <span asp-validation-for="Day" class="text-warning"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label asp-for="HourlyPay"></label></td>
+                    <td>
+                        <input asp-for="HourlyPay" class="input-group-text" />
+                        <span asp-validation-for="HourlyPay" class="text-warning"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align: right;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ri-add-box-fill"></i>
+                            Add
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
