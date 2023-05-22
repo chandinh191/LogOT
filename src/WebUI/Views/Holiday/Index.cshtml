@@ -1,0 +1,75 @@
+﻿@using LogOT.Application.Holidays.Queries.GetHoiliday;
+@model List<HolidaysDTO>;
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<body>
+    <script>
+        let datatable = new DataTable('#tblHoliday')
+    </script>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title mb-0">Add, Edit & Remove</h4>
+        </div>
+        <div class="card-body">
+            <div class="row g-4 mb-3">
+                <div class="col-sm-auto">
+                    <a class="btn btn-primary text-white" asp-controller="Holiday" asp-action="CreateHoliday" asp-route-id="@ViewBag.Id">
+                        <i class="ri-add-box-fill"></i>
+                        Add holiday
+                    </a>
+                </div>
+                <div class="col-sm-auto">
+                    <a class="btn btn-secondary text-white" asp-controller="Employee" asp-action="Index" asp-route-id="@ViewBag.Id">
+                        <i class="ri-arrow-go-back-fill"></i>
+                        Return back
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-responsive" id="tblHoliday">
+                <thead class="table-light">
+                    <tr>
+                        <th>Date name</th>
+                        <th>Day</th>
+                        <th>HourlyPay</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Where(h => h.IsDeleted == false))
+                    {
+                        <tr>
+                            <td>@item.DateName</td>
+                            <td>@item.Day</td>
+                            <td>@item.HourlyPay</td>
+                            <td>
+                                <a class="btn btn-primary" asp-controller="Holiday" asp-action="Update" asp-route-id="@item.Id">
+                                    <i class="ri-edit-2-line"></i>
+                                    Update
+                                </a>
+                                <form asp-controller="Holiday" asp-action="Delete" method="post">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button class="btn btn-danger" type="submit" onclick="return confirm('Are you sure you want to delete this item?');">
+                                        <i class="ri-delete-bin-2-fill"></i>
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script>
+            let table = new DataTable('#tblHoliday');
+        </script>
+    }
+</body>
