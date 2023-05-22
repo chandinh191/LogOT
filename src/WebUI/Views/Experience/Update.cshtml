@@ -4,66 +4,92 @@
 @{
 }
 @model LogOT.Application.Experiences.ExperienceDTO
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
 
-<h1>Update Employee experience</h1>
+<div class="card">
 
-<form asp-controller="Experience" asp-action="Update" asp-route-id="@Model.EmployeeId">
-    <table border="0">
-        <tr>
-            <td><label asp-for="EmployeeId"></label></td>
-            <td><label>@Model.EmployeeId</label></td>
-        </tr>
-        <tr>
-            <td><label asp-for="Employee.ApplicationUser.Fullname"></label></td>
-            <td><label>@Model.Employee.ApplicationUser.Fullname</label></td>
-        </tr>
-        <tr>
-            <td><label asp-for="NameProject"></label></td>
-            <td>
-                <input asp-for="NameProject" />
-                <span asp-validation-for="@Model.NameProject" class="text-warning"></span>
-            </td>
-        </tr>
-        <tr>
-            <td><label asp-for="TeamSize"></label></td>
-            <td>
-                <input asp-for="TeamSize" />
-                <span asp-validation-for="@Model.TeamSize" class="text-warning"></span>
-            </td>
-        </tr>
-        <tr>
-            <td><label asp-for="StartDate"></label></td>
-            <td>
-                <input asp-for="StartDate" />
-                <span asp-validation-for="@Model.StartDate" class="text-warning"></span>
-            </td>
-        </tr>
-        <tr>
-            <td><label asp-for="EndDate"></label></td>
-            <td>
-                <input asp-for="EndDate" />
-                <span asp-validation-for="@Model.EndDate" class="text-warning"></span>
-            </td>
-        </tr>
-        <tr>
-            <td><label asp-for="Description"></label></td>
-            <td>
-                <input asp-for="Description" />
-                <span asp-validation-for="@Model.Description" class="text-warning"></span>
-            </td>
-        </tr>
-        <tr>
-            <td><label asp-for="TechStack"></label></td>
-            <td>
-                <input asp-for="TechStack" />
-                <span asp-validation-for="@Model.TechStack" class="text-warning"></span>
-            </td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Experience" asp-action="Index" asp-route-id="@Model.EmployeeId">Return back</a></td>
-            <td><button type="submit">Update</button></td>
-        </tr>
-    </table>
-</form>
+    <div class="card-header">
+        <h4 class="card-title mb-0">Update Employee experience</h4>
+    </div>
+    
+    <div class="card-body">
+        
 
-<a asp-controller="Employee" asp-action="Index" asp-route-id="@Model.EmployeeId">Return back</a>
+        <div class="col-sm-auto mb-3">
+                <div>
+                    <a class="btn btn-secondary" asp-controller="Experience" asp-action="Index" asp-route-id="@Model.EmployeeId">Return back</a>
+                </div>
+        </div>
+
+
+        <form asp-controller="Experience" asp-action="Update" asp-route-id="@Model.EmployeeId">
+            <table class="table table-bordered" >
+                <tr>
+                    <td><label asp-for="EmployeeId"></label></td>
+                    <td><label>@Model.EmployeeId</label></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Employee.ApplicationUser.Fullname"></label></td>
+                    <td><label>@Model.Employee.ApplicationUser.Fullname</label></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="NameProject"></label></td>
+                    <td>
+                        <input class="input-group-text" asp-for="NameProject" />
+                        <span asp-validation-for="@Model.NameProject" class="text-warning"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label asp-for="TeamSize"></label></td>
+                    <td>
+                        <input class="input-group-text" asp-for="TeamSize" />
+                        <span asp-validation-for="@Model.TeamSize" class="text-warning"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label asp-for="StartDate"></label></td>
+                    <td>
+                        <input class="input-group-text" asp-for="StartDate" />
+                        <span asp-validation-for="@Model.StartDate" class="text-warning"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label asp-for="EndDate"></label></td>
+                    <td>
+                        <input class="input-group-text" asp-for="EndDate" />
+                        <span asp-validation-for="@Model.EndDate" class="text-warning"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Description"></label></td>
+                    <td>
+                        <input class="input-group-text" asp-for="Description" />
+                        <span asp-validation-for="@Model.Description" class="text-warning"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label asp-for="TechStack"></label></td>
+                    <td>
+                        <input class="input-group-text" asp-for="TechStack" />
+                        <span asp-validation-for="@Model.TechStack" class="text-warning"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label style="color: blue">ACTION</label></td>
+                    <td><button class="btn btn-success" type="submit">
+                            <i class="ri-edit-2-line"></i>
+                        Update
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+
+
+

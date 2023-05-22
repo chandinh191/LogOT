@@ -18,15 +18,22 @@
 
             <div class="card-body">
                 <div class="row g-4 mb-3">
+                    <div class="col-sm-auto">    
+                        <a class="btn btn-primary text-white" asp-controller="Experience" asp-action="Add" asp-route-id="@ViewBag.Id">
+                                <i class="ri-add-box-fill"></i>
+                                Add expericene
+                        </a>                       
+                    </div>
                     <div class="col-sm-auto">
-                        <div>
-                            <a class="btn btn-primary text-white" asp-controller="Experience" asp-action="Add" asp-route-id="@ViewBag.Id">Add expericene</a>
-                        </div>
+                        
+                        <a class="btn btn-secondary text-white" asp-controller="Employee" asp-action="Index" asp-route-id="@ViewBag.Id">
+                        <i class="ri-arrow-go-back-fill"></i>
+                        Return back</a>
                     </div>
                 </div>
 
                 <table class="table table-responsive" id="tblExperience">
-                    <thead>
+                    <thead class="table-light">
 
                         <tr>
                             <th>Fullname</th>
