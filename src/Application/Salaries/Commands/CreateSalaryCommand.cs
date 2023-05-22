@@ -15,7 +15,8 @@ namespace LogOT.Application.Salaries.Commands;
 public record CreateSalaryCommand : IRequest<SalaryDto>
 {
     public double Income { get; set; }
-    public double Insurance_Premium { get; set; }
+    public string InsuranceType { get; set; }
+    public double CustomSalary { get; set; }
     public double Number_Of_Dependents { get; set; }
     public string SalaryType { get; set; }
 
@@ -70,7 +71,7 @@ public class CreateSalaryCommandHandler : IRequestHandler<CreateSalaryCommand, S
             Gross = request.Income;
             //tính các loại bảo hiểm nhân viên phải trả 
             //tính trên lương
-            if (request.Insurance_Premium == 0)
+            if (request.InsuranceType == "official")
             {
                 BHXH_Emp = Gross * 0.08;
                 if (BHXH_Emp > 2384000)
@@ -91,17 +92,17 @@ public class CreateSalaryCommandHandler : IRequestHandler<CreateSalaryCommand, S
             //tính trên số khác
             else
             {
-                BHXH_Emp = request.Insurance_Premium * 0.08;
+                BHXH_Emp = request.CustomSalary * 0.08;
                 if (BHXH_Emp > 2384000)
                 {
                     BHXH_Emp = 2384000;
                 }
-                BHYT_Emp = request.Insurance_Premium * 0.015;
+                BHYT_Emp = request.CustomSalary * 0.015;
                 if (BHYT_Emp > 447000)
                 {
                     BHYT_Emp = 447000;
                 }
-                BHTN_Emp = request.Insurance_Premium * 0.01;
+                BHTN_Emp = request.CustomSalary * 0.01;
                 if (BHTN_Emp > 884000)
                 {
                     BHTN_Emp = 884000;
@@ -260,7 +261,7 @@ public class CreateSalaryCommandHandler : IRequestHandler<CreateSalaryCommand, S
             TNTT = Net + TTNCN;
             //tính các loại bảo hiểm nhân viên phải trả 
             //tính trên lương
-            if (request.Insurance_Premium == 0)
+            if (request.InsuranceType == "official")
             {
                 //chia cho 0.895 để ra lương gross, từ lương gross tính ra các BH
                 Gross = TNTT / 0.895;
@@ -284,17 +285,17 @@ public class CreateSalaryCommandHandler : IRequestHandler<CreateSalaryCommand, S
             else
             {
                 //tính các loại bảo hiểm nhân viên phải trả 
-                BHXH_Emp = request.Insurance_Premium * 0.08;
+                BHXH_Emp = request.CustomSalary * 0.08;
                 if (BHXH_Emp > 2384000)
                 {
                     BHXH_Emp = 2384000;
                 }
-                BHYT_Emp = request.Insurance_Premium * 0.015;
+                BHYT_Emp = request.CustomSalary * 0.015;
                 if (BHYT_Emp > 447000)
                 {
                     BHYT_Emp = 447000;
                 }
-                BHTN_Emp = request.Insurance_Premium * 0.01;
+                BHTN_Emp = request.CustomSalary * 0.01;
                 if (BHTN_Emp > 884000)
                 {
                     BHTN_Emp = 884000;
