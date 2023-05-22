@@ -4,7 +4,6 @@ using Duende.IdentityServer.EntityFramework.Options;
 using LogOT.Application.Common.Interfaces;
 using LogOT.Domain.Common;
 using LogOT.Domain.Entities;
-using LogOT.Domain.Enums;
 using LogOT.Domain.IdentityModel;
 using LogOT.Infrastructure.Persistence.Interceptors;
 using MediatR;
@@ -50,7 +49,7 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     public DbSet<Skill> Skill => Set<Skill>();
     public DbSet<Skill_Employee> Skill_Employee => Set<Skill_Employee>();
     public DbSet<Skill_JD> Skill_JD => Set<Skill_JD>();
-
+    public DbSet<ApplicationUser> ApplicationUser => Set<ApplicationUser>();
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
@@ -99,7 +98,6 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
                 IsDeleted = false
             }
         );
-       
 
         builder.Entity<Experience>()
                 .HasData(
@@ -140,8 +138,4 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     public DbSet<T> Get<T>() where T : BaseAuditableEntity => Set<T>();
 
 
-    //DbSet<T> IApplicationDbContext.Get<T>()
-    //{
-    //    throw new NotImplementedException();
-    //}
 }

@@ -1,0 +1,59 @@
+﻿@model DeleteEmployee
+@using LogOT.Application.Employees.Commands.Delete;
+
+
+
+<h1>Edit Employee</h1>
+
+<form method="post">
+    @*<div class="form-group">
+    <label for="name">Id:</label>
+    <input type="text" class="form-control" id="name" name="ApplicationUserId" value="@Model.Id" required>
+    </div>*@
+    <div class="form-group">
+        <label for="name">ApplicationUserId:</label>
+        <input type="text" class="form-control" id="name" name="ApplicationUserId" value="@Model.ApplicationUserId" required>
+    </div>
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="IdentityNumber" value="@Model.IdentityNumber" required>
+    </div>
+
+    <div class="form-group">
+        <label for="dateOfBirth">Date of Birth:</label>
+        <input type="date" class="form-control" id="dateOfBirth" name="BirthDay" value="@Model.BirthDay.ToString("yyyy-MM-dd")">
+    </div>
+
+    <div class="form-group">
+        <label for="bankName">Bank Name:</label>
+        <input type="text" class="form-control" id="bankName" name="BankName" value="@Model.BankName">
+    </div>
+    <div class="form-group">
+        <label for="bankAcountNumber">Bank Account Number:</label>
+        <input type="text" class="form-control" id="bankAcountNumber" name="BankAccountNumber" value="@Model.BankAccountNumber">
+    </div>
+
+    <div class="form-group">
+        <label for="email">BankAccountName:</label>
+        <input type="text" class="form-control" id="name" name="BankAccountName" value="@Model.BankAccountName">
+    </div>
+
+    <div class="form-group">
+        <label for="dateOfBirth">Created:</label>
+        <input type="date" class="form-control" id="dateOfBirth" name="Created" value="@Model.Created.ToString("yyyy-MM-dd")">
+    </div>
+    <div class="form-group">
+        <label for="email">CreatedBy:</label>
+        <input type="text" class="form-control" id="name" name="CreatedBy" value="@Model.CreatedBy">
+    </div>
+
+    <div class="form-group">
+        <label for="dateOfBirth">LastModified:</label>
+        <input type="date" class="form-control" id="dateOfBirth" name="LastModified" value="@Model.LastModified.ToString("yyyy-MM-dd")">
+    </div>
+    <div class="form-group">
+        <label for="email">LastModifiedBy:</label>
+        <input type="text" class="form-control" id="name" name="LastModifiedBy" value="@Model.LastModifiedBy">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
