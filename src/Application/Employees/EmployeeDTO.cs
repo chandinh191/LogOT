@@ -22,7 +22,10 @@ public class EmployeeDTO : BaseAuditableEntity, IMapFrom<Employee>
     public string BankAccountNumber { get; set; }
     public string BankAccountName { get; set; }
     public string BankName { get; set; }
-
+    public string Fullname { get; set; }
+    public string Address { get; set; }
+    public string Image { get; set; }
+    public string PhoneNumber { get; set; }
     public IList<ExperienceDTO> Experiences { get; private set; }
     public IList<OvertimeLog> OvertimeLogs { get; private set; }
     public IList<LeaveLog> LeaveLogs { get; private set; }

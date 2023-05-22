@@ -52,9 +52,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="Views\Holiday\CreateHoliday.cshtml" />
-      <None Include="Views\Holiday\Index.cshtml" />
-      <None Include="Views\Holiday\Update.cshtml" />
       <None Include="Views\Shared\Layout.cshtml" />
       <None Include="wwwroot\assets\fonts\boxiconsd41d.svg" />
       <None Include="wwwroot\assets\fonts\la-brands-400.svg" />

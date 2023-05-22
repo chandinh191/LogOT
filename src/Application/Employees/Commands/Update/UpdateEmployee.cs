@@ -7,6 +7,7 @@ using LogOT.Application.Common.Exceptions;
 using LogOT.Application.Common.Interfaces;
 using LogOT.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 //using NToastNotify;
 
 namespace LogOT.Application.Employees.Commands.Update;
@@ -24,7 +25,10 @@ public record UpdateEmployee : IRequest
     public DateTime Created { get; set; }
 
     public DateTime LastModified { get; set; }
-
+    public string Fullname { get; set; }
+    public string Address { get; set; }
+    public string Image { get; set; }
+    public string PhoneNumber { get; set; }
     public string? LastModifiedBy { get; set; }
 }
 
@@ -40,13 +44,13 @@ public class UpdateEmployeeHandler : IRequestHandler<UpdateEmployee>
     public async Task<Unit> Handle(UpdateEmployee request, CancellationToken cancellationToken)
     {
         var entity = await _context.Employee
-            .FindAsync(new object[] { request.Id }, cancellationToken);
+                .Include(e => e.ApplicationUser) // Include the ApplicationUser
+                .FirstOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
 
         if (entity == null)
         {
-            throw new NotFoundException(nameof(TodoItem), request.Id);
+            throw new NotFoundException(nameof(Employee), request.Id);
         }
-
 
         entity.IdentityNumber = request.IdentityNumber;
         entity.BirthDay = request.BirthDay;
@@ -55,8 +59,20 @@ public class UpdateEmployeeHandler : IRequestHandler<UpdateEmployee>
         entity.BankAccountName = request.BankAccountName;
         entity.Created = request.Created;
         entity.CreatedBy = request.CreatedBy;
-        entity.LastModified = entity.LastModified;
+        entity.LastModified = request.LastModified;
         entity.LastModifiedBy = request.LastModifiedBy;
+
+        // Update ApplicationUser properties
+        if (entity.ApplicationUser != null)
+        {
+            entity.ApplicationUser.Fullname = request.Fullname;
+            entity.ApplicationUser.Address = request.Address;
+            entity.ApplicationUser.Image = request.Image;
+            entity.ApplicationUser.PhoneNumber = request.PhoneNumber;
+            // Other ApplicationUser properties
+            // ...
+        }
+
         await _context.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
