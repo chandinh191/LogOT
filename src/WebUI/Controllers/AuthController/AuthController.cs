@@ -110,16 +110,7 @@ public class AuthController : Controller
         return View();
     }
 
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [AllowAnonymous]
-    [HttpPost("logout")]
-   
-    public async Task<IActionResult> Logout()
-    {
-        await HttpContext.SignOutAsync(); // Đăng xuất người dùng
-
-        return RedirectToAction("Login"); // Chuyển hướng người dùng đến trang đăng nhập
-    }
+    
     [ApiExplorerSettings(IgnoreApi = true)]
     [AllowAnonymous]
     [HttpGet("register")]
@@ -171,6 +162,23 @@ public class AuthController : Controller
 
         return View(model);
     }
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [AllowAnonymous]
+    [HttpGet("logout")]
+    public IActionResult Logout()
+    {
+       
+            return View();      
 
+    }
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [AllowAnonymous]
+    [HttpPost("logout")]
 
+    public async Task<IActionResult> Logout(int a)
+    {
+        await HttpContext.SignOutAsync(); // Đăng xuất người dùng
+
+        return RedirectToAction("Login"); // Chuyển hướng người dùng đến trang đăng nhập
+    }
 }
