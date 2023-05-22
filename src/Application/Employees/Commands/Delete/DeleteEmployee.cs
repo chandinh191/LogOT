@@ -7,6 +7,7 @@ using LogOT.Application.Common.Exceptions;
 using LogOT.Application.Common.Interfaces;
 using LogOT.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace LogOT.Application.Employees.Commands.Delete;
 public record DeleteEmployee : IRequest
@@ -23,7 +24,9 @@ public record DeleteEmployee : IRequest
     public DateTime Created { get; set; }
 
     public DateTime LastModified { get; set; }
-
+    public string Fullname { get; set; }
+    public string Address { get; set; }
+    public string Image { get; set; }
     public string? LastModifiedBy { get; set; }
     public bool IsDeleted { get; set; }
 }
@@ -40,16 +43,35 @@ public class DeleteEmployeeHandler : IRequestHandler<DeleteEmployee>
     public async Task<Unit> Handle(DeleteEmployee request, CancellationToken cancellationToken)
     {
         var entity = await _context.Employee
-            .FindAsync(new object[] { request.Id }, cancellationToken);
+               .Include(e => e.ApplicationUser) // Include the ApplicationUser
+               .FirstOrDefaultAsync(e => e.Id == request.Id, cancellationToken);
 
         if (entity == null)
         {
-            throw new NotFoundException(nameof(TodoItem), request.Id);
+            throw new NotFoundException(nameof(Employee), request.Id);
         }
 
-
+        entity.IdentityNumber = request.IdentityNumber;
+        entity.BirthDay = request.BirthDay;
+        entity.BankName = request.BankName;
+        entity.BankAccountNumber = request.BankAccountNumber;
+        entity.BankAccountName = request.BankAccountName;
+        entity.Created = request.Created;
+        entity.CreatedBy = request.CreatedBy;
+        entity.LastModified = request.LastModified;
+        entity.LastModifiedBy = request.LastModifiedBy;
         entity.IsDeleted = true;
-      
+
+        // Update ApplicationUser properties
+        if (entity.ApplicationUser != null)
+        {
+            entity.ApplicationUser.Fullname = request.Fullname;
+            entity.ApplicationUser.Address = request.Address;
+            entity.ApplicationUser.Image = request.Image;
+            // Other ApplicationUser properties
+            // ...
+        }
+
         await _context.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
