@@ -28,11 +28,12 @@ public class GetAllOvertimeQueryHandler : IRequestHandler<GetAllOvertimeQuery, L
         _mapper = mapper;
     }
 
-    public async Task<List<OvertimeLogDTO>> Handle(GetAllOvertimeQuery request, CancellationToken cancellationToken)
+    public  Task<List<OvertimeLogDTO>> Handle(GetAllOvertimeQuery request, CancellationToken cancellationToken)
     {
-        var list = await _context.OvertimeLog        
-            .ProjectTo<OvertimeLogDTO>(_mapper.ConfigurationProvider)
-            .ToListAsync();
+        var list =  _context.OvertimeLog
+             .Where(e => e.IsDeleted == false)
+             .ProjectTo<OvertimeLogDTO>(_mapper.ConfigurationProvider)
+             .ToListAsync();
         return list;
     }
 
