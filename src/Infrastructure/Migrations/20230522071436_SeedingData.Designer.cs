@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LogOT.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230519120609_InitMigration")]
-    partial class InitMigration
+    [Migration("20230522071436_SeedingData")]
+    partial class SeedingData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -487,21 +487,22 @@ namespace LogOT.Infrastructure.Migrations
 
                     b.Property<string>("NameProject")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<int>("TeamSize")
                         .HasColumnType("int");
 
                     b.Property<string>("TechStack")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -523,7 +524,7 @@ namespace LogOT.Infrastructure.Migrations
                             LastModifiedBy = "test",
                             NameProject = "TestProject",
                             StartDate = new DateTime(9999, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Status = "true",
+                            Status = true,
                             TeamSize = 4,
                             TechStack = "MSSQL, .NET 7, MVC"
                         });
@@ -935,7 +936,8 @@ namespace LogOT.Infrastructure.Migrations
 
                     b.Property<string>("SkillName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Skill_Description")
                         .IsRequired()

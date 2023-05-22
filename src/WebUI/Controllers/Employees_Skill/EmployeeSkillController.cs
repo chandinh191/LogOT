@@ -1,4 +1,5 @@
-﻿using LogOT.Application.Employees_Skill;
+﻿using LogOT.Application.Common.Interfaces;
+using LogOT.Application.Employees_Skill;
 using LogOT.Application.Employees_Skill.Commands;
 using LogOT.Application.Employees_Skill.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +8,17 @@ namespace WebUI.Controllers.Employees_Skill;
 
 public class EmployeeSkillController : ControllerBaseMVC
 {
+    private readonly IApplicationDbContext _context;
+
+    public EmployeeSkillController(IApplicationDbContext context)
+    {
+        _context = context;
+    }
+
     public async Task<IActionResult> Index(Guid id)
     {
         var result = await Mediator.Send(new GetEmployeeSkillQuery(id));
+        ViewBag.Id = id;
         return View(result);
     }
 
@@ -24,12 +33,13 @@ public class EmployeeSkillController : ControllerBaseMVC
     public async Task<IActionResult> Add(Skill_EmployeeDTO skill_EmployeeDTO, Guid id)
     {
         var result = await Mediator.Send(new AddEmployeeSkillCommand(id, skill_EmployeeDTO));
-        if (result == null)
+        if (ModelState.IsValid)
         {
-            ViewBag.Message = "Error while adding Skill for Employee";
-            return View(result);
+            await _context.SaveChangesAsync(new CancellationToken());
+            return RedirectToAction("Index", new { id });
         }
-        return RedirectToAction("Index", new { id });
+        
+            return View(result);
     }
 
     [HttpGet]
@@ -43,9 +53,10 @@ public class EmployeeSkillController : ControllerBaseMVC
     public async Task<IActionResult> Update(Skill_EmployeeDTO skill_Employee, Guid id)
     {
         var result = await Mediator.Send(new UpdateEmployeeSkillCommand(id, skill_Employee));
-        if (result != null)
+        if (ModelState.IsValid)
         {
-            return RedirectToAction($"Index", new { id });
+            await _context.SaveChangesAsync(new CancellationToken());
+            return RedirectToAction("Index", new { id });
         }
         return View(result);
     }

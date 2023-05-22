@@ -5,7 +5,7 @@
 }
 @model LogOT.Application.Employees_Skill.Skill_EmployeeDTO
 
-<h1>Add employee</h1>
+<h1>Add employee Skill</h1>
 <br />
 <form asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@Model.EmployeeId">
     <table border="0">
@@ -24,17 +24,26 @@
 
         <tr>
             <td><label asp-for="Skill.SkillName"></label></td>
-            <td><input asp-for="Skill.SkillName" /></td>
+            <td>
+                <input asp-for="Skill.SkillName" />
+                <span asp-validation-for="@Model.Skill.SkillName" class="text-warning"></span>
+            </td>
         </tr>
 
         <tr>
             <td><label asp-for="Skill.Skill_Description"></label> </td>
-            <td><input asp-for="Skill.Skill_Description" /></td>
+            <td>
+                <input asp-for="Skill.Skill_Description" />
+                <span asp-validation-for="@Model.Skill.Skill_Description" class="text-warning"></span>
+            </td>
         </tr>
 
         <tr>
             <td><label asp-for="Level"></label> </td>
-            <td><input asp-for="Level" /></td>
+            <td>
+                <input asp-for="Level" />
+                <span asp-validation-for="@Model.Level" class="text-warning"></span>
+            </td>
         </tr>
 
         <tr>

@@ -51,8 +51,8 @@ public class UpdateEmployeeSkillCommandHandler : IRequestHandler<UpdateEmployeeS
             objUpdate.Skill.SkillName = request.Skill_EmployeeDTO.Skill.SkillName;
             objUpdate.Skill.Skill_Description = request.Skill_EmployeeDTO.Skill.Skill_Description;
             objUpdate.Level = request.Skill_EmployeeDTO.Level;
+
              _context.Skill_Employee.Update(objUpdate);
-           var result = await _context.SaveChangesAsync(cancellationToken);
         }
         return objReturn;
     }
