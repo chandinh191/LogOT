@@ -18,6 +18,8 @@ public class Employee : BaseAuditableEntity
     public string BankAccountNumber { get; set; }
     public string BankAccountName { get; set; }
     public string BankName { get; set; }
+    public string? CVPath { get; set; }
+
 
     public IList<Experience> Experiences { get; private set; }
     public IList<OvertimeLog> OvertimeLogs { get; private set; }

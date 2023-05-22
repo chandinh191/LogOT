@@ -12,6 +12,9 @@ using LogOT.Application.Employees.Commands.Delete;
 using LogOT.Application.Employees.Commands.Update;
 using LogOT.Application.Employees.Queries.GetEmployee;
 using WebUI.Models;
+using LogOT.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using LogOT.Application.Common.Exceptions;
 
 namespace WebUI.Controllers.EmployeeController;
 
@@ -196,5 +199,63 @@ public class EmployeeController : ControllerBaseMVC
             return View(command);
         }
     }
+
+    public async Task<IActionResult> UploadCV(Guid id)
+    {
+        string guidString = "ac69dc8e-f88d-46c2-a861-c9d5ac894141";
+
+        // Using Guid.Parse
+        Guid guid = Guid.Parse(guidString);
+
+        // Using Guid.TryParse
+        Guid.TryParse(guidString, out Guid parsedGuid);
+
+        id = guid;
+
+        var query = new GetEmployeeById { Id = guid };
+        var employee = await Mediator.Send(query);
+        if (employee == null)
+        {
+            return NotFound();
+        }
+
+        var model = new UploadCVViewModel
+        {
+            Id = employee.Id,
+            FullName = employee.BankAccountName
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UploadCV(Guid id, UploadCVViewModel model)
+    {
+        if (id != model.Id)
+        {
+            return BadRequest();
+        }
+
+        var command = new UploadCV
+        {
+            Id = model.Id,
+            CVFile = model.CVFile
+        };
+
+        try
+        {
+            await Mediator.Send(command);
+            return RedirectToAction(nameof(Index));
+        }
+        catch (NotFoundException)
+        {
+            return NotFound();
+        }
+    }
+
+
+
+
+
 }
 
