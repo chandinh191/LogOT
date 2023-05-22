@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model LogOT.Application.Experiences.ExperienceDTO
+
+<form asp-controller="Experience" asp-action="Delete" method="post" asp-route-id="@Model.EmployeeId">
+
+    <table border="0">
+        <tr>
+            <td><label asp-for="Employee.ApplicationUser.Fullname"></label></td>
+            <td><label>@Model.Employee.ApplicationUser.Fullname</label></td>
+        </tr>
+        <tr>
+            <td><label asp-for="NameProject"></label></td>
+            <td><label>@Model.NameProject</label></td>
+        </tr>
+        <tr>
+            <td><label asp-for="TeamSize"></label></td>
+            <td><label>@Model.TeamSize</label></td>
+        </tr>
+        <tr>
+            <td><label asp-for="StartDate"></label></td>
+            <td><label>@Model.StartDate</label></td>
+        </tr>
+        <tr>
+            <td><label asp-for="EndDate"></label></td>
+            <td><label>@Model.EndDate</label></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Description"></label></td>
+            <td><label>@Model.Description</label></td>
+        </tr>
+        <tr>
+            <td><label asp-for="TechStack"></label></td>
+            <td><label>@Model.TechStack</label></td>
+        </tr>
+        <tr>
+            <td><label asp-for="Status"></label></td>
+            <td><label>@Model.Status</label></td>
+        </tr>
+        <tr>
+            <td><a asp-controller="Experience" asp-action="Index" asp-route-id="@Model.EmployeeId">Return back</a></td>
+            <td><button type="submit">Delete</button></td>
+        </tr>
+    </table>
+</form>

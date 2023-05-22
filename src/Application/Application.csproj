@@ -9,9 +9,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Remove="Experiences\Commands\**" />
-      <EmbeddedResource Remove="Experiences\Commands\**" />
-      <None Remove="Experiences\Commands\**" />
+      <Compile Remove="Employees\Commands\**" />
+      <EmbeddedResource Remove="Employees\Commands\**" />
+      <None Remove="Employees\Commands\**" />
     </ItemGroup>
 
     <ItemGroup>

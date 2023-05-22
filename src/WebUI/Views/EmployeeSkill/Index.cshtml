@@ -1,6 +1,7 @@
 ﻿@model List<LogOT.Application.Employees_Skill.Skill_EmployeeDTO>
 
-<a asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@Model.FirstOrDefault().EmployeeId">Add Skill</a>
+
+<a asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@ViewBag.Id">Add Skill</a>
 <table>
     <thead>
         <tr>

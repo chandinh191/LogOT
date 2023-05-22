@@ -3,54 +3,39 @@
 @{
     ViewData["Title"] = "List";
 }
-
+<a asp-controller="Experience" asp-action="Add" asp-route-id="@ViewBag.Id">Add expericene</a>
 <table>
     <tr>
         <th>Fullname</th>
-        <th>Email</th>
-        <th>PhoneNumber</th>
         <th>NameProject</th>
         <th>TeamSize</th>
         <th>Description</th>
+        <th>TeckStack</th>
         <th>StartDate</th>
         <th>EndDate</th>
-        <th>Experiences</th>
-        <th>OvertimeLogs</th>
-        <th>LeaveLogs</th>
-        <th>EmployeeContracts</th>
-        <th>InterviewProcesses</th>
-        <th>Skill_Employees</th>
+        <th>Status</th>
+        <th>Action</th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@item.Employee.ApplicationUser.Fullname</td>
-            <td>@item.Employee.ApplicationUser.Email</td>
-            <td>@item.Employee.ApplicationUser.PhoneNumber</td>
-            <td>@item.NameProject</td>
-            <td>@item.TeamSize</td>
-            <td>@item.Description</td>
-            <td>@item.StartDate</td>
-            <td>@item.EndDate</td>
-            <td>
-                <a asp-controller="Experience" asp-action="Index" asp-route-id="@item.EmployeeId">Experiences</a>
-            </td>
-            <td>
-                <a>OvertimeLogs</a>
-            </td>
-            <td>
-                <a>LeaveLogs</a>
-            </td>
-            <td>
-                <a>EmployeeContracts</a>
-            </td>
-            <td>
-                <a>InterviewProcess</a>
-            </td>
-            <td>
-                <a>Skills</a>
-            </td>
-        </tr>
+        if (!item.IsDeleted)
+        {
+            <tr>
+                <td>@item.Employee.ApplicationUser.Fullname</td>
+                <td>@item.NameProject</td>
+                <td>@item.TeamSize</td>
+                <td>@item.Description</td>
+                <td>@item.TechStack</td>
+                <td>@item.StartDate</td>
+                <td>@item.EndDate</td>
+                <td>@item.Status</td>
+                <td>
+                    <a asp-controller="Experience" asp-action="Update" asp-route-id="@ViewBag.Id">Update</a>
+                    <a asp-controller="Experience" asp-action="Delete" asp-route-id="@ViewBag.Id">Delete</a>
+                </td>
+            </tr>
+        }
+
     }
 </table>
