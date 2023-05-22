@@ -1,4 +1,5 @@
-﻿using LogOT.Application.Common.Interfaces;
+﻿
+using LogOT.Application.Common.Interfaces;
 using LogOT.Domain.IdentityModel;
 using LogOT.Infrastructure.Files;
 using LogOT.Infrastructure.Identity;
@@ -6,9 +7,13 @@ using LogOT.Infrastructure.Persistence;
 using LogOT.Infrastructure.Persistence.Interceptors;
 using LogOT.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -34,23 +39,64 @@ public static class ConfigureServices
 
         services.AddScoped<ApplicationDbContextInitialiser>();
 
+
+
+
+
         services
             .AddDefaultIdentity<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
+
         services.AddIdentityServer()
             .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
 
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
         services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
-        services.AddAuthentication()
-            .AddIdentityServerJwt();
+        services.AddAuthentication(o =>
+        {
+            o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            o.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            o.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        })
+            .AddCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                options.SlidingExpiration = true;
+                options.AccessDeniedPath = "/Forbidden/";
+                options.LoginPath = "/Login";
+                options.LogoutPath = "/Logout";
+                options.ReturnUrlParameter = "redirectUrl";
+                options.Cookie.IsEssential = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                options.Cookie.SameSite = SameSiteMode.Lax;
+            })
+            ;
 
         services.AddAuthorization(options =>
-            options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));
+        {
+            options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                //.AddAuthenticationSchemes(
+                //    CookieAuthenticationDefaults.AuthenticationScheme‌​,
+                //    GoogleDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser()
+                .Build();
+
+            options.AddPolicy("admin", policy => policy
+                .Combine(options.DefaultPolicy)
+                .RequireRole("Administrator")
+                .Build());
+            options.AddPolicy("member", policy => policy
+                .Combine(options.DefaultPolicy)
+                .RequireRole("Member")
+                .Build());
+
+        });
 
         return services;
     }

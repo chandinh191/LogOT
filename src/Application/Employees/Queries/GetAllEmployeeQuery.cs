@@ -25,6 +25,7 @@ public class GetAllEmployeeWithPaginationQueryHandler : IRequestHandler<GetAllEm
     {
         var list = await _context.Employee
             .Include(e => e.Experiences)
+             .Where(e => e.IsDeleted == false)
             .ProjectTo<EmployeeDTO>(_mapper.ConfigurationProvider)
             .ToListAsync();
         return list;

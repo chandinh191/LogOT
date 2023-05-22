@@ -1,0 +1,345 @@
+﻿@using LogOT.Application.Salaries.Commands;
+@using Newtonsoft.Json;
+@using System.Globalization;
+@model CreateSalaryCommand
+
+@{
+    ViewData["Title"] = "Salary Calculator";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .form {
+            width: 100%;
+            padding: 0 10px;
+            font-size: 20px;
+        }
+
+        .form-main {
+            border: 1px solid rgb(201, 192, 192);
+            padding: 30px 20px;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group__infor {
+            font-weight: 700;
+        }
+
+            .form-group__infor p {
+                margin-top: 10px;
+                color: rgb(60, 204, 60);
+            }
+
+        .form-calculate {
+            display: flex;
+            margin: 30px 0;
+        }
+
+        .form-calculate__infor {
+            width: 50%;
+        }
+
+        .form-group__main {
+            position: relative;
+            width: 70%;
+            border: 1px solid rgb(201, 192, 192);
+            margin: 30px 0;
+        }
+
+        .icon-form {
+            position: absolute;
+            top: 28%;
+            left: 10px;
+            color: rgb(60, 204, 60);
+            width: 24px;
+            height: 24px;
+        }
+
+        .unit {
+            position: absolute;
+            top: 30%;
+            right: 12px;
+            color: rgb(201, 192, 192);
+            font-size: 16px;
+        }
+
+        .form-group__calculate label {
+            font-weight: 800;
+        }
+
+        .income,
+        .depend {
+            margin-left: 40px;
+            height: 48px;
+            border: none;
+            width: 80%;
+            outline: none;
+        }
+
+        .form-group__choice {
+            display: flex;
+            margin: 20px 0;
+        }
+
+            .form-group__choice div {
+                width: 50%;
+            }
+
+        .form__input-choice {
+            width: 50%;
+            margin-left: 8px;
+            padding-right: 15px height: 48px;
+            border: 1px solid rgb(201, 192, 192);
+        }
+
+        .form-group__another {
+            position: relative;
+        }
+
+        .unit__another {
+            position: absolute;
+            top: 30%;
+            right: -10px;
+            color: rgb(201, 192, 192);
+            font-size: 16px;
+        }
+
+        input[type='radio'] {
+            accent-color: green;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+            th.color, th.color + td {
+                background-color: #f2f2f2;
+            }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<div style="background-color: #ffffff; border-radius: 10px; padding: 10px;">
+    <h1>Salary Calculator</h1>
+    <div class="form">
+        <div class="form-main">
+            <div class="form-group">
+                <div class="form-group__infor">
+                    <label for="Income">Lương cơ sở:</label>
+                    <p>1,490,000đ</p>
+                </div>
+                <div class="form-group__infor">
+                    <label for="Personal_Deduction">Giảm trừ gia cảnh bản thân:</label>
+                    <p>11,000,000đ</p>
+                </div>
+                <div class="form-group__infor">
+                    <label for="Dependent_Deduction">Người phụ thuộc:</label>
+                    <p>4,400,000đ</p>
+                </div>
+            </div>
+        </div>
+        <form asp-action="Index" method="post">
+            <div class="form-calculate">
+                <div class="form-calculate__infor">
+                    <div class="form-group__calculate">
+                        <label for="Income">Thu nhập: </label><span asp-validation-for="Income" class="text-danger"></span><br>
+                        <div class="form-group__main">
+                            <div class="icon-form">
+                                $
+                            </div>
+                            <input type="number" name="Income" class="income" value="@Model.Income" dir="rtl" style="padding-right: 15px;" />
+                            <div class="unit">
+                                (VNĐ)
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-calculate__infor">
+                    <div class="form-group__calculate">
+                        <label for="Number_Of_Dependents">Số người phụ thuộc: </label><span asp-validation-for="Number_Of_Dependents" class="text-danger"></span><br>
+                        <div class="form-group__main">
+                            <div class="icon-form">
+                                <i class="fa-solid fa-user-group"></i>
+                            </div>
+                            <input type="number" name="Number_Of_Dependents" value="@Model.Number_Of_Dependents" class="depend" dir="rtl" style="padding-right: 25px;" />
+                            <div class="unit">
+                                (Người)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group__calculate">
+                <label for="Insurance_Premium">Mức đóng bảo hiểm: </label>
+                <span asp-validation-for="InsuranceType" class="text-danger"></span>
+                <div class="form-group__choice">
+                    <div>
+                        <input type="radio" name="InsuranceType" value="official" checked="@("official" == Model.InsuranceType)" /> Trên lương chính thức
+                    </div>
+                    <div class="form-group__another">
+                        <input type="radio" name="InsuranceType" value="custom" checked="@("custom" == Model.InsuranceType)" /> Khác:
+                        <input type="number" name="CustomSalary" id="CustomSalary" readonly dir="rtl" style="padding-right: 15px;" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group__calculate">
+                <label for="SalaryType">Loại lương:</label>
+                <span asp-validation-for="SalaryType" class="text-danger"></span>
+                <div class="form-group__choice">
+                    <div>
+                        <input type="radio" name="SalaryType" value="Net" checked="@("Net" == Model.SalaryType)" /> Gross -> Net
+                    </div>
+                    <div>
+                        <input type="radio" name="SalaryType" value="Gross" checked="@("Gross" == Model.SalaryType)" /> Net -> Gross
+                    </div>
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate</button>
+        </form>
+    </div>
+    <br />
+    @if (ViewBag.SalaryDto != null)
+    {
+        @if (ViewBag.SalaryDto is SalaryDto item)
+        {
+            <h1><strong>Diễn giải chi tiết (VND)</strong></h1>
+            <table>
+                <tr>
+                    <th class="color">Lương GROSS</th>
+                    <td>@item.Gross.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                </tr>
+                <tr>
+                    <th>Bảo hiểm xã hội (8%)</th>
+                    <td>@item.BHXH_Emp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                </tr>
+                <tr>
+                    <th>Bảo hiểm y tế (1.5%)</th>
+                    <td>@item.BHYT_Emp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+
+                </tr>
+                <tr>
+                    <th>Bảo hiểm thất nghiệp (1%)</th>
+                    <td>@item.BHTN_Emp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+
+                </tr>
+                <tr>
+                    <th class="color">Thu nhập trước thuế	</th>
+                    <td>@item.TNTT.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                </tr>
+                <tr>
+                    <th>Giảm trừ gia cảnh bản thân</th>
+                    <td>11.000.000đ</td>
+
+                </tr>
+                <tr>
+                    <th>Giảm trừ gia cảnh người phụ thuộc	</th>
+
+                    <td>@item.Dependent_Deduction.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+
+                </tr>
+                <tr>
+                    <th class="color">Thu nhập chịu thuế</th>
+                    <td>@item.TNCT.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+
+                </tr>
+                <tr>
+                    <th>Thuế thu nhập cá nhân (*)</th>
+                    <td>@item.TTNCN.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                </tr>
+                <tr>
+                    <th class="color">
+                        Lương NET
+                        (Thu nhập trước thuế - Thuế thu nhập cá nhân)
+                    </th>
+                    <td>@item.Net.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+
+                </tr>
+            </table>
+
+            <br />
+            <h1><strong>Người sử dụng lao động trả (VND)</strong></h1>
+            <table>
+                <tr>
+                    <th class="color">Lương GROSS</th>
+                    <td>@item.Gross.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                </tr>
+                <tr>
+                    <th>Bảo hiểm xã hội (17.5%)</th>
+                    <td>@item.BHXH_Comp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                </tr>
+                <tr>
+                    <th>Bảo hiểm y tế (3%)</th>
+                    <td>@item.BHYT_Comp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                </tr>
+                <tr>
+                    <th>Bảo hiểm thất nghiệp (1%)</th>
+                    <td>@item.BHTN_Comp.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                </tr>
+                <tr>
+                    <th class="color">
+                        Lương NET
+                        (Thu nhập trước thuế - Thuế thu nhập cá nhân)
+                    </th>
+                    <td>@item.Total_Cmp_Salary.ToString("C", CultureInfo.GetCultureInfo("vi-VN"))</td>
+                </tr>
+            </table>
+
+        }
+    }
+</div>
+<script>
+    var officialInsuranceRadio = document.querySelector('input[name="InsuranceType"][value="official"]');
+    var customInsurancePremiumInput = document.getElementById("CustomSalary");
+
+    officialInsuranceRadio.addEventListener("change", function () {
+        if (this.checked) {
+            customInsurancePremiumInput.value = ""; // Xóa giá trị trong ô nhập liệu
+            customInsurancePremiumInput.setAttribute("readonly", true);
+        } else {
+            customInsurancePremiumInput.removeAttribute("readonly");
+        }
+    });
+
+    var customInsuranceRadio = document.querySelector('input[name="InsuranceType"][value="custom"]');
+    var customInsurancePremiumInput = document.getElementById("CustomSalary");
+
+    customInsuranceRadio.addEventListener("change", function () {
+        customInsurancePremiumInput.readOnly = !this.checked;
+        if (this.checked) {
+            customInsurancePremiumInput.removeAttribute("readonly");
+        } else {
+            customInsurancePremiumInput.setAttribute("readonly", true);
+        }
+    });
+</script>

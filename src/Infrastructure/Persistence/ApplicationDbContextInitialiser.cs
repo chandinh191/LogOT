@@ -53,14 +53,25 @@ public class ApplicationDbContextInitialiser
 
     public async Task TrySeedAsync()
     {
-        // admin roles
-       /* var administratorRole = new IdentityRole("Administrator");
+        var administratorRole = new IdentityRole("Manager");
 
         if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
         {
             await _roleManager.CreateAsync(administratorRole);
         }
+        // admin users
+        var administrator = new ApplicationUser { UserName = "administrator2@localhost", Email = "administrator2@localhost", Fullname = "Administrator", Address = "No", Image = "No" };
 
+        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
+        {
+            await _userManager.CreateAsync(administrator, "Administrator1!");
+            if (!string.IsNullOrWhiteSpace(administratorRole.Name))
+            {
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
+            }
+        }
+       
+/*
         // staff roles
         var staffRole = new IdentityRole("Staff");
 
@@ -78,19 +89,19 @@ public class ApplicationDbContextInitialiser
         }
 
         // admin users
-        var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost", Fullname = "Administrator", Address="No", Image= "No" };
+        *//*var administrator = new ApplicationUser { UserName = "administrator@localhost", Email = "administrator@localhost", Fullname = "Administrator", Address = "No", Image = "No" };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
             await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
-        }
+        }*//*
 
 
-        var staff = new ApplicationUser { UserName = "staff@localhost", Email = "staff@localhost" , Fullname = "Staff", Address = "No", Image = "No" };
+        var staff = new ApplicationUser { UserName = "staff@localhost", Email = "staff@localhost", Fullname = "Staff", Address = "No", Image = "No" };
 
         if (_userManager.Users.All(u => u.UserName != staff.UserName))
         {
@@ -99,7 +110,7 @@ public class ApplicationDbContextInitialiser
             {
                 await _userManager.AddToRolesAsync(staff, new[] { staffRole.Name });
             }
-        }*/
-
+        }
+*/
     }
 }
