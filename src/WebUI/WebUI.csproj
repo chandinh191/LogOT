@@ -42,13 +42,13 @@
 
     <ItemGroup>
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
+        <Compile Remove="Views\NewFolder\**" />
         <Content Remove="$(SpaRoot)**" />
+        <Content Remove="Views\NewFolder\**" />
+        <EmbeddedResource Remove="Views\NewFolder\**" />
         <None Remove="$(SpaRoot)**" />
+        <None Remove="Views\NewFolder\**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Views\NewFolder\" />
     </ItemGroup>
 
     <ItemGroup>
