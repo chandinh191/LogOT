@@ -41,7 +41,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-
+app.UseNToastNotify();
 app.UseAuthentication();
 app.UseAuthorization();
 

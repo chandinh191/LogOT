@@ -38,7 +38,7 @@ public class EmployeeController : ControllerBaseMVC
         _signInManager = signInManager;
         _environment = environment;
     }
-    public async Task<ActionResult> Index(GetAllEmployeeWithPaginationQuery query)
+    public async Task<ActionResult> Index(GetAllEmployeeQuery query)
     {
         var result = await Mediator.Send(query);
         return View(result);

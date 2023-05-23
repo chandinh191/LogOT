@@ -3,101 +3,112 @@
 @using LogOT.Domain.Enums;
 @model EmployeeContractDto
 @{
+    ViewData["Title"] = "Employee Contract - Update";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@{
     var status = Enum.GetValues(typeof(EmployeeContractStatus)).Cast<EmployeeContractStatus>();
     var salaryType = Enum.GetValues(typeof(SalaryType)).Cast<SalaryType>();
     var contractType = Enum.GetValues(typeof(ContractType)).Cast<ContractType>();
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Update Employee Contract</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
 
-        h2 {
-            color: #333;
-        }
+<div>
+    <div class="vertical-overlay"></div>
+    <div>
+        <div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <h4>Update Employee Contract</h4>
+                                <div class="flex-shrink-0">
+                                    <div class="form-check form-switch form-switch-right form-switch-md">
+                                        <label for="form-grid-showcode" class="form-label text-muted">Show Form</label>
+                                        <input class="form-check-input code-switcher" type="checkbox" id="form-grid-showcode">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="live-preview">
+                                    <form action="Update" method="post">
+                                        <div class="row">
+                                            <input type="hidden" id="Id" name="Id" value="@Model.Id" required>
 
-        label {
-            display: block;
-            margin-top: 10px;
-        }
+                                            <div class="form-group mb-3">
+                                                <label for="EmployeeId">Employee:</label>
+                                                <input type="text" class="form-control" id="EmployeeId" name="EmployeeId" value="@Model.EmployeeName" readonly>
+                                            </div>
 
-        input[type="text"],
-        input[type="date"],
-        textarea {
-            width: 200px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+                                            <div class="form-group mb-3">
+                                                <label for="File">File:</label>
+                                                <input type="text" class="form-control" id="File" name="File" value="@Model.File">
+                                            </div>
 
-        button[type="submit"] {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <h2>Update Employee Contract</h2>
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-3">
+                                                    <label for="EndDate">End Date:</label>
+                                                    <input type="date" class="form-control" id="EndDate" name="EndDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")">
+                                                </div>
+                                            </div>
 
-    <form action="Update" method="post">
-        <input type="hidden" id="Id" name="Id" value="@Model.Id" required>
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-3">
+                                                    <label for="Status">Status:</label>
+                                                    <select id="Status" class="form-select" name="Status" required>
+                                                        @foreach (var type in status)
+                                                        {
+                                                            <option value="@type" selected="@(type == Model.Status)">@type</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group mb-3">
+                                                <label for="Job">Job:</label>
+                                                <input type="text" class="form-control" id="Job" name="Job" value="@Model.Job">
+                                            </div>
 
-        <label for="EmployeeName">Employee:</label>
-        <input type="text" id="EmployeeName" name="EmployeeName" value="@Model.EmployeeName" readonly required>
-        <br>
+                                            <div class="form-group mb-3">
+                                                <label for="Salary">Salary:</label>
+                                                <input type="number" class="form-control" id="Salary" name="Salary" value="@Model.Salary">
+                                            </div>
 
-        <label for="File">File:</label>
-        <input type="text" id="File" name="File" value="@Model.File" required>
-        <br>
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-3">
+                                                    <label for="SalaryType">Salary Type:</label>
+                                                    <select id="SalaryType" class="form-select" name="SalaryType" required>
+                                                        @foreach (var type in salaryType)
+                                                        {
+                                                            <option value="@type" selected="@(type == Model.SalaryType)">@type</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
 
-        <label for="EndDate">End Date:</label>
-        <input type="date" id="EndDate" name="EndDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" required />
-        <br>
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-3">
+                                                    <label for="ContractType">Contract Type:</label>
+                                                    <select id="ContractType" class="form-select" name="ContractType" required>
+                                                        @foreach (var type in contractType)
+                                                        {
+                                                            <option value="@type" selected="@(type == Model.ContractType)">@type</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
 
-        <label for="Job">Job:</label>
-        <textarea id="Job" name="Job" rows="4" required>@Model.Job</textarea>
-        <br>
-
-        <label for="Salary">Salary:</label>
-        <input type="number" id="Salary" name="Salary" value="@Model.Salary" required>
-        <br>
-
-        <label for="Status">Status:</label>
-        <select id="Status" name="Status" required>
-            @foreach (var type in status)
-            {
-                <option value="@type" selected="@(type == Model.Status)">@type</option>
-            }
-        </select>
-        <br>
-
-        <label for="SalaryType">Salary Type:</label>
-        <select id="SalaryType" name="SalaryType" required>
-            @foreach (var type in salaryType)
-            {
-                <option value="@type" selected="@(type == Model.SalaryType)">@type</option>
-            }
-        </select>
-        <br>
-
-        <label for="ContractType">Contract Type:</label>
-        <select id="ContractType" name="ContractType" required>
-            @foreach (var type in contractType)
-            {
-                <option value="@type" selected="@(type == Model.ContractType)">@type</option>
-            }
-        </select>
-        <br>
-
-        <button type="submit">Update</button>
-    </form>
-</body>
-</html>
+                                            <div>
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

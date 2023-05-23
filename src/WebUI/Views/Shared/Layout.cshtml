@@ -32,6 +32,10 @@
     @*Datatable champ*@
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" ; />
 
+    <!-- DataTable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
@@ -1954,6 +1958,7 @@
                                 @RenderBody()
                             </div>
 
+
                         </div> <!-- end col -->
 
                         <div class="col-auto layout-rightside-col">
@@ -2384,6 +2389,7 @@
                             </div> <!-- end .rightbar-->
 
                         </div> <!-- end col -->
+
                     </div>
 
                 </div>
@@ -3166,6 +3172,20 @@
             </div>
         </div>
     </div>
+
+    <!-- DataTable --> 
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable({
+                columnDefs: [
+                    {
+                        targets: 0,
+                        type: 'natural'
+                    }
+                ]
+            });           
+        });
+    </script>
 
     <!-- JAVASCRIPT -->
     <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
