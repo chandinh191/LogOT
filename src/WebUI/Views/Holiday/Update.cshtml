@@ -1,0 +1,52 @@
+﻿@model LogOT.Application.Holidays.Commands.UpdateHoliday.UpdateHolidayCommand
+
+@{
+    ViewData["Title"] = "Update Holiday";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title mb-0">Update Holiday</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="col-sm-auto mb-3">
+            <div>
+                <a class="btn btn-secondary" asp-controller="Holiday" asp-action="Index">Return back</a>
+            </div>
+        </div>
+
+        <form asp-controller="Holiday" asp-action="Update" method="post">
+            <table class="table table-bordered">
+                <tr>
+                    <td><label for="dateName">Date Name</label></td>
+                    <td>
+                        <input type="text" class="form-control" id="dateName" name="DateName" value="@Model.DateName" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="day">Day</label></td>
+                    <td>
+                        <input type="date" class="form-control" id="day" name="Day" value="@Model.Day.ToString("yyyy-MM-dd")" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="hourlyPay">Hourly Pay</label></td>
+                    <td>
+                        <input type="number" class="form-control" id="hourlyPay" name="HourlyPay" step="0.01" value="@Model.HourlyPay" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label style="color: blue">ACTION</label></td>
+                    <td>
+                        <button class="btn btn-primary" type="submit">
+                            <i class="ri-edit-2-line"></i>
+                            Update
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

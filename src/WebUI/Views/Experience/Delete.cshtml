@@ -5,44 +5,73 @@
 }
 @model LogOT.Application.Experiences.ExperienceDTO
 
-<form asp-controller="Experience" asp-action="Delete" method="post" asp-route-id="@Model.EmployeeId">
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<div class="card">
 
-    <table border="0">
-        <tr>
-            <td><label asp-for="Employee.ApplicationUser.Fullname"></label></td>
-            <td><label>@Model.Employee.ApplicationUser.Fullname</label></td>
-        </tr>
-        <tr>
-            <td><label asp-for="NameProject"></label></td>
-            <td><label>@Model.NameProject</label></td>
-        </tr>
-        <tr>
-            <td><label asp-for="TeamSize"></label></td>
-            <td><label>@Model.TeamSize</label></td>
-        </tr>
-        <tr>
-            <td><label asp-for="StartDate"></label></td>
-            <td><label>@Model.StartDate</label></td>
-        </tr>
-        <tr>
-            <td><label asp-for="EndDate"></label></td>
-            <td><label>@Model.EndDate</label></td>
-        </tr>
-        <tr>
-            <td><label asp-for="Description"></label></td>
-            <td><label>@Model.Description</label></td>
-        </tr>
-        <tr>
-            <td><label asp-for="TechStack"></label></td>
-            <td><label>@Model.TechStack</label></td>
-        </tr>
-        <tr>
-            <td><label asp-for="Status"></label></td>
-            <td><label>@Model.Status</label></td>
-        </tr>
-        <tr>
-            <td><a asp-controller="Experience" asp-action="Index" asp-route-id="@Model.EmployeeId">Return back</a></td>
-            <td><button type="submit">Delete</button></td>
-        </tr>
-    </table>
-</form>
+    <div class="card-header">
+        <h4 class="card-title mb-0">Delete Employee Experience</h4>
+    </div>
+
+    <div class="card-body">
+
+
+        <div class="col-sm-auto mb-3">
+            <div>
+                <a class="btn btn-secondary" asp-controller="Experience" asp-action="Index" asp-route-id="@Model.EmployeeId">
+                    <i class="ri-arrow-go-back-fill"></i>
+                Return back</a>
+            </div>
+        </div>
+
+
+        <form asp-controller="Experience" asp-action="Delete" method="post" asp-route-id="@Model.EmployeeId">
+
+            <table class="table table-bordered">
+                <tr>
+                    <td><label asp-for="Employee.ApplicationUser.Fullname"></label></td>
+                    <td><label>@Model.Employee.ApplicationUser.Fullname</label></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="NameProject"></label></td>
+                    <td><label>@Model.NameProject</label></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="TeamSize"></label></td>
+                    <td><label>@Model.TeamSize</label></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="StartDate"></label></td>
+                    <td><label>@Model.StartDate</label></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="EndDate"></label></td>
+                    <td><label>@Model.EndDate</label></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Description"></label></td>
+                    <td><label>@Model.Description</label></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="TechStack"></label></td>
+                    <td><label>@Model.TechStack</label></td>
+                </tr>
+                <tr>
+                    <td><label asp-for="Status"></label></td>
+                    <td><label>@Model.Status</label></td>
+                </tr>
+                <tr>
+                    <td><label style="color: blue">ACTION</label></td>
+                    <td><button class="btn btn-danger" type="submit">
+                        <i class="ri-delete-bin-2-fill"></i>
+                        Delete
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
