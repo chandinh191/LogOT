@@ -9,22 +9,16 @@ using AutoMapper.QueryableExtensions;
 using LogOT.Application.Common.Exceptions;
 using LogOT.Application.Common.Interfaces;
 using LogOT.Application.Employees_Skill;
+using LogOT.Application.LogOverTime.Queries;
 using LogOT.Application.TodoLists.Commands.UpdateTodoList;
 using LogOT.Domain.Entities;
 using LogOT.Domain.Enums;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace LogOT.Application.OvertimeLogs.Commands;
-public class UpdateApprovedStatusCommand : IRequest <OvertimeLogDTO>
-{
-    public Guid Id { get; set; }
-    //public OvertimeLogDTO Dto { get; set; }
-    public UpdateApprovedStatusCommand(Guid id)
-    {
-        Id = id;
-        //Dto=dto;
-    }
-}
+public record UpdateApprovedStatusCommand(Guid Id) : IRequest<OvertimeLogDTO>;
+
 
 public class UpdateApprovedStatusCommandHandler : IRequestHandler<UpdateApprovedStatusCommand, OvertimeLogDTO>
 {
@@ -39,23 +33,20 @@ public class UpdateApprovedStatusCommandHandler : IRequestHandler<UpdateApproved
 
     public async Task<OvertimeLogDTO> Handle(UpdateApprovedStatusCommand request, CancellationToken cancellationToken)
     {
-        var entity =  _context.OvertimeLog
-            .Where(o => o.Id == request.Id)
-            .ProjectTo<OvertimeLogDTO>(_mapper.ConfigurationProvider)
-            .FirstOrDefault();
-        var newEntity = _context.OvertimeLog
-           .Where(o => o.Id == request.Id)           
-           .FirstOrDefault();
+        var entity = await _context.OvertimeLog
+            .Where(x => x.Id == request.Id && x.IsDeleted == false)
+            .FirstOrDefaultAsync(cancellationToken);
         if (entity == null)
         {
             throw new NotFoundException(nameof(OvertimeLog), request.Id);
         }
-        var status = StatusOvertimeLog.Approved;
-        newEntity.Status = status.ToString();
+        var status = StatusOvertimeLog.Approved;      
         entity.Status = status.ToString();
-        _context.OvertimeLog.Update(newEntity);
+        _context.OvertimeLog.Update(entity);
         await _context.SaveChangesAsync(cancellationToken);
 
-        return entity;
+
+        var newEntity = _mapper.Map<OvertimeLogDTO>(entity);
+        return newEntity;
     }
 }

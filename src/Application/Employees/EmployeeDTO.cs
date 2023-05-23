@@ -17,7 +17,6 @@ public class EmployeeDTO : BaseAuditableEntity, IMapFrom<Employee>
 {
     [ForeignKey("ApplicationUser")]
     public string ApplicationUserId { get; set; }
-
     public string IdentityNumber { get; set; }
     public DateTime BirthDay { get; set; }
     public string BankAccountNumber { get; set; }

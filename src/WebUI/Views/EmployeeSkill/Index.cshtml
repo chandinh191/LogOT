@@ -1,33 +1,74 @@
 ﻿@model List<LogOT.Application.Employees_Skill.Skill_EmployeeDTO>
 
-<a asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@Model.FirstOrDefault().EmployeeId">Add Skill</a>
-<table>
-    <thead>
-        <tr>
-            <th>Fullname</th>
-            <th>Skill Name</th>
-            <th>Skill Description</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    @foreach (var item in Model)
-    {
 
-        <tbody>
-            @if (item.Skill.IsDeleted == false)
-            {
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="card">
+
+    <div class="card-header">
+        <h4 class="card-title mb-0">Add, Edit & Remove</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="row g-4 mb-3">
+            <div class="col-sm-auto">
+                <a class="btn btn-primary text-white" asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@ViewBag.Id">
+                    <i class="ri-add-box-fill"></i>
+                    Add Skill
+                </a>
+            </div>
+            <div class="col-sm-auto">
+
+                <a class="btn btn-secondary text-white" asp-controller="Employee" asp-action="Index" asp-route-id="@ViewBag.Id">
+                    <i class="ri-arrow-go-back-fill"></i>
+                    Return back
+                </a>
+            </div>
+        </div>
+
+        <table class="table table-bordered" id="tblExperience">
+            <thead class="table-light">
+
                 <tr>
-                    <td>@item.Employee.ApplicationUser.Fullname</td>
-                    <td>@item.Skill.SkillName</td>
-                    <td>@item.Skill.Skill_Description</td>
-                    <td>
-                        <a asp-controller="EmployeeSkill" asp-action="Update" asp-route-id="@item.EmployeeId">Update</a>
-                        <a asp-controller="EmployeeSkill" asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
-                    </td>
+                    <th>Fullname</th>
+                    <th>Skill Name</th>
+                    <th>Skill Description</th>
+                    <th>Action</th>
                 </tr>
-            }
-        </tbody>
-    }
-</table>
+            </thead>
+            @foreach (var item in Model)
+            {
 
-<a asp-controller="Employee" asp-action="Index">Return back</a>
+                <tbody>
+                    @if (item.Skill.IsDeleted == false)
+                    {
+                        <tr>
+                            <td>@item.Employee.ApplicationUser.Fullname</td>
+                            <td>@item.Skill.SkillName</td>
+                            <td>@item.Skill.Skill_Description</td>
+                            <td>
+                                <a class="btn btn-primary" asp-controller="EmployeeSkill" asp-action="Update" asp-route-id="@item.EmployeeId">
+                                    <i class="ri-edit-2-line"></i>
+                                    Update
+                                </a>
+                                <a class="btn btn-danger " asp-controller="EmployeeSkill" asp-action="Delete" asp-route-id="@item.EmployeeId">
+                                    <i class="ri-delete-bin-2-fill"></i>
+                                Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+
+        @section Scripts {
+            <script>
+                let table = new DataTable('#tblExperience');
+            </script>
+        }

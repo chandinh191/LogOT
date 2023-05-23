@@ -40,7 +40,7 @@ public class EmployeeController : ControllerBaseMVC
         _signInManager = signInManager;
         _environment = environment;
     }
-    public async Task<ActionResult> Index(GetAllEmployeeWithPaginationQuery query)
+    public async Task<ActionResult> Index(GetAllEmployeeQuery query)
     {
         // Lấy employeeId từ session
        if (Request.Cookies.TryGetValue("EmployeeId", out string employeeId))

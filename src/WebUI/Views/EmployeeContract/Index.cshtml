@@ -2,90 +2,104 @@
 @using LogOT.Domain.Enums;
 @using LogOT.Application.EmployeeContracts.Queries;
 @model List<EmployeeContractDto>
-
-<head>
-    <style>
-        .leave-log-title {
-            color: blue;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .leave-log-table {
-            width: 100%;
-        }
-
-            .leave-log-table th {
-                background-color: lightgray;
-                font-weight: bold;
-            }
-
-            .leave-log-table td {
-                padding: 8px;
-            }
-
-        .btn {
-            display: inline-block;
-            padding: 6px 12px;
-            margin-bottom: 0;
-            font-size: 14px;
-            font-weight: normal;
-            line-height: 1.42857143;
-            text-align: center;
-            white-space: nowrap;
-            vertical-align: middle;
-            cursor: pointer;
-            border: 1px solid transparent;
-            border-radius: 4px;
-            user-select: none;
-        }
-
-        .btn-primary {
-            color: #fff;
-            background-color: #337ab7;
-            border-color: #2e6da4;
-        }
-    </style>
-</head>
+@{
+    ViewData["Title"] = "Employee Contract - Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
 @await Component.InvokeAsync("NToastNotify")
-<h2 class="leave-log-title">Employee Contract List</h2>
+<div id="layout-wrapper">
+    <div class="vertical-overlay">
+    </div>
+    <div>
+        <div id="scrollbar">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <h4>List Employee Contract</h4>
+                                <div>
+                                    <a type="button" href="/EmployeeContract/Create" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i>Create</a>
+                                    <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i class="ri-delete-bin-2-line"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table class="table align-middle table-nowrap" id="datatable">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col" style="width: 50px;">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                                </div>
+                                            </th>
+                                            <th>Employee</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Job</th>
+                                            <th>Salary</th>
+                                            <th>Status</th>
+                                            <th>SalaryType</th>
+                                            <th>ContractType</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="list form-check-all">
+                                        @foreach (var employeeContract in Model)
+                                        {
+                                            <tr>
+                                                <td scope="row">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                    </div>
+                                                </td>
+                                                <td>@employeeContract.EmployeeName</td>
+                                                <td>@employeeContract.StartDate?.ToShortDateString()</td>
+                                                <td>@employeeContract.EndDate?.ToShortDateString()</td>
+                                                <td>@employeeContract.Job</td>
+                                                <td>@employeeContract.Salary</td>
+                                                <td>@Enum.GetName(typeof(EmployeeContractStatus), employeeContract.Status)</td>
+                                                <td>@Enum.GetName(typeof(SalaryType), employeeContract.SalaryType)</td>
+                                                <td>@Enum.GetName(typeof(ContractType), employeeContract.ContractType)</td>
+                                                <td>
+                                                    <div class="d-flex gap-2">
+                                                        <div class="edit">
+                                                            <a href="@Url.Action("Update", new { id = employeeContract.Id })" class="btn btn-primary">Update</a>
+                                                        </div>
+                                                        <div class="remove">
+                                                            <form action="@Url.Action("Delete", new { id = employeeContract.Id })" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
+                                                                <button type="submit" class="btn btn-primary">Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col" style="width: 50px;">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                                </div>
+                                            </th>
+                                            <th>Employee</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Job</th>
+                                            <th>Salary</th>
+                                            <th>Status</th>
+                                            <th>SalaryType</th>
+                                            <th>ContractType</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<a href="/EmployeeContract/Create" class="btn btn-primary">Create Employee Contract</a>
-<br />
-<br />
-<table class="table leave-log-table">
-    <thead>
-        <tr>
-            <th>Employee</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Job</th>
-            <th>Salary</th>
-            <th>Status</th>
-            <th>SalaryType</th>
-            <th>ContractType</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var employeeContract in Model)
-        {
-            <tr>
-                <td>@employeeContract.EmployeeName</td>
-                <td>@employeeContract.StartDate?.ToShortDateString()</td>
-                <td>@employeeContract.EndDate?.ToShortDateString()</td>
-                <td>@employeeContract.Job</td>
-                <td>@employeeContract.Salary</td>
-                <td>@Enum.GetName(typeof(EmployeeContractStatus), employeeContract.Status)</td>
-                <td>@Enum.GetName(typeof(SalaryType), employeeContract.SalaryType)</td>
-                <td>@Enum.GetName(typeof(ContractType), employeeContract.ContractType)</td>
-                <td>
-                    <a href="@Url.Action("Update", new { id = employeeContract.Id })" class="btn btn-primary">Update</a>
-                    <form action="@Url.Action("Delete", new { id = employeeContract.Id })" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
-                        <button type="submit" class="btn btn-primary">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>

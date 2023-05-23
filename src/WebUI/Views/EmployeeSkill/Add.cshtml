@@ -5,45 +5,80 @@
 }
 @model LogOT.Application.Employees_Skill.Skill_EmployeeDTO
 
-<h1>Add employee</h1>
-<br />
-<form asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@Model.EmployeeId">
-    <table border="0">
-        <input type="hidden" asp-for="Employee" />
-        <tr>
-            <td>
-                <label asp-for="@Model.EmployeeId"></label>
-            </td>
-            <td><label>@Model.EmployeeId</label></td>
-        </tr>
 
-        <tr>
-            <td><label asp-for="Employee.ApplicationUser.UserName"></label></td>
-            <td><label>@Model.Employee.ApplicationUser.UserName</label></td>
-        </tr>
 
-        <tr>
-            <td><label asp-for="Skill.SkillName"></label></td>
-            <td><input asp-for="Skill.SkillName" /></td>
-        </tr>
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<div class="card">
 
-        <tr>
-            <td><label asp-for="Skill.Skill_Description"></label> </td>
-            <td><input asp-for="Skill.Skill_Description" /></td>
-        </tr>
+    <div class="card-header">
+        <h4 class="card-title mb-0">Add employee Skill</h4>
+    </div>
 
-        <tr>
-            <td><label asp-for="Level"></label> </td>
-            <td><input asp-for="Level" /></td>
-        </tr>
+    <div class="card-body">
 
-        <tr>
-            <td>
-                <button type="submit">Update</button>
-            </td>
-            <td>
-                <a asp-controller="EmployeeSkill" asp-action="Index" asp-route-id="@Model.EmployeeId">Return back</a>
-            </td>
-        </tr>
-    </table>
-</form>
+
+        <div class="col-sm-auto mb-3">
+            <div>
+                <a class="btn btn-secondary" asp-controller="Experience" asp-action="Index" asp-route-id="@Model.EmployeeId">
+                    <i class="ri-arrow-go-back-fill"></i>
+                Return back</a>
+            </div>
+        </div>
+
+
+        <form asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@Model.EmployeeId">
+            <table class="table table-bordered">
+                <input type="hidden" asp-for="Employee" />
+                <tr>
+                    <td>
+                        <label asp-for="@Model.EmployeeId"></label>
+                    </td>
+                    <td><label>@Model.EmployeeId</label></td>
+                </tr>
+
+                <tr>
+                    <td><label asp-for="Employee.ApplicationUser.UserName"></label></td>
+                    <td><label>@Model.Employee.ApplicationUser.UserName</label></td>
+                </tr>
+
+                <tr>
+                    <td><label asp-for="Skill.SkillName"></label></td>
+                    <td>
+                        <input class="input-group-text"  asp-for="Skill.SkillName" />
+                        <span asp-validation-for="@Model.Skill.SkillName" class="text-warning"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label asp-for="Skill.Skill_Description"></label> </td>
+                    <td>
+                        <input class="input-group-text"  asp-for="Skill.Skill_Description" />
+                        <span asp-validation-for="@Model.Skill.Skill_Description" class="text-warning"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label asp-for="Level"></label> </td>
+                    <td>
+                        <input class="input-group-text"  asp-for="Level" />
+                        <span asp-validation-for="@Model.Level" class="text-warning"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label style="color: blue">ACTION</label></td>
+                    <td>
+                        <button class="btn btn-success" type="submit">
+                            <i class="ri-add-box-fill"></i>
+                            Add
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+

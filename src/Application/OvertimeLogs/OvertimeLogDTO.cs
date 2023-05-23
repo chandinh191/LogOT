@@ -9,10 +9,8 @@ using LogOT.Domain.Common;
 using LogOT.Domain.Entities;
 
 namespace LogOT.Application.OvertimeLogs;
-public class OvertimeLogDTO : BaseAuditableEntity, IMapFrom<OvertimeLog>
+public class OvertimeLogDTO : IMapFrom<OvertimeLog>
 {
-
-    [ForeignKey("Employee")]
     public Guid Id { get; set; }
     public Guid EmployeeId { get; set; }
     public string EmployeeName { get; set; }
