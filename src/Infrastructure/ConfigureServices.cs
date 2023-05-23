@@ -97,6 +97,7 @@ public static class ConfigureServices
                 .Build());
 
         });
+        services.AddSession();
 
         return services;
     }

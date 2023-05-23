@@ -1,4 +1,15 @@
-﻿<!doctype html>
+﻿
+ @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+    @{
+    var context = HttpContextAccessor.HttpContext;
+
+    var userRole = context.User.FindFirst(c => c.Type == System.Security.Claims.ClaimTypes.Role).Value;
+    var fullName = Context.Request.Cookies["FullName"];
+     var image = Context.Request.Cookies["Image"];
+
+    }
+   
+<!doctype html>
 <html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
 
 
@@ -719,9 +730,15 @@
                 <div class="dropdown ms-sm-3 header-item topbar-user">
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="/assets/images/users/avatar-1.jpg" alt="Header Avatar">
+                            <!-- <img class="rounded-circle header-profile-user" src="/assets/images/users/avatar-1.jpg" alt="Header Avatar"> -->
+                            <img class="rounded-circle header-profile-user" src="@image" alt="Header Avatar">
+
+                            
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna Adame</span>
+                                
+
+
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">@fullName</span>
                                 <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Founder</span>
                             </span>
                         </span>
@@ -809,27 +826,42 @@
                             </a>
                             <div class="collapse menu-dropdown" id="sidebarDashboards">
                                 <ul class="nav nav-sm flex-column">
+                                    @if (userRole == "Manager" || userRole == "Staff")
+                                                    {
                                     <li class="nav-item">
-                                        <a href="dashboard-analytics.html" class="nav-link" data-key="t-analytics"> Analytics </a>
+                                        <a href="Employee" class="nav-link" data-key="t-analytics"> Employee </a>
                                     </li>
+                                                   
                                     <li class="nav-item">
-                                        <a href="dashboard-crm.html" class="nav-link" data-key="t-crm"> CRM </a>
+                                        <a href="Salary" class="nav-link" data-key="t-crm"> Salary </a>
                                     </li>
+                                     }
+                                      @if (userRole == "Staff")
+                                      {
                                     <li class="nav-item">
-                                        <a href="index.html" class="nav-link" data-key="t-ecommerce"> Ecommerce </a>
+                                        <a href="EmployeeContract" class="nav-link" data-key="t-ecommerce"> Employee Contract </a>
                                     </li>
+                                      }
+                                      @if (userRole == "Employee")
+                                    {
+                                        <li class="nav-item">
+                                            <a href="Experience" class="nav-link" data-key="t-crypto"> Experience </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="EmployeeSkill" class="nav-link" data-key="t-projects"> EmployeeSkill </a>
+                                        </li>
+                                    }
                                     <li class="nav-item">
-                                        <a href="dashboard-crypto.html" class="nav-link" data-key="t-crypto"> Crypto </a>
+                                        <a href="LeaveLog" class="nav-link" data-key="t-nft"> Leave Log</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="dashboard-projects.html" class="nav-link" data-key="t-projects"> Projects </a>
+                                     <li class="nav-item">
+                                        <a href="LogOverTime" class="nav-link" data-key="t-nft"> Log Over Time</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="dashboard-nft.html" class="nav-link" data-key="t-nft"> NFT</a>
+                                     <li class="nav-item">
+                                        <a href="OvertimeLog" class="nav-link" data-key="t-nft"> Over time Log</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="dashboard-job.html" class="nav-link"><span data-key="t-job">Job</span> <span class="badge badge-pill bg-success" data-key="t-new">New</span></a>
-                                    </li>
+                                    
                                 </ul>
                             </div>
                         </li> <!-- end Dashboard Menu -->

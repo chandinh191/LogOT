@@ -19,6 +19,7 @@ namespace LogOT.Application.Employees.Commands.Create
         public string BankAccountNumber { get; set; }
         public string BankAccountName { get; set; }
         public string BankName { get; set; }
+        public string FullName { get; set; }
     }
 
     public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployee, string>
