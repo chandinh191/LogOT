@@ -201,6 +201,7 @@
             <div class="form-group__calculate">
                 <label for="Insurance_Premium">Mức đóng bảo hiểm: </label>
                 <span asp-validation-for="InsuranceType" class="text-danger"></span>
+                <span asp-validation-for="CustomSalary" class="text-danger"></span>
                 <div class="form-group__choice">
                     <div>
                         <input type="radio" name="InsuranceType" value="official" checked="@("official" == Model.InsuranceType)" /> Trên lương chính thức

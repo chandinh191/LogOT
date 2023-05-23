@@ -9,12 +9,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Remove="Employees\Commands\**" />
-      <EmbeddedResource Remove="Employees\Commands\**" />
-      <None Remove="Employees\Commands\**" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
