@@ -85,6 +85,8 @@
                                                         <div>
                                                             <label for="basiInput" class="form-label">Full Name</label>
                                                             <input type="text" class="form-control" id="basiInput" name="fullname">
+                                                        <span asp-validation-for="FullName" class="message"></span>
+
                                                         </div>
                                                     </div>
                                                     <!--end col-->
@@ -92,6 +94,13 @@
                                                         <div>
                                                             <label for="labelInput" class="form-label">Address</label>
                                                             <input type="text" class="form-control" name="address" id="labelInput">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+
+                                                        <div>
+                                                            <label for="basiInput" class="form-label">Phone Number</label>
+                                                            <input type="text" class="form-control" id="basiInput" name="PhoneNumber">
                                                         </div>
                                                     </div>
                                                     <!--end col-->
@@ -151,20 +160,24 @@
                                                     <div class="form-group">
                                                         <label for="name">IdentityNumber:</label>
                                                         <input type="text" class="form-control" id="name" name="IdentityNumber" required>
+                                                        <span asp-validation-for="IdentityNumber" class="message"></span>
                                                     </div>
 
 
                                                     <div class="form-group">
                                                         <label for="address">BankAccountName:</label>
                                                         <input type="text" class="form-control" id="address" name="BankAccountName">
+                                                    <span asp-validation-for="BankAccountName" class="message"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="bankName">Bank Name:</label>
                                                         <input type="text" class="form-control" id="bankName" name="BankName">
+                                                        <span asp-validation-for="BankName" class="message"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="bankAccountNumber">Bank Account Number:</label>
                                                         <input type="text" class="form-control" id="bankAccountNumber" name="BankAccountNumber">
+                                                    <span asp-validation-for="BankAccountNumber" class="message"></span>
                                                     </div>
                                                     <!--end col-->
                                                 </div>
