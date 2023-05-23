@@ -40,14 +40,10 @@ public class EmployeeController : ControllerBaseMVC
         _signInManager = signInManager;
         _environment = environment;
     }
+    [Authorize(Roles = "Manager, Staff")]
     public async Task<ActionResult> Index(GetAllEmployeeQuery query)
     {
-        // Lấy employeeId từ session
-       if (Request.Cookies.TryGetValue("EmployeeId", out string employeeId))
-    {
         
-        ViewBag.EmployeeId = employeeId;
-
 
             var result = await Mediator.Send(query);
            
@@ -55,18 +51,15 @@ public class EmployeeController : ControllerBaseMVC
 
             return View(result);
         }
-    else
-    {
-        
-    }
+  
 
     
-    return View();
-    }
+
+    
     public IActionResult Create()
     {
 
-        // Fetch the ApplicationUserIds and assign them to ViewData
+       
 
 
         return View();
@@ -76,7 +69,7 @@ public class EmployeeController : ControllerBaseMVC
     [AllowAnonymous]
     [HttpPost("register")]
     [HttpPost("create")]
-
+    [Authorize(Roles = "Manager")]
     public async Task<IActionResult> Create([FromForm] RegisterUser registerModel, CreateEmployee createModel, string selectedRole)
     {
         if (ModelState.IsValid && registerModel != null)
@@ -121,9 +114,10 @@ public class EmployeeController : ControllerBaseMVC
         if (ModelState.IsValid && createModel != null)
         {
             var entityId = await Mediator.Send(createModel);
+            Toast.AddSuccessToastMessage("Create Successfully");
             return RedirectToAction(nameof(Index));
         }
-
+        Toast.AddWarningToastMessage("Please check the information entered");
         return View();
     }
 
@@ -166,7 +160,7 @@ public class EmployeeController : ControllerBaseMVC
         // Get the roles available in the system
         var roles = await roleManager.Roles.Select(r => r.Name).ToListAsync();
         ViewData["Roles"] = new SelectList(roles);
-
+        
         return View(updateCommand);
     }
 
@@ -194,11 +188,13 @@ public class EmployeeController : ControllerBaseMVC
                 // Add the selected role to the user
                 await userManager.AddToRoleAsync(user, selectedRole);
             }
-
+            
+            Toast.AddSuccessToastMessage("Update Successfully");
             return RedirectToAction(nameof(Index));
         }
         catch (Exception ex)
         {
+            Toast.AddWarningToastMessage("Please check the information entered");
             // Handle the error and return an error message if needed
             ModelState.AddModelError("", "An error occurred while updating the employee.");
             return View(command);
@@ -258,11 +254,13 @@ public class EmployeeController : ControllerBaseMVC
         try
         {
             await Mediator.Send(command);
+            Toast.AddSuccessToastMessage("Delete Successfully");
             return RedirectToAction(nameof(Index));
         }
         catch (Exception ex)
         {
             // Xử lý lỗi và trả về thông báo lỗi nếu cần
+            Toast.AddWarningToastMessage("Please check the information entered");
             ModelState.AddModelError("", "An error occurred while updating the employee.");
             return View(command);
         }

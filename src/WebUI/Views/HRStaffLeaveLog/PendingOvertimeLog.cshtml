@@ -1,9 +1,9 @@
 ﻿@using LogOT.Application.Employees;
-@using LogOT.Application.OvertimeLogs;
+@using LogOT.Application.HRStaffLeaveLogs;
 @using LogOT.Application.Common.Models;
 @using LogOT.Application.Employees.Queries.GetEmployee;
 @using Microsoft.AspNetCore.Identity;
-@model List<OvertimeLogDTO>
+@model List<LeaveLogDTO>
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
 	var context = HttpContextAccessor.HttpContext;
@@ -12,7 +12,7 @@
 
 }
 @{
-	ViewData["Title"] = "ListOvertimeLog";
+	ViewData["Title"] = "ListLeaveLog";
 	Layout = "~/Views/Shared/Layout.cshtml";
 }
 
@@ -24,7 +24,7 @@
 
 	<!-- Begin page -->
 	<div id="layout-wrapper">
-		
+
 
 
 		<!-- removeNotificationModal -->
@@ -73,11 +73,11 @@
 												@if (userRole == "Manager")
 												{
 													<div>
-														<a asp-controller="OvertimeLog" type="button" asp-action="Index" class="btn btn-success add-btn">All</a>
-														<a asp-controller="OvertimeLog" type="button" asp-action="AwaitingOvertimeLog" class="btn btn-success add-btn">Awaiting approval</a>
-														<a asp-controller="OvertimeLog" type="button" asp-action="ApprovedOvertimeLog" class="btn btn-success add-btn">Approved</a>
-														<a asp-controller="OvertimeLog" type="button" asp-action="CancelOvertimeLog" class="btn btn-success add-btn">Cancel</a>
-														
+														<a asp-controller="HRStaffLeaveLog" type="button" asp-action="Index" class="btn btn-success add-btn">All</a>
+														<a asp-controller="HRStaffLeaveLog" type="button" asp-action="PendingOvertimeLog" class="btn btn-success add-btn">Pending</a>
+														<a asp-controller="HRStaffLeaveLog" type="button" asp-action="SolvedLeaveLog" class="btn btn-success add-btn">Solved</a>
+														<a asp-controller="HRStaffLeaveLog" type="button" asp-action="NotSolvedLeaveLog" class="btn btn-success add-btn">Not Solved</a>
+
 													</div>
 												}
 											</div>
@@ -101,9 +101,10 @@
 															</div>
 														</th>
 														<th class="sort">Id</th>
-														<th class="sort">EmployeeId</th>
-														<th class="sort">Date</th>
-														<th class="sort">Hours</th>
+														<th class="sort">StartDate</th>
+														<th class="sort">EndDate</th>
+														<th class="sort">LeaveHours</th>
+														<th class="sort">Reason</th>
 														<th class="sort">Status</th>
 														<th colspan="2">Action</th>
 
@@ -119,17 +120,18 @@
 																</div>
 															</th>
 															<td class="id">@item.Id</td>
-															<td class="id">@item.EmployeeId</td>
-															<td class="date">@item.Date</td>
-															<td>@item.Hours</td>
+															<td class="date">@item.StartDate</td>
+															<td class="date">@item.EndDate</td>
+															<td>@item.LeaveHours</td>
+															<td>@item.Reason</td>
 															<td class="name">@item.Status</td>
 															<td>
-																<a asp-controller="OvertimeLog" asp-action="UpdateApprovedStatus"
-															   asp-route-id="@item.Id" class="btn btn-success add-btn">Approve</a>
+																<a asp-controller="HRStaffLeaveLog" asp-action="UpdateSolvedStatus"
+															   asp-route-id="@item.Id" class="btn btn-success add-btn">Solved</a>
 															</td>
 															<td>
-																<a asp-controller="OvertimeLog" asp-action="UpdateCancelStatus"
-															   asp-route-id="@item.Id" class="btn btn-danger add-btn">Cancel</a>
+																<a asp-controller="HRStaffLeaveLog" asp-action="UpdateNotSolvedStatus"
+															   asp-route-id="@item.Id" class="btn btn-danger add-btn">Not Solved</a>
 															</td>
 														</tr>
 													}

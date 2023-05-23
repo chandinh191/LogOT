@@ -14,7 +14,7 @@
     ViewData["Title"] = "List";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-    
+
 
     <!-- Mirrored from themesbrand.com/velzon/html/default/tables-listjs.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 Apr 2023 09:04:52 GMT -->
     
@@ -107,18 +107,20 @@
                                                         </th>
                                                         <th class="sort" data-sort="customer_name">Name</th>
                                                         <th class="sort" data-sort="email">Email</th>
-                                                        <th class="sort" data-sort="phone">PhoneNumber</th>
-                                                        <th class="sort" data-sort="phone">IdentityNumber</th>
+                                                        <th class="sort" data-sort="phone">Phone</th>
                                                         <th class="sort" data-sort="date">BirthDay</th>
-                                                        <th class="sort" data-sort="phone">BankAccountNumber</th>
-                                                        <th class="sort" data-sort="name">BankAccountName</th>
-                                                        <th class="sort" data-sort="name">BankName</th>
-                                                        <th class="sort" data-sort="phone">OvertimeLogs</th>
+                                                        <th class="sort" data-sort="phone">Identity</th>
+                                                       
+                                                        <th class="sort" data-sort="phone">BA Number</th>
+                                                        <th class="sort" data-sort="name">BA Name</th>
+                                                        <th class="sort" data-sort="name">Bank Name</th>
+                                                        <th class="sort" data-sort="name">Exp</th>
+                                                        <th class="sort" data-sort="phone">OTLogs</th>
                                                         <th class="sort" data-sort="phone">LeaveLogs</th>
-                                                        <th class="sort" data-sort="name">EmployeeContracts</th>
-                                                        <th class="sort" data-sort="name">InterviewProcesses</th>
-                                                        <th class="sort" data-sort="name">Skill_Employees</th>
-                                                        <th class="sort" data-sort="name">Experiences</th>
+                                                        <th class="sort" data-sort="name">Contracts</th>
+                                                        <th class="sort" data-sort="name">Interview</th>
+                                                        <th class="sort" data-sort="name">Skill</th>
+                                                        <th class="sort" data-sort="name">Status</th>
                                                         <th class="sort" data-sort="action">Action</th>
 
                                                     </tr>
@@ -127,36 +129,37 @@
                                                     @foreach (var item in Model)
                                                     {
                                                     <tr>
-                                                        <th scope="row">
+                                                        <td scope="row">
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
                                                             </div>
-                                                        </th>
+                                                        </td>
                                                         <td class="id" style="display:none;"><a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a></td>
                                                         <td class="customer_name">@item.ApplicationUser.Fullname</td>
                                                         <td class="email">@item.ApplicationUser.Email</td>
                                                         <td class="phone">@item.ApplicationUser.PhoneNumber</td>
                                                         <td class="date">@item.BirthDay</td>
+                                                         <td class="name">@item.IdentityNumber</td>
                                                         <td class="name">@item.BankAccountNumber</td>
                                                         <td class="name">@item.BankAccountName</td>
                                                         <td class="name">@item.BankName</td>
                                                         <td>
-                                                            <a asp-controller="Experience" asp-action="Index" asp-route-id="@item.Id">Experiences</a>
+                                                            <a asp-controller="Experience" asp-action="Index" asp-route-id="@item.Id" style="color:blue">Show</a>
                                                         </td>
                                                         <td>
-                                                            <a>OvertimeLogs</a>
+                                                            <a asp-controller="OvertimeLog" asp-action="Index" asp-route-id="@item.Id" style="color:blue">Show</a>
                                                         </td>
                                                         <td>
-                                                            <a>LeaveLogs</a>
+                                                            <a asp-controller="LeaveLog" asp-action="Index" asp-route-id="@item.Id" style="color:blue">Show</a>
                                                         </td>
                                                         <td>
-                                                            <a>EmployeeContracts</a>
+                                                                <a asp-controller="EmployeeContract" asp-action="Index" asp-route-id="@item.Id" style="color:blue">Show</a>
                                                         </td>
                                                         <td>
-                                                            <a>InterviewProcess</a>
+                                                            <a href="#" style="color:blue">Show</a>
                                                         </td>
                                                         <td>
-                                                            <a asp-controller="EmployeeSkill" asp-action="Index" asp-route-id="@item.Id">Skills</a>
+                                                            <a asp-controller="EmployeeSkill" asp-action="Index" asp-route-id="@item.Id" style="color:blue">Show</a>
                                                         </td>
                                                         <td class="status"><span class="badge badge-soft-success text-uppercase">Active</span></td>
                                                         <td>

@@ -1,6 +1,13 @@
 ﻿@model List<LogOT.Application.Employees_Skill.Skill_EmployeeDTO>
 
+@{
+   
 
+   
+    var fullName = Context.Request.Cookies["FullName"];
+    var image = Context.Request.Cookies["Image"];
+    var id = Context.Request.Cookies["EmployeeId"];
+}
 @{
     ViewData["Title"] = "List";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -15,14 +22,14 @@
     <div class="card-body">
         <div class="row g-4 mb-3">
             <div class="col-sm-auto">
-                <a class="btn btn-primary text-white" asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@ViewBag.Id">
+                <a class="btn btn-primary text-white" asp-controller="EmployeeSkill" asp-action="Add" asp-route-id="@id">
                     <i class="ri-add-box-fill"></i>
                     Add Skill
                 </a>
             </div>
             <div class="col-sm-auto">
 
-                <a class="btn btn-secondary text-white" asp-controller="Employee" asp-action="Index" asp-route-id="@ViewBag.Id">
+                <a class="btn btn-secondary text-white" asp-controller="Employee" asp-action="Index" asp-route-id="@id">
                     <i class="ri-arrow-go-back-fill"></i>
                     Return back
                 </a>

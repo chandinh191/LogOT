@@ -5,6 +5,7 @@ using LogOT.Application.LeaveLogs.Queries.GetLeaveLog;
 using LogOT.Application.LeaveLogs.Queries.GetListLeaveLog;
 using LogOT.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace WebUI.Controllers.LeaveLogs;
 public class LeaveLogController : ControllerBaseMVC
@@ -18,7 +19,8 @@ public class LeaveLogController : ControllerBaseMVC
     public IActionResult Create(Guid EmployeeId)
     {
         ViewBag.EmployeeId = EmployeeId;
-        return View();
+        var command = new CreateLeaveLogCommand();
+        return View(command);
     }
     [HttpPost]
     public async Task<IActionResult> Create(CreateLeaveLogCommand command)
@@ -53,8 +55,9 @@ public class LeaveLogController : ControllerBaseMVC
         }
         if (ModelState.IsValid)
         {
+            var EmployeeId = Request.Cookies["EmployeeId"];
             await Mediator.Send(command);
-            return RedirectToAction("Index","LeaveLog", new { employeeId = "ac69dc8e-f88d-46c2-a861-c9d5ac894141" });
+            return RedirectToAction("Index", "LeaveLog", new { employeeId = EmployeeId });
         }
         return View(command);
     }
@@ -102,15 +105,17 @@ public class LeaveLogController : ControllerBaseMVC
         }
         if (ModelState.IsValid)
         {
+            var EmployeeId = Request.Cookies["EmployeeId"];
             await Mediator.Send(command);
-            return RedirectToAction("Index", "LeaveLog", new { employeeId = "ac69dc8e-f88d-46c2-a861-c9d5ac894141" });
+            return RedirectToAction("Index", "LeaveLog", new { employeeId = EmployeeId });
         }
         return View(command);
     }
     [HttpPost]
-    public async Task<IActionResult> Delete(Guid Id) 
+    public async Task<IActionResult> Delete(Guid Id)
     {
+        var EmployeeId = Request.Cookies["EmployeeId"];
         await Mediator.Send(new DeleteLeaveLogCommand(Id));
-        return RedirectToAction("Index", "LeaveLog", new { employeeId = "ac69dc8e-f88d-46c2-a861-c9d5ac894141" });
+        return RedirectToAction("Index", "LeaveLog", new { employeeId = EmployeeId });
     }
 }

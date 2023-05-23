@@ -14,17 +14,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using NToastNotify;
 using WebUI.Models;
 
 namespace WebUI.Controllers.ApplicationController;
 
-public class AuthController : Controller
+public class AuthController : Controller 
 {
     private readonly IIdentityService _identityService;
     private readonly UserManager<ApplicationUser> userManager;
     private readonly IApplicationDbContext _context;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private ISender _mediator = null!;
+    private IToastNotification _toast = null!;
+    protected IToastNotification Toast => _toast ??=
+      HttpContext.RequestServices.GetRequiredService<IToastNotification>();
     public readonly IWebHostEnvironment _environment;
     protected ISender Mediator => _mediator ??=
         HttpContext.RequestServices.GetRequiredService<ISender>();
@@ -98,32 +102,32 @@ public class AuthController : Controller
                 var principal = new ClaimsPrincipal(identity);
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                var employee = await _context.Employee.FirstOrDefaultAsync(e => e.ApplicationUserId == user.Id);
-                var employeeId = employee.Id;
-
-                Response.Cookies.Append("EmployeeId", employeeId.ToString());
+              
+                  var employee = await _context.Employee.FirstOrDefaultAsync(e => e.ApplicationUserId == user.Id);
+                    var employeeId = employee.Id;
+                    Response.Cookies.Append("EmployeeId", employeeId.ToString());
+               
 
                 if (await userManager.IsInRoleAsync(user, "Manager"))
                     {
                         TempData["SuccessMessage"] = "Signed in successfully as a Manager";
+                        Toast.AddSuccessToastMessage("Login Successfully");
                         return RedirectToAction("Index", "Employee");
                     }
                     else if (await userManager.IsInRoleAsync(user, "Staff"))
                     {
                         TempData["SuccessMessage"] = "Signed in successfully as a User";
+                        Toast.AddSuccessToastMessage("Login Successfully");
                         return RedirectToAction("Index", "Employee");
                     }
                     else if (await userManager.IsInRoleAsync(user, "Employee"))
                     {
                         TempData["SuccessMessage"] = "Signed in successfully as a User";
+                        Toast.AddSuccessToastMessage("Login Successfully");
                         return RedirectToAction("Index", "Employee");
-
                     }
                 }
-               
-            
-            
-
+            Toast.AddWarningToastMessage("Please check the information entered");
             ModelState.AddModelError("", "Invalid User Details");
         }
         catch (Exception ex)

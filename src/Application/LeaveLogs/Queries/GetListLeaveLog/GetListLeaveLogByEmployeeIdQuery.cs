@@ -26,7 +26,7 @@ public class GetListLeaveLogByEmployeeIdQueryHandler : IRequestHandler<GetListLe
     public async Task<List<LeaveLog>> Handle(GetListLeaveLogByEmployeeIdQuery request, CancellationToken cancellationToken)
     {
         var leaveLogs = await _context.LeaveLog
-            .Where(x => x.EmployeeId == request.EmployeeId && x.IsDeleted == false)
+            .Where(x => x.EmployeeId == request.EmployeeId)
             .ToListAsync(cancellationToken);
 
         return leaveLogs;
