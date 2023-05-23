@@ -1,62 +1,63 @@
 ﻿@using LogOT.Application.LeaveLogs.Commands.UpdateLeaveLog;
 @using LogOT.Domain.Enums;
 @model LeaveLog
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Update Leave Log</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+@{
+    ViewData["Title"] = "Employee Leave Log - Update";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<div>
+    <div class="vertical-overlay"></div>
+    <div>
+        <div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <h4>Update Employee Contract</h4>
+                                <div class="flex-shrink-0">
+                                    <div class="form-check form-switch form-switch-right form-switch-md">
+                                        <label for="form-grid-showcode" class="form-label text-muted">Show Form</label>
+                                        <input class="form-check-input code-switcher" type="checkbox" id="form-grid-showcode">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="live-preview">
+                                    <form action="Update" method="post">
+                                        <div class="row">
+                                            <input type="hidden" id="Id" name="Id" value="@Model.Id" required>
 
-        h2 {
-            color: #333;
-        }
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-3">
+                                                    <label for="StartDate">Start Date:</label>
+                                                    <input type="date" class="form-control" id="StartDate" name="StartDate" value="@Model.EndDate.ToString("yyyy-MM-dd")">
+                                                </div>
+                                            </div>
 
-        label {
-            display: block;
-            margin-top: 10px;
-        }
+                                            <div class="col-md-6">
+                                                <div class="form-group mb-3">
+                                                    <label for="EndDate">End Date:</label>
+                                                    <input type="date" class="form-control" id="EndDate" name="EndDate" value="@Model.EndDate.ToString("yyyy-MM-dd")">
+                                                </div>
+                                            </div>
 
-        input[type="text"],
-        input[type="date"],
-        textarea {
-            width: 200px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+                                            <div class="form-group mb-3">
+                                                <label for="Reason">Reason:</label>
+                                                <input type="text" class="form-control" id="Reason" name="Reason" value="@Model.Reason">
+                                            </div>
 
-        button[type="submit"] {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <h2>Update Leave Log</h2>
-
-    <form action="Update" method="post">
-        <input type="hidden" id="Id" name="Id" value="@Model.Id" required>
-
-        <label for="StartDate">Start Date:</label>
-        <input type="date" id="StartDate" name="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")" required />
-        <br>
-
-        <label for="EndDate">End Date:</label>
-        <input type="date" id="EndDate" name="EndDate" value="@Model.EndDate.ToString("yyyy-MM-dd")" required />
-        <br>
-
-        <label for="Reason">Reason:</label>
-        <textarea id="Reason" name="Reason" rows="4" required>@Model.Reason</textarea>
-        <br>
-
-        <button type="submit">Update</button>
-    </form>
-</body>
-</html>
+                                            <div>
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

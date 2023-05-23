@@ -16,6 +16,8 @@ using Azure.Core;
 using IdentityModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
+using LogOT.Domain.Entities;
 
 namespace WebUI.Controllers.EmployeeController;
 
@@ -38,10 +40,28 @@ public class EmployeeController : ControllerBaseMVC
         _signInManager = signInManager;
         _environment = environment;
     }
-    public async Task<ActionResult> Index(GetAllEmployeeWithPaginationQuery query)
+    public async Task<ActionResult> Index(GetAllEmployeeQuery query)
     {
-        var result = await Mediator.Send(query);
-        return View(result);
+        // Lấy employeeId từ session
+       if (Request.Cookies.TryGetValue("EmployeeId", out string employeeId))
+    {
+        
+        ViewBag.EmployeeId = employeeId;
+
+
+            var result = await Mediator.Send(query);
+           
+
+
+            return View(result);
+        }
+    else
+    {
+        
+    }
+
+    
+    return View();
     }
     public IActionResult Create()
     {
@@ -61,11 +81,11 @@ public class EmployeeController : ControllerBaseMVC
     {
         if (ModelState.IsValid && registerModel != null)
         {
-            if (!await roleManager.RoleExistsAsync("Administrator"))
+            if (!await roleManager.RoleExistsAsync("Manager"))
             {
                 var role = new AppIdentityRole()
                 {
-                    Name = "Administrator",
+                    Name = "Manager",
                     Description = "Can not perform CRUD operations",
                 };
                 var roleResult = await roleManager.CreateAsync(role);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -16,12 +17,12 @@ public class EmployeeDTO : BaseAuditableEntity, IMapFrom<Employee>
 {
     [ForeignKey("ApplicationUser")]
     public string ApplicationUserId { get; set; }
-
     public string IdentityNumber { get; set; }
     public DateTime BirthDay { get; set; }
     public string BankAccountNumber { get; set; }
     public string BankAccountName { get; set; }
     public string BankName { get; set; }
+   
     public string Fullname { get; set; }
     public string Address { get; set; }
     public string Image { get; set; }

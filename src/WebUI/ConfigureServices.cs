@@ -27,8 +27,7 @@ public static class ConfigureServices
         services.AddControllersWithViews().AddNToastNotifyNoty(new NotyOptions
         {
             ProgressBar = true,
-            Timeout = 5000,
-            Theme = "mint"
+            Timeout = 3000
         });
         services.AddRazorPages();
 

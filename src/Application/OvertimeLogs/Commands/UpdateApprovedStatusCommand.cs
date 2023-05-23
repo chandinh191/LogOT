@@ -15,7 +15,7 @@ using LogOT.Domain.Enums;
 using MediatR;
 
 namespace LogOT.Application.OvertimeLogs.Commands;
-public class UpdateApprovedStatusCommand : IRequest <OvertimeLogDTO>
+public class UpdateApprovedStatusCommand : IRequest<OvertimeLogDTO>
 {
     public Guid Id { get; set; }
     //public OvertimeLogDTO Dto { get; set; }
@@ -39,17 +39,18 @@ public class UpdateApprovedStatusCommandHandler : IRequestHandler<UpdateApproved
 
     public async Task<OvertimeLogDTO> Handle(UpdateApprovedStatusCommand request, CancellationToken cancellationToken)
     {
-        var entity =  _context.OvertimeLog
+        var entity = _context.OvertimeLog
             .Where(o => o.Id == request.Id)
             .ProjectTo<OvertimeLogDTO>(_mapper.ConfigurationProvider)
             .FirstOrDefault();
         var newEntity = _context.OvertimeLog
-           .Where(o => o.Id == request.Id)           
+           .Where(o => o.Id == request.Id)
            .FirstOrDefault();
-        if (entity == null)
-        {
-            throw new NotFoundException(nameof(OvertimeLog), request.Id);
-        }
+
+        //if (entity == null)
+        //{
+        //    throw new NotFoundException(nameof(OvertimeLog), request.Id);
+        //}
         var status = StatusOvertimeLog.Approved;
         newEntity.Status = status.ToString();
         entity.Status = status.ToString();

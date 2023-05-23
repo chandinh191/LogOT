@@ -1,6 +1,8 @@
 ﻿using System.Security.Claims;
 
 using LogOT.Application.Common.Interfaces;
+using LogOT.Application.Common.Models;
+using LogOT.Application.Employees;
 using LogOT.Domain.Entities;
 using LogOT.Domain.IdentityModel;
 using MediatR;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using WebUI.Models;
@@ -19,19 +22,21 @@ public class AuthController : Controller
 {
     private readonly IIdentityService _identityService;
     private readonly UserManager<ApplicationUser> userManager;
-
+    private readonly IApplicationDbContext _context;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private ISender _mediator = null!;
     public readonly IWebHostEnvironment _environment;
     protected ISender Mediator => _mediator ??=
         HttpContext.RequestServices.GetRequiredService<ISender>();
-    public AuthController(IOptions<IdentityOptions> optionsAccessor, IIdentityService identityService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment environment)
+    public AuthController(IOptions<IdentityOptions> optionsAccessor, IIdentityService identityService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment environment, IApplicationDbContext context)
     {
+        _context = context;
         _identityService = identityService;
         this.userManager = userManager;
         //this.roleManager = roleManager;
         _signInManager = signInManager;
         _environment = environment;
+        _context = context;
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -42,6 +47,12 @@ public class AuthController : Controller
 
         if (User.Identity.IsAuthenticated)
         {
+            
+                
+
+                // Tiếp tục xử lý logic trong phương thức
+           
+
             //_toastNotification.AddSuccessToastMessage("Bạn đã đăng nhập vào tài khoản!");
             return RedirectToAction("Index", "Employee");
         }
@@ -70,8 +81,13 @@ public class AuthController : Controller
                 var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("Id", user.Id),
+               
             };
+                Response.Cookies.Append("FullName", user.Fullname);
+                    Response.Cookies.Append("Image", user.Image);
+
 
                 foreach (var role in roles)
                 {
@@ -82,23 +98,31 @@ public class AuthController : Controller
                 var principal = new ClaimsPrincipal(identity);
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                var employee = await _context.Employee.FirstOrDefaultAsync(e => e.ApplicationUserId == user.Id);
+                var employeeId = employee.Id;
+
+                Response.Cookies.Append("EmployeeId", employeeId.ToString());
 
                 if (await userManager.IsInRoleAsync(user, "Manager"))
-                {
-                    TempData["SuccessMessage"] = "Signed in successfully as a Manager";
-                    return RedirectToAction("Index", "Employee");
+                    {
+                        TempData["SuccessMessage"] = "Signed in successfully as a Manager";
+                        return RedirectToAction("Index", "Employee");
+                    }
+                    else if (await userManager.IsInRoleAsync(user, "Staff"))
+                    {
+                        TempData["SuccessMessage"] = "Signed in successfully as a User";
+                        return RedirectToAction("Index", "Employee");
+                    }
+                    else if (await userManager.IsInRoleAsync(user, "Employee"))
+                    {
+                        TempData["SuccessMessage"] = "Signed in successfully as a User";
+                        return RedirectToAction("Index", "Employee");
+
+                    }
                 }
-                else if (await userManager.IsInRoleAsync(user, "Staff"))
-                {
-                    TempData["SuccessMessage"] = "Signed in successfully as a User";
-                    return RedirectToAction("Index", "Employee");
-                }
-                else if (await userManager.IsInRoleAsync(user, "Employee"))
-                {
-                    TempData["SuccessMessage"] = "Signed in successfully as a User";
-                    return RedirectToAction("Index", "Employee");
-                }
-            }
+               
+            
+            
 
             ModelState.AddModelError("", "Invalid User Details");
         }
